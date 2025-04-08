@@ -1,2 +1,0 @@
-This is a test of the Jira + Github integration. Woohoo I guess.
-this is another test
