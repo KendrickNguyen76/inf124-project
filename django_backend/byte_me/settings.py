@@ -72,13 +72,29 @@ WSGI_APPLICATION = 'byte_me.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'aws-0-us-west-1.pooler.supabase.com',
+        'PORT': '6543',
+        'DATABASE': 'postgres',
+        'NAME': 'postgres',
+        'USER': 'postgres.ckcogrvcrqmgwpdrkeae',
+        'PASSWORD': # SHOULD NOT BE HARDOCDED, BUT FOR TESTING PURPOSES WE WILL DO SO
+        'POOL_MODE': 'transaction',
+    }
+}
+
+# Default configuration, delete later
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
