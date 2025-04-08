@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'byte_me.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': os.environ.get('ENGINE'),
         'HOST': os.environ.get('HOST'),
         'PORT': os.environ.get('PORT'),
         'DATABASE': os.environ.get('DATABASE'),
