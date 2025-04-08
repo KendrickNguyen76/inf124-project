@@ -1,0 +1,11 @@
+# Ignore venv
+venv/
+
+# Ignore any Mac files
+.DS_Store
+
+# Ignore __pycache__
+__pycache__/
+
+# Ignore .env
+.env
