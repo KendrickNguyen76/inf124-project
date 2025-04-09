@@ -1,0 +1,8 @@
+ENGINE='django.db.backends.postgresql'
+HOST='aws-0-us-west-1.pooler.supabase.com'
+PORT='6543'
+DATABASE='postgres'
+NAME='postgres' # I don't know if this can have a unique name, but most examples just keep it as postgres
+USERNAME='postgres.nhqpviizoahiisbwlxxj'
+PASSWORD= # PLACEHOLDER
+POOL_MODE='transaction'
