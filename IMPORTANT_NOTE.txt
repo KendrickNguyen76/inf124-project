@@ -1,0 +1,3 @@
+Note to self:
+- create-react-app is actually depreciated, so I need to delete the stuff I just installed
+ - Seems like the new best way is to use Vite, so I gotta do that LMAO
