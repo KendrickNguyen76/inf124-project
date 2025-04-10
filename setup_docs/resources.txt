@@ -1,0 +1,11 @@
+Resources I've come across while researching this topic
+
+Integrating Django + React:
+https://www.dhiwise.com/post/integrating-react-with-django-made-easy
+https://www.digitalocean.com/community/tutorials/build-a-to-do-application-using-django-and-react
+https://youtu.be/eXrwF4LXF5c?si=YpJHT7w1hTkRrEJm
+https://stackoverflow.com/questions/41867055/how-to-get-django-and-reactjs-to-work-together
+
+Installing NPM + React:
+https://create-react-app.dev/docs/getting-started
+https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
