@@ -42,3 +42,27 @@
   color: #888;
 }
 */
+/* Make sure the page takes the full height of the browser */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Flexbox layout that stretches to fill the screen */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+}
+
+/* Main content should grow to take available space */
+.container {
+  flex: 1;
+}
+
+/* Footer stays at the bottom */
+.bottom-container {
+  background-color: #2A4849;
+  padding: 20px;
+  text-align: center;
+}

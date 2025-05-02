@@ -1,0 +1,19 @@
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2A4849;
+    padding: 10px;
+}
+
+.footer-menu{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    font-size: 18px;
+    gap: 90px;
+    color: #fff
+}
+.footer-enter{
+    color: #fff;
+}
