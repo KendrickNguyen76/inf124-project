@@ -1,9 +1,7 @@
 import React from "react";
 
-export default function HowToPlay() {
-  return (
-    <div>
-      <h1>How To Play</h1>
-    </div>
-  );
-}
+const HowToPlay = () => {
+  return <div>How To Play</div>;
+};
+
+export default HowToPlay;

@@ -35,7 +35,7 @@ const Navbar = () => {
           </li>
         <li><NavLink to ="/howtoplay"> How To Play</NavLink>
         </li>
-        <li><NavLink to ="/userprofile"> UserName</NavLink>
+        <li><NavLink to ="/userprofile"> User Profile</NavLink>
         </li>
       </ul>
     </nav>

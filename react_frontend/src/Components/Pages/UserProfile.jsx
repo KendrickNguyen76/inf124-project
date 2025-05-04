@@ -1,9 +1,8 @@
 import React from "react";
 
-export default function UserProfile() {
-  return (
-    <div>
-      <h1>The User's Profile</h1>
-    </div>
-  );
-}
+
+const UserProfile = () => {
+    return <div>The User's Profile</div>;
+  };
+  
+  export default UserProfile;
