@@ -1,11 +1,68 @@
+// import React, {useState} from 'react';
+// import logo from '../../assets/ByteMe_Logo.png'
+// import { Link, NavLink } from 'react-router-dom';
+// import './Navbar.css'
+
+
+// const Navbar = () => {
+//   const [menuOpen, setMenuOpen] = useState(false);
+
+//   return (
+//     <nav>
+//       {/* This makes our logo clickable and take us to the homepage */}
+//       <Link to ="/"> 
+//         <img src={logo} className='title'/>
+//       </Link>
+
+//       <div 
+//         /* This creates a drop down menu when screen is small (responsive)*/
+//         className='menu' 
+//         onClick={() => 
+//         {setMenuOpen(!menuOpen)}}
+//       >
+//         {/* This creates the three lines that represent the menu */}
+//         <span></span>
+//         <span></span>
+//         <span></span>
+//       </div>
+
+//       {/* This creates the links to the different pages */}
+//       <ul className={menuOpen ? 'open' : ''}>
+//         <li>
+//           <NavLink to ="/dashboard"> Dashboard</NavLink>
+//           </li>
+//         <li>
+//           <NavLink to ="/leaderboard"> Leaderboard</NavLink>
+//           </li>
+//         <li><NavLink to ="/howtoplay"> How To Play</NavLink>
+//         </li>
+//         <li><NavLink to ="/userprofile"> User Profile</NavLink>
+//         </li>
+//         <li><NavLink to ="/login"> Login</NavLink>
+//         </li>
+//       </ul>
+//     </nav>
+//   )
+// }
+
+// export default Navbar
+
 import React, {useState} from 'react';
 import logo from '../../assets/ByteMe_Logo.png'
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+
 import './Navbar.css'
 
 
-const Navbar = () => {
+const Navbar = ({loggedIn, setLoggedIn}) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setLoggedIn(false);
+    navigate('/'); // Redirect to homepage
+  };
 
   return (
     <nav>
@@ -25,18 +82,24 @@ const Navbar = () => {
         <span></span>
         <span></span>
       </div>
-      <ul className={menuOpen ? 'open' : ''}>
-        {/* This creates the links to the different pages */}
-        <li>
-          <NavLink to ="/dashboard"> Dashboard</NavLink>
-          </li>
-        <li>
-          <NavLink to ="/leaderboard"> Leaderboard</NavLink>
-          </li>
-        <li><NavLink to ="/howtoplay"> How To Play</NavLink>
-        </li>
-        <li><NavLink to ="/userprofile"> User Profile</NavLink>
-        </li>
+
+      {/* This creates the links to the different pages */}
+      <ul className={menuOpen ? 'open' : ''}> {loggedIn ? (
+        <>
+          {/*  Pages available when logged in */}
+          <li><NavLink to ="/dashboard"> Dashboard</NavLink></li>
+          <li><NavLink to ="/leaderboard"> Leaderboard</NavLink></li>
+          <li><NavLink to ="/howtoplay"> How To Play</NavLink></li>
+          <li><NavLink to ="/userprofile"> User Profile</NavLink></li>
+          <li><NavLink to="/login" onClick={handleLogout}>Logout</NavLink></li>
+          </>
+        ) : (
+          <>
+          {/*  Pages available when not logged in */}
+          <li><NavLink to ="/howtoplay"> How To Play</NavLink></li>
+          <li><NavLink to ="/login"> LogIn</NavLink></li>
+          </>
+        )}
       </ul>
     </nav>
   )
