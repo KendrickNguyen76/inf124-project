@@ -1,6 +1,31 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
 .App {
   background-color: #f0f0f0;
   height: 100%;
   width: 100%;
+}
+
+h1 {
+  width: 973px;
+  height: 98px;
+  flex-shrink: 0;
+  color: #2a4849;
+  text-align: center;
+  font-family: Inter;
+  font-size: 82px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+h2 {
+  width: 855px;
+  height: 97px;
+  flex-shrink: 0;
+  color: #2A4849;
+  text-align: center;
+  font-family: Inter;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
 }
