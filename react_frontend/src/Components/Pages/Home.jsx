@@ -1,5 +1,6 @@
 import React from "react";
 import "./Home.css";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Bash from "../../assets/bash.png";
 import hsaB from "../../assets/hsaB.png";
 import laptop from "../../assets/laptop_landing.png";
@@ -84,12 +85,19 @@ const HowItWorksSection = () => (
   </div>
 );
 
-const PlayNowSection = () => (
-  <div className="play_now_section">
-    <h1>Why aren't you coding yet?</h1>
-    <button className="play_now_button">Play Now</button>
-  </div>
-);
+const PlayNowSection = () => {
+  const navigate = useNavigate();
+  return (
+    <div className="play_now_section">
+      <h1>Why aren't you coding yet?</h1>
+      <div className="play_now_button">
+        <button className="play_now_button" onClick={() => navigate("/login")}>
+          Play Now.
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const Home = () => {
   return (

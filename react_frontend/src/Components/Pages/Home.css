@@ -64,12 +64,12 @@
   padding: 0 0 50px 100px;
 }
 .about_section h2 {
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    width: 100%;
-    padding: 0 0 0 100px;
-    display: inline;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+  padding: 0 0 0 100px;
+  display: inline;
 }
 .about_section p {
   margin: 0;
@@ -94,33 +94,62 @@ p {
   align-items: flex-start;
   justify-content: flex-start;
   margin: 0;
-  padding: 0 0 0 100px;;
+  padding: 0 0 0 100px;
 }
 /*End of: Features Section */
 
-
 /* Start of How It Works Section  */
 .how_it_works_section {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
 }
-.how_it_works_section h1{
-    margin: 0;
-    padding: 0 0 0 100px;
-    text-align: left;
+.how_it_works_section h1 {
+  margin: 0;
+  padding: 0 0 0 100px;
+  text-align: left;
 }
-.how_it_works_section h2{
-    margin: 0;
-    padding: 0 0 50px 100px;
-    text-align: left;
+.how_it_works_section h2 {
+  margin: 0;
+  padding: 0 0 50px 100px;
+  text-align: left;
 }
-  /*End of: How It Works Section */
-  
+/*End of: How It Works Section */
 
 /* Start of Play Now Section  */
 
+.play_now_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
 
+.play_now_section h1 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  padding: 50px 0 50px 0;
+}
 
+.play_now_section button {
+  border-radius: 36px;
+  background: #182c2d;
+  width: 617px;
+  height: 213px;
+  flex-shrink: 0;
+  color: #d9d9d9;
+  text-align: center;
+  font-family: Inter;
+  font-size: 82px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+.play_now_section button:hover {
+  cursor: pointer;
+}
 /* End of Play Now Section  */
