@@ -48,7 +48,7 @@
 // export default Navbar
 
 import React, {useState} from 'react';
-import logo from '../../assets/ByteMe_Logo.png'
+import logo from '../../assets/byteme_logo.png'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import './Navbar.css'
