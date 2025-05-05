@@ -96,5 +96,31 @@ p {
   margin: 0;
   padding: 0 0 0 100px;;
 }
-
 /*End of: Features Section */
+
+
+/* Start of How It Works Section  */
+.how_it_works_section {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+}
+.how_it_works_section h1{
+    margin: 0;
+    padding: 0 0 0 100px;
+    text-align: left;
+}
+.how_it_works_section h2{
+    margin: 0;
+    padding: 0 0 50px 100px;
+    text-align: left;
+}
+  /*End of: How It Works Section */
+  
+
+/* Start of Play Now Section  */
+
+
+
+/* End of Play Now Section  */

@@ -30,7 +30,10 @@ const AboutSection = () => (
   <div className="about_section">
     <h1>About Us</h1>
     <h2>
-      We want you to start <em>loving <u>techincal interview questions</u> </em>
+      We want you to start{" "}
+      <em>
+        loving <u>techincal interview questions</u>{" "}
+      </em>
     </h2>
     <p>
       At ByteMe, we believe technical interview questions don't have to be
@@ -66,6 +69,28 @@ const FeaturesSection = () => (
   </div>
 );
 
+const HowItWorksSection = () => (
+  <div className="how_it_works_section">
+    <h1>How It Works</h1>
+    <h2>Create your profile, click play, show off your coding skills.</h2>
+    <p>
+      Your profile is your badge. Create it, connect with other coders, and
+      enter the arena. ByteMe uses real technical interview questions and a
+      coding editor that feels just like LeetCode — but now, you're racing
+      someone else to solve it first. Win matches, earn rankings, and build your
+      reputation. The more you play, the sharper (and more unstoppable) you
+      become.
+    </p>
+  </div>
+);
+
+const PlayNowSection = () => (
+  <div className="play_now_section">
+    <h1>Why aren't you coding yet?</h1>
+    <button className="play_now_button">Play Now</button>
+  </div>
+);
+
 const Home = () => {
   return (
     <div className="home">
@@ -75,6 +100,8 @@ const Home = () => {
       </div>
       <AboutSection />
       <FeaturesSection />
+      <HowItWorksSection />
+      <PlayNowSection />
     </div>
   );
 };
