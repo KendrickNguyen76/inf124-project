@@ -2,6 +2,7 @@ import React from "react";
 import "./Home.css";
 import Bash from "../../assets/bash.png";
 import hsaB from "../../assets/hsaB.png";
+import laptop from "../../assets/laptop_landing.png";
 
 const LandingText = () => (
   <div className="landing_text">
@@ -29,7 +30,7 @@ const AboutSection = () => (
   <div className="about_section">
     <h1>About Us</h1>
     <h2>
-      We want you to start loving <u>technical interview questions</u>
+      We want you to start <em>loving <u>techincal interview questions</u> </em>
     </h2>
     <p>
       At ByteMe, we believe technical interview questions don't have to be
@@ -45,6 +46,26 @@ const AboutSection = () => (
   </div>
 );
 
+const FeaturesSection = () => (
+  <div className="features_section">
+    <div className="features_image">
+      <img
+        id="laptop_landing"
+        src={laptop}
+        alt="Image of a laptop with bashes on podium"
+      />
+    </div>
+    <div className="features_text">
+      <h1>Features</h1>
+      <h2>Connect. Compete. Rise Above</h2>
+      <p>
+        Offering a social platform and ranking system, ByteMe gives you all the
+        thrill of competitive gaming — just with a bit more nerd power.
+      </p>
+    </div>
+  </div>
+);
+
 const Home = () => {
   return (
     <div className="home">
@@ -53,6 +74,7 @@ const Home = () => {
         <LandingImage bashSrc={Bash} hsaBSrc={hsaB} />
       </div>
       <AboutSection />
+      <FeaturesSection />
     </div>
   );
 };
