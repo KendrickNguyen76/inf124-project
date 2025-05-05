@@ -3,14 +3,18 @@
     background-color: #182C2D;
 
 }
-nav{
-    /* Our Header */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #2A4849;
+;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #2A4849;
-    position:sticky;
-    top: 0;
+    gap: 1rem;
 }
 
 nav .title{

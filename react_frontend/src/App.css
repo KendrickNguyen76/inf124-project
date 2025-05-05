@@ -4,6 +4,15 @@
   height: 100%;
   width: 100%;
 }
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: #f0f0f0;
+}
+body {
+  padding-top: 200px; /* Same or slightly more than the nav height */
+}
 
 h1 {
   width: 973px;
@@ -25,6 +34,16 @@ h2 {
   text-align: center;
   font-family: Inter;
   font-size: 40px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+
+p{
+  flex-shrink: 0;
+  color: #8BB174;
+  font-family: Inter;
+  font-size: 32px;
   font-style: normal;
   font-weight: 800;
   line-height: normal;
