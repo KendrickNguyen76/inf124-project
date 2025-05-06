@@ -29,7 +29,8 @@ import { useState } from 'react'
 import './App.css'
 import {Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar'
-import {Home, Dashboard, LeaderBoard, HowToPlay, UserProfile, LoginPage} from './Components/Pages'
+import Footer from './Components/Footer/Footer'
+import {Home, Dashboard, LeaderBoard, HowToPlay, UserProfile, LoginPage, AboutUs} from './Components/Pages'
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -46,7 +47,11 @@ const App = () => {
         {/* change the path name to be soemthing different */}
         <Route path="/userprofile" element={<UserProfile />}/>
         <Route path="/login" element={<LoginPage setLoggedIn = {setLoggedIn} />}/>
+        <Route path="/aboutus" element={<AboutUs />}/>
       </Routes>
+
+      {/* have footer at bottom of each page w link to about us */}
+      <Footer/>
     </div>
     
   );
