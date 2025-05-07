@@ -12,6 +12,9 @@ const LoginPage = ({ setLoggedIn }) => {
   return (
     <div style={{ textAlign: 'center', marginTop: '3rem' }}>
       <h2>Login Page</h2>
+      <form action="" method="post">
+        
+      </form>
       <button onClick={handleLogin}>Log In</button>
     </div>
   );
