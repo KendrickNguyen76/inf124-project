@@ -1,0 +1,16 @@
+/* CSS for Login in page */
+
+/* CSS for the main div, which has the id "login_div" */
+#login_div {
+    width: 400px;
+    margin: auto;
+}
+
+/* CSS for the labels, May want to move them to index.css later */
+label {
+    display: block;
+    text-align: left;
+    font-family: Inter;
+    font-style: normal;
+    font-size: 20;
+}

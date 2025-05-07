@@ -1,4 +1,5 @@
 import React from 'react';
+import './LoginPage.css'
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = ({ setLoggedIn }) => {
@@ -10,7 +11,7 @@ const LoginPage = ({ setLoggedIn }) => {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+    <div id="login_div" style={{ textAlign: 'center', marginTop: '3rem' }}>
       <h2>Login Page</h2>
 
       <form action="" method="post">
