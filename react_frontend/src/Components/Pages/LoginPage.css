@@ -11,6 +11,20 @@
     margin: auto;
 }
 
+.divider {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 2em;
+}
+
+.line {
+    width: 15%;
+    height: 2px;
+    margin: 10px 5px 0px 5px;
+    background-color: #426B69;
+}
+
 /* CSS for the submit buttons on the login page. May want to move this to index.css? */
 .submitButton {
     width: 234px;
@@ -24,6 +38,14 @@
 
 .submitButton:hover {
     background-color: #d7e3ce
+}
+
+/* CSS for the Create Account button */
+#createAccount {
+    width: 274px;
+    height: 57px;
+    margin-top: 30px;
+    margin-bottom: 70px;
 }
 
 /* CSS for the input textboxes, which have the class "text_input" */
@@ -72,3 +94,5 @@
     margin-bottom: 5px;
     color: #426B69;
 }
+
+
