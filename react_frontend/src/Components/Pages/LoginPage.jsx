@@ -14,7 +14,7 @@ function InputBoxes() {
         <input className="textInput" type="password" id="password" name="password" placeholder="Enter Password" />
       </form>
 
-      <a className="forgetPassLink" href="https://www.alz.org/alzheimers-dementia/what-is-dementia">Forget Password?</a>
+      <a className="forgotPassLink" href="https://www.alz.org/alzheimers-dementia/what-is-dementia">Forgot Password?</a>
     </div>
   );
 }
