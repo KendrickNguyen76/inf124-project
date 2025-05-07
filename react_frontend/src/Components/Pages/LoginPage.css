@@ -1,13 +1,13 @@
 /* CSS for Login in page */
 
 /* CSS for the main div, which has the class name "login_div" */
-.login_div {
+.loginDiv {
     text-align: center;
 }
 
 /* CSS for the div containing the input text boxes which has the class name "input_div" */
-.input_div {
-    width: 300px;
+.inputDiv {
+    width: 400px;
     margin: auto;
 }
 
@@ -22,29 +22,53 @@
     margin-top: 20px;
 }
 
+.submitButton:hover {
+    background-color: #d7e3ce
+}
+
 /* CSS for the input textboxes, which have the class "text_input" */
-.text_input {
+.textInput {
     display: block;
     font-family: Inter;
-    padding: 12px 10px;
+    padding: 15px 10px;
     width: 90%;
     margin-bottom: 40px;
     border: 3px solid #2A4849
 }
 
+/* CSS for password input box to override the bottom margin */
+#password {
+    margin-bottom: 10px;
+}
+
 /* CSS for the bash image */
-#logo {
+.logo {
     width: 265px;
     height: auto;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
+}
+
+/* CSS for the Forget Password hyperlink */
+.forgetPassLink {
+    display: block;
+    font-family: Inter;
+    font-size: 20;
+    color: #426B69;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.forgetPassLink:visited {
+    color: #1d2f2f;
 }
 
 /* CSS for the labels, May want to move them to index.css later */
-label {
+.inputLabel {
     display: block;
     text-align: left;
     font-family: Inter;
     font-style: normal;
     font-size: 20;
     margin-bottom: 5px;
+    color: #426B69;
 }

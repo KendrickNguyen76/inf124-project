@@ -12,20 +12,22 @@ const LoginPage = ({ setLoggedIn }) => {
   };
 
   return (
-    <div className="login_div">
-        <img id="logo" src={Logo}/>
+    <div className="loginDiv">
+      <img className="logo" src={Logo}/>
 
-        <div className="input_div">
-            <form action="" method="post">
-              <label htmlFor="username">Username/Email</label>
-              <input className="text_input" type="text" id="username" name="username" placeholder="Enter Username" />
+      <div className="inputDiv">
+        <form action="" method="post">
+          <label className="inputLabel" htmlFor="username">Username/Email</label>
+          <input className="textInput" type="text" id="username" name="username" placeholder="Enter Username" />
 
-              <label htmlFor="password">Password</label>
-              <input className="text_input" type="password" id="password" name="password" placeholder="Enter Password" />
-            </form>
-        </div>
+          <label className="inputLabel" htmlFor="password">Password</label>
+          <input className="textInput" type="password" id="password" name="password" placeholder="Enter Password" />
+        </form>
 
-        <button className="submitButton" onClick={handleLogin}>Log In</button>
+        <a className="forgetPassLink" href="https://www.alz.org/alzheimers-dementia/what-is-dementia">Forget Password?</a>
+      </div>
+
+      <button className="submitButton" onClick={handleLogin}>Log In</button>
     </div>
   );
 };
