@@ -1,9 +1,42 @@
 /* CSS for Login in page */
 
-/* CSS for the main div, which has the id "login_div" */
-#login_div {
-    width: 400px;
+/* CSS for the main div, which has the class name "login_div" */
+.login_div {
+    text-align: center;
+}
+
+/* CSS for the div containing the input text boxes which has the class name "input_div" */
+.input_div {
+    width: 300px;
     margin: auto;
+}
+
+/* CSS for the submit buttons on the login page. May want to move this to index.css? */
+.submitButton {
+    width: 234px;
+    height: 43px;
+    background-color: #8BB174;
+    border: 3px solid #2A4849;
+    color: white;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+/* CSS for the input textboxes, which have the class "text_input" */
+.text_input {
+    display: block;
+    font-family: Inter;
+    padding: 12px 10px;
+    width: 90%;
+    margin-bottom: 40px;
+    border: 3px solid #2A4849
+}
+
+/* CSS for the bash image */
+#logo {
+    width: 265px;
+    height: auto;
+    margin-bottom: 1em;
 }
 
 /* CSS for the labels, May want to move them to index.css later */
@@ -13,4 +46,5 @@ label {
     font-family: Inter;
     font-style: normal;
     font-size: 20;
+    margin-bottom: 5px;
 }

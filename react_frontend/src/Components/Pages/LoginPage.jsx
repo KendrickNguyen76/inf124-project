@@ -1,5 +1,6 @@
 import React from 'react';
 import './LoginPage.css'
+import Logo from "../../assets/ByteMe_Logo.png";
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = ({ setLoggedIn }) => {
@@ -11,18 +12,20 @@ const LoginPage = ({ setLoggedIn }) => {
   };
 
   return (
-    <div id="login_div" style={{ textAlign: 'center', marginTop: '3rem' }}>
-      <h2>Login Page</h2>
+    <div className="login_div">
+        <img id="logo" src={Logo}/>
 
-      <form action="" method="post">
-          <label for="username">Username/Email</label>
-          <input type="text" id="username" name="username" placeholder="Enter Username" />
+        <div className="input_div">
+            <form action="" method="post">
+              <label htmlFor="username">Username/Email</label>
+              <input className="text_input" type="text" id="username" name="username" placeholder="Enter Username" />
 
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" placeholder="Enter Password" />
-      </form>
+              <label htmlFor="password">Password</label>
+              <input className="text_input" type="password" id="password" name="password" placeholder="Enter Password" />
+            </form>
+        </div>
 
-      <button onClick={handleLogin}>Log In</button>
+        <button className="submitButton" onClick={handleLogin}>Log In</button>
     </div>
   );
 };
