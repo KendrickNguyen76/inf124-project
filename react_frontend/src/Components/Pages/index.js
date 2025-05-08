@@ -6,6 +6,7 @@ export { default as UserProfile } from "./UserProfile";
 export { default as LoginPage } from "./LoginPage";
 export {default as AboutUs } from "./AboutUs";
 export {default as CreateAccount } from "./CreateAccount";
+export {default as GamePage} from "./GamePage";
 // Here we are exporting all the components from the pages folder
 // so that we can import them in the App.jsx file and use them in the routes
 
