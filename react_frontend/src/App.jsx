@@ -30,13 +30,16 @@ import './App.css'
 import {Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar'
 import Footer from './Components/Footer/Footer'
-import {Home, Dashboard, LeaderBoard, HowToPlay, UserProfile, LoginPage, AboutUs, CreateAccount} from './Components/Pages'
+import {Home, Dashboard, LeaderBoard, HowToPlay, UserProfile, LoginPage, AboutUs, CreateAccount, GamePage} from './Components/Pages'
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
     <div className="App"> 
+    <Routes>
+      <Route path="/gamepage" element={<GamePage />}/>
+    </Routes>
       <Navbar loggedIn = {loggedIn} setLoggedIn={setLoggedIn} />
       <Routes>
         {/* If you lok at our Navbar.jsx file, it should reflect what is here */}
