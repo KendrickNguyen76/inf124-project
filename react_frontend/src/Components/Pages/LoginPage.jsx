@@ -37,7 +37,7 @@ const LoginPage = ({ setLoggedIn }) => {
   };
   
   const handleCreateAccount = () => {
-      navigate('/CreateAccount');
+      navigate('/createaccount');
   };
 
   // Create Account button still needs code to work

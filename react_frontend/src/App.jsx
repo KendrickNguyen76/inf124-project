@@ -48,6 +48,7 @@ const App = () => {
         <Route path="/userprofile" element={<UserProfile />}/>
         <Route path="/login" element={<LoginPage setLoggedIn = {setLoggedIn} />}/>
         <Route path="/aboutus" element={<AboutUs />}/>
+        <Route path="/createaccount" element={<CreateAccount />}/>
       </Routes>
 
       {/* have footer at bottom of each page w link to about us */}
