@@ -1,0 +1,15 @@
+/* CSS file for the Create Account Page */
+
+.createAccountDiv {
+    text-align: center;
+}
+
+/* 
+ * CSS for createAccountTextInput class
+ * You may be wondering why this is necessary. Essentially, this 
+ * is just here to override the margin-bottom setting of the TextInput
+ * class so that the text boxes on the Create Account page are closer together
+ */
+.createAccountTextInput {
+    margin-bottom: 30px;
+}
