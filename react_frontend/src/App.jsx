@@ -30,7 +30,7 @@ import './App.css'
 import {Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar'
 import Footer from './Components/Footer/Footer'
-import {Home, Dashboard, LeaderBoard, HowToPlay, UserProfile, LoginPage, AboutUs} from './Components/Pages'
+import {Home, Dashboard, LeaderBoard, HowToPlay, UserProfile, LoginPage, AboutUs, CreateAccount} from './Components/Pages'
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);

@@ -1,4 +1,3 @@
-import React from 'react';
 import './LoginPage.css'
 import Logo from "../../assets/ByteMe_Logo.png";
 import { useNavigate } from 'react-router-dom';
@@ -36,6 +35,10 @@ const LoginPage = ({ setLoggedIn }) => {
     setLoggedIn(true);
     navigate('/'); // Redirect after login
   };
+  
+  const handleCreateAccount = () => {
+      navigate('/CreateAccount');
+  };
 
   // Create Account button still needs code to work
 
@@ -45,7 +48,7 @@ const LoginPage = ({ setLoggedIn }) => {
       <InputBoxes />
       <button className="submitButton" onClick={handleLogin}>Log In</button>
       <Divider />
-      <button className="submitButton" id="createAccount" onClick="">Create Account</button>
+      <button className="submitButton" id="createAccount" onClick={handleCreateAccount}>Create Account</button>
     </div>
   );
 };
