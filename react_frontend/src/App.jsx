@@ -37,9 +37,7 @@ const App = () => {
 
   return (
     <div className="App"> 
-    <Routes>
-      <Route path="/gamepage" element={<GamePage />}/>
-    </Routes>
+
       <Navbar loggedIn = {loggedIn} setLoggedIn={setLoggedIn} />
       <Routes>
         {/* If you lok at our Navbar.jsx file, it should reflect what is here */}
