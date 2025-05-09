@@ -71,10 +71,11 @@ function BashSelection() {
   );
 }
 
-function CreateAccount () {
+function CreateAccount ({setLoggedIn}) {
   const navigate = useNavigate();
 
   const handleLogin = () => {
+    setLoggedIn(true);
     navigate('/'); // Redirect after login
   };
 
