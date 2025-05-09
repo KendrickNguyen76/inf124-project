@@ -1,0 +1,42 @@
+.dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 50vh;
+    width: 100%;
+    margin: 0px;
+}
+
+.leadercontainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0px;
+
+}
+
+.leader_dash_title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px;
+}
+
+.leader_dash_label {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  
+  .label-row {
+    display: flex;
+    justify-content: center;   /* center items horizontally */
+    align-items: center;       /* center items vertically if needed */
+    gap: 40px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0 auto; 
+    width: 100%;            /* centers the entire row inside the parent */
+  }
