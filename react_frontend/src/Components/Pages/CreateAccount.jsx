@@ -1,7 +1,14 @@
 import './CreateAccount.css'
-import Bash from '../../assets/Bash.png'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// Colored Bashes
+import GreenBash from '../../assets/Bash.png'
+import BlueBash from '../../assets/bash_blue.png'
+import RedBash from '../../assets/bash_red.png'
+import OrangeBash from '../../assets/bash_orange.png'
+import PurpleBash from '../../assets/bash_purple.png'
+import PinkBash from '../../assets/bash_pink.png'
 
 function CreateAccountInputBoxes() {
   return (
@@ -27,36 +34,25 @@ function CreateAccountInputBoxes() {
   );
 }
 
-/*
-function BashSelection () {
-  return (
-    <div className="bashSelectionDiv">
-      <img className="selectedBash" src={Bash}/>
-
-      <form action="">
-        <input type="radio" className="colorSelectionRadio" id="green" name="colorSelection" value="Green" checked={true}/>
-        <input type="radio" className="colorSelectionRadio" id="blue" name="colorSelection" value="Blue" />
-        <input type="radio" className="colorSelectionRadio" id="red" name="colorSelection" value="Red" />
-        <input type="radio" className="colorSelectionRadio" id="orange" name="colorSelection" value="Orange" />
-        <input type="radio" className="colorSelectionRadio" id="purple" name="colorSelection" value="Purple" />
-        <input type="radio" className="colorSelectionRadio" id="pink" name="colorSelection" value="Pink" />
-      </form>
-    </div>
-  );
-}
-*/
-
 /* I ChatGPTed this and fixed it up, hopefully this works..*/
 function BashSelection() {
+  /* Potentially the jankiest piece of code i've written so far, but it does work so....*/
+  const bashImages = [GreenBash, BlueBash, RedBash, OrangeBash, PurpleBash, PinkBash]
+  const colorOptions = ["Green", "Blue", "Red", "Orange", "Purple", "Pink"]
+
   const [selectedColor, setSelectedColor] = useState('Green');
+  const [selectedBash, setSelectedBash] = useState(bashImages[0]);
 
   const handleColorChange = (value) => {
-    setSelectedColor(value);
+    if (colorOptions.includes(value)) {
+      setSelectedColor(value);
+      setSelectedBash(bashImages[colorOptions.indexOf(value)]);
+    }
   };
 
   return (
     <div className="bashSelectionDiv">
-      <img className="selectedBash" src={Bash} alt="Bash" />
+      <img className="selectedBash" src={selectedBash} alt="Bash" />
 
       <form>
         {['Green', 'Blue', 'Red', 'Orange', 'Purple', 'Pink'].map((color) => (
@@ -76,12 +72,18 @@ function BashSelection() {
 }
 
 function CreateAccount () {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate('/'); // Redirect after login
+  };
+
   return (
     <div className="createAccountDiv">
       <h3 className="bashCustomizeHeader">Customize Your Bash!</h3>
       <BashSelection />
       <CreateAccountInputBoxes />
-      <button className="submitButton" id="createAccount">Create Account</button>
+      <button className="submitButton" id="createAccount" onClick={ handleLogin }>Create Account</button>
     </div>
   );
 }
