@@ -1,4 +1,8 @@
 import React from 'react';
+import './GamePage.css';
+import CodeEditor from '../CodeEditor/CodeEditor';
+import CodeProbelm from '../CodeProblem/CodeProblem';
+
 
 const GamePage = () => {
     return <div>hi/</div>
