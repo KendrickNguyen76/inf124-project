@@ -1,5 +1,5 @@
 import React from 'react';
-import './GamePage.css';
+import './CodeEditor.css';
 import {Editor} from 'react-monaco-editor';
 
 const CodeEditor = () => {
