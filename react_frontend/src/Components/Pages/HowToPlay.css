@@ -1,0 +1,44 @@
+.profile-box {
+    padding: 11px;
+    font-family: sans-serif;
+  }
+/* allows for us to have the left and right column */
+.content-row{
+    display: flex;
+}
+/* Title */
+.page-title {
+    width: 100%;
+    /* border: 8px solid black; remove later */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+}
+  
+.name_line {
+    width: 25%;
+    height: 2px;
+    margin: 10px 5px 0px 5px;
+    background-color: #426B69;
+}
+.instructions {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    border: 8px solid black; /* remove later */
+}
+  
+/* .intro-text,
+.support-text {
+    margin-bottom: 12px;
+}
+  
+.instruction-steps {
+    margin-left: 20px;
+    padding-left: 10px;
+}
+  
+.instruction-steps li {
+    margin-bottom: 8px;
+} */

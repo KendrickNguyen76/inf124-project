@@ -6,13 +6,17 @@ import twitterIcon from "../../assets/twitter.png";
 import chatIcon from "../../assets/chat.png";
 import lvl1 from "../../assets/Level1.png";
 import icon from "../../assets/gitlabLogo.png";
+import { useNavigate } from "react-router-dom";
 
 
 // This will be for the title, user's name, Top Row in the middle
 const UserTitle = () => (
   <div className="page-title">
-    <h1> ---  Byte’s Page ---</h1>
-  </div>
+  <div className="name_line"></div>
+    <h1> Byte’s Page</h1>
+  <div className="name_line"></div>
+
+</div>
 );
 
 // Left Column 
@@ -47,8 +51,16 @@ const UserRank = () => (
 
 // Left Column 
 // This will be for the main content, Right Column , Top
-const BioSection = () => (
-  <div className="bio-section">
+
+const BioSection = () => {
+  const navigate = useNavigate();
+
+  const modifyPage = () => {
+    navigate('/usersettings');
+  };
+
+  return (
+    <div className="bio-section">
     <h2>Bio</h2>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -58,62 +70,62 @@ const BioSection = () => (
       laboris nisi ut aliquip ex ea commodo consequat...
     </p>
     <div className="bio-buttons">
-      <button className="edit-button">Edit Profile</button>
-    </div>
-  </div>
-);
+      <button className="edit-button" id = "settings button" onClick={modifyPage}>Edit Profile </button>
 
-const MatchHistory = () => (
-    <div>
-    <div className="match-title"> Match History</div>   {/* modify */}
-    <div className="history-section">
-      <div className="history-item">
-        <ul>
-          <li>Played Against</li>
-          <li>Winner</li>
-          <li>Winner's Time</li>
-          <li>Date</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-);
 
-const UserProfile = () => {
-  return (
-  <div className = "profile-box"> 
-  <UserTitle/>
-  <div className="content-row">
-    <div className="left-column">
-      <Avatar />
-      <SocialMediaIcons />
-      <UserRank />
-      </div>
-    <div className="right-column">
-      <BioSection />
-      <MatchHistory />
-      </div>
     </div>
   </div>
   );
 };
 
-export default UserProfile;
+const MatchHistory = () => (
+  
+  <div className = "History-section">
+      <div className="match-title"> Match History</div>   
+      <div className="history-section">
+        <div className="history-item">
+          <ul>
+            <li>Played Against</li>
+            <li>Winner</li>
+            <li>Winner's Time</li>
+            <li>Date</li>
+          </ul>
+        </div>
+        <div className="history_scroll">
+        {/*placeholders for back end data integration later*/}
+        {[...Array(10)].map((_, i) => (
+        <div key={i} className="data_row">
+          <span className="data_column">Player {i + 1}</span>
+          <span className="data_column">#{i + 1}</span>
+          <span className="data_column">{Math.floor(Math.random() * 10)}</span>
+          <span className="data_column">{Math.floor(Math.random() * 10)}</span>
+        </div>
+        ))}
+        </div>
+      </div>
+    </div>
+);
 
-// const UserProfile = () => {
-//   return (
-//     <div className="user-box">
-//       <UserTitle />
-//       <div className="profile-content">
-//         <div className="left-column">
-//           <Avatar />
-//           <SocialMediaIcons />
-//           <UserRank />
-//         </div>
-//         <div className="right-column">
-//           <BioSection />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+
+
+const UserProfile = () => {
+
+  return (
+    <div className = "profile-box"> 
+    <UserTitle/>
+    <div className="content-row">
+      <div className="left-column">
+        <Avatar />
+        <SocialMediaIcons />
+        <UserRank />
+        </div>
+      <div className="right-column">
+        <BioSection />
+        <MatchHistory />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UserProfile;
