@@ -17,9 +17,8 @@ const HowToPlay = () => {
         <p>1. Choose a game mode: Single Player or Multiplayer.</p>
         <p>2. In Single Player, you will play against yourself.</p>
         <p>3. In Multiplayer, you can invite friends to play with you.</p>
-        <p>4. Each player takes turns to make a move.</p>
-        <p>5. The goal is to solve the problem as quickly as possible.</p>
-        <p>7. Have fun and enjoy the game!</p>
+        <p>4. The goal is to solve the problem as quickly as possible.</p>
+        <p>5. Have fun and enjoy the game!</p>
       </div>
     </div>
   );
