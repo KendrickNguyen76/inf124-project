@@ -136,6 +136,14 @@
     margin-bottom: 0px;
   }
 
+  .practice_button:hover{
+    border-radius: 36px;
+    background-color: #182C2D;
+    color: #fff;
+    text-decoration: none;
+    padding: 4px 8px;
+  }
+
   .match_button{
     border-radius: 36px;
     border-color:#2a4849;
@@ -154,4 +162,12 @@
     padding-top: 0px;
     padding-bottom: 0px;
     margin-bottom: 0px;
+  }
+
+  .match_button:hover{
+    border-radius: 36px;
+    background-color: #182C2D;
+    color: #fff;
+    text-decoration: none;
+    padding: 4px 8px;
   }

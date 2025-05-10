@@ -4,7 +4,7 @@ import "./LeaderBoard.css";
 {/*title of global leaderboard*/}
 const LeaderGlobalTitle = () => (
   <div className = "leader_global_title">
-    <h1> ⸺⸺ LeaderBoard ⸺⸺ </h1>
+    <h1> ⸺ Global LeaderBoard ⸺ </h1>
   </div>
 );
 
