@@ -38,7 +38,10 @@ const App = () => {
           element={<LoginPage setLoggedIn={setLoggedIn} />}
         />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/createaccount" element={<CreateAccount />} />
+        <Route 
+          path="/createaccount" 
+          element={<CreateAccount setLoggedIn={setLoggedIn}/>} 
+        />
         <Route path="/gamepage" element={<GamePage />} />
       </Routes>
       {/* have footer at bottom of each page w link to about us, this will hide the footer for speciifc pages*/}
