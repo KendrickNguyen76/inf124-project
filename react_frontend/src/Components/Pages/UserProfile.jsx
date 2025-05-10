@@ -6,6 +6,7 @@ import twitterIcon from "../../assets/twitter.png";
 import chatIcon from "../../assets/chat.png";
 import lvl1 from "../../assets/Level1.png";
 import icon from "../../assets/gitlabLogo.png";
+import { useNavigate } from "react-router-dom";
 
 
 // This will be for the title, user's name, Top Row in the middle
@@ -50,8 +51,16 @@ const UserRank = () => (
 
 // Left Column 
 // This will be for the main content, Right Column , Top
-const BioSection = () => (
-  <div className="bio-section">
+
+const BioSection = () => {
+  const navigate = useNavigate();
+
+  const modifyPage = () => {
+    navigate('/usersettings');
+  };
+
+  return (
+    <div className="bio-section">
     <h2>Bio</h2>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -61,12 +70,16 @@ const BioSection = () => (
       laboris nisi ut aliquip ex ea commodo consequat...
     </p>
     <div className="bio-buttons">
-      <button className="edit-button">Edit Profile</button>
+      <button className="edit-button" id = "settings button" onClick={modifyPage}>Edit Profile </button>
+
+
     </div>
   </div>
-);
+  );
+};
 
 const MatchHistory = () => (
+  
   <div className = "History-section">
       <div className="match-title"> Match History</div>   
       <div className="history-section">
@@ -96,22 +109,22 @@ const MatchHistory = () => (
 
 
 const UserProfile = () => {
+
   return (
-    
-  <div className = "profile-box"> 
-  <UserTitle/>
-  <div className="content-row">
-    <div className="left-column">
-      <Avatar />
-      <SocialMediaIcons />
-      <UserRank />
-      </div>
-    <div className="right-column">
-      <BioSection />
-      <MatchHistory />
+    <div className = "profile-box"> 
+    <UserTitle/>
+    <div className="content-row">
+      <div className="left-column">
+        <Avatar />
+        <SocialMediaIcons />
+        <UserRank />
+        </div>
+      <div className="right-column">
+        <BioSection />
+        <MatchHistory />
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 

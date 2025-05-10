@@ -13,6 +13,7 @@ import {
   AboutUs,
   CreateAccount,
   GamePage,
+  UserSettings
 } from "./Components/Pages";
 
 const App = () => {
@@ -31,8 +32,11 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/howtoplay" element={<HowToPlay />} />
+
         {/* change the path name to be soemthing different */}
         <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/usersettings" element={<UserSettings/>} />
+
         <Route
           path="/login"
           element={<LoginPage setLoggedIn={setLoggedIn} />}
