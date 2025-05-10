@@ -18,6 +18,7 @@
     flex: 0.5;
     min-width: 150px;
     max-width: 360px;
+    border-right: 8px solid black; 
     height: auto;
 }
 
@@ -32,24 +33,24 @@
     color: #2A4849;
 }
 .selection-box {
-    background-color: grey;
+    background-color: lightgray;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    margin-top: 20px;
-    height: 50px;
+    margin-top: 10px;
+    height: 60px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Change background color when 'edit' tab is active */
-.selection-box.edit-active {
-    background-color: lightblue; /* Change to light blue for Edit Profile */
-}
+/* removed selection-box.edit-active  idk why they both don't work*/
+/* removed selection-box.appearence-active */
 
-/* Change background color when 'appearance' tab is active */
-.selection-box.appearance-active {
-    background-color: lightpink; /* Change to light pink for Appearance */
+.selection-box:hover {
+    background-color: grey;
 }
 
 .edit-profile-heading {
@@ -176,9 +177,6 @@ input[type="radio"] {
     justify-content: center;    
     align-items: center;
     width: 100%;
-
-
-    
 }
 .selectedView img{
     max-width: 100%; 

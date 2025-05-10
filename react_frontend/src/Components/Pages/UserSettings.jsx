@@ -1,7 +1,7 @@
 import React from "react";
 import "./UserSettings.css";
 import { useState } from 'react';
-
+import Select from "react-select";
 
 
 // Colored Bashes
@@ -14,7 +14,6 @@ import PinkBash from '../../assets/bash_pink.png'
 import SiteViewGreen from '../../assets/SiteOverviewOG.png'
 import { FiEdit } from "react-icons/fi";
 import { MdStars } from "react-icons/md";
-
 
 
 // Left Column
@@ -114,20 +113,27 @@ function InputBoxes() {
 const AppearanceSettings = () => (
   <div className="editprofile-box">
     <h2>Appearance </h2>
-    <img className="selectedView" src={SiteViewGreen} alt="Bash" />
+    <img className="selectedView" src={SiteViewGreen} alt="Site Preview" />
     <h3> Site Preview</h3>
 
   </div>
 );
 
 function InputTheme() {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const options = [
+    { value: "displayLight", label: "Light Mode (Regular Mode)" },
+    { value: "displayDark", label: "Dark Mode" }
+  ];
+
   return (
     <div className = "editprofile-box">
       <div className="inputDiv">
-        <form action="" method="post">
-          <label className="inputLabel" htmlFor="name">Select Theme</label>
-          <input className="textInput createAccountTextInput" type="text" id="name" name="name" placeholder="<current theme>..." />
-        </form>
+        <Select
+            options={options}
+            value={selectedOption}
+            onChange={setSelectedOption}
+        />
       </div>
       <div className="edit-buttons">
       <button className="edit-button" type = "settings button">Cancel</button>
