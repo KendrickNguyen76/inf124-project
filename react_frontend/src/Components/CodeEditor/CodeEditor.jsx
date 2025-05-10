@@ -1,7 +1,6 @@
 import React from 'react';
 import './CodeEditor.css';
-import {Editor} from 'react-monaco-editor';
-
+import Editor from '@monaco-editor/react';
 const CodeEditor = () => {
     const editorOptions = {
         selectOnLineNumbers: true,
