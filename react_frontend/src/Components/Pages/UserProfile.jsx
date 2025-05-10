@@ -11,8 +11,11 @@ import icon from "../../assets/gitlabLogo.png";
 // This will be for the title, user's name, Top Row in the middle
 const UserTitle = () => (
   <div className="page-title">
-    <h1> ---  Byte’s Page ---</h1>
-  </div>
+  <div className="name_line"></div>
+    <h1> Byte’s Page</h1>
+  <div className="name_line"></div>
+
+</div>
 );
 
 // Left Column 
@@ -64,23 +67,37 @@ const BioSection = () => (
 );
 
 const MatchHistory = () => (
-    <div>
-    <div className="match-title"> Match History</div>   {/* modify */}
-    <div className="history-section">
-      <div className="history-item">
-        <ul>
-          <li>Played Against</li>
-          <li>Winner</li>
-          <li>Winner's Time</li>
-          <li>Date</li>
-        </ul>
+  <div className = "History-section">
+      <div className="match-title"> Match History</div>   
+      <div className="history-section">
+        <div className="history-item">
+          <ul>
+            <li>Played Against</li>
+            <li>Winner</li>
+            <li>Winner's Time</li>
+            <li>Date</li>
+          </ul>
+        </div>
+        <div className="history_scroll">
+        {/*placeholders for back end data integration later*/}
+        {[...Array(10)].map((_, i) => (
+        <div key={i} className="data_row">
+          <span className="data_column">Player {i + 1}</span>
+          <span className="data_column">#{i + 1}</span>
+          <span className="data_column">{Math.floor(Math.random() * 10)}</span>
+          <span className="data_column">{Math.floor(Math.random() * 10)}</span>
+        </div>
+        ))}
+        </div>
       </div>
     </div>
-  </div>
 );
+
+
 
 const UserProfile = () => {
   return (
+    
   <div className = "profile-box"> 
   <UserTitle/>
   <div className="content-row">
@@ -99,21 +116,3 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
-
-// const UserProfile = () => {
-//   return (
-//     <div className="user-box">
-//       <UserTitle />
-//       <div className="profile-content">
-//         <div className="left-column">
-//           <Avatar />
-//           <SocialMediaIcons />
-//           <UserRank />
-//         </div>
-//         <div className="right-column">
-//           <BioSection />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
