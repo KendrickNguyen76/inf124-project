@@ -38,6 +38,10 @@ const CodeEditor = () => {
     cpp: "C++",
   };
 
+  const handleClick = (action) => {
+    alert(`You clicked the ${action} button!`);
+  };
+
   return (
     <div className="code-editor">
       <div className="editor-header">
@@ -49,6 +53,10 @@ const CodeEditor = () => {
             <div onClick={() => handleLanguageChange({ target: { value: "java" } })}>Java</div>
             <div onClick={() => handleLanguageChange({ target: { value: "cpp" } })}>C++</div>
           </div>
+        </div>
+        <div className="editor-buttons">
+          <button className="run-button" onClick={() => handleClick("Run")}>Run</button>
+          <button className="submit-button" onClick={() => handleClick("Submit")}>Submit</button>
         </div>
       </div>
       <Editor
