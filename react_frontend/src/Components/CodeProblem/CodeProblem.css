@@ -23,7 +23,7 @@
 }
 
 .problem-title {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: bold;
   background-color: #426b69;
   padding: 4px 12px;
@@ -33,7 +33,7 @@
 }
 
 .difficulty-badge {
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
   background-color: #426b69;
   padding: 4px 12px;
@@ -45,13 +45,17 @@
   padding: 16px;
   background-color: white;
   color: black;
-  font-size: 14px;
   line-height: 1.6;
   white-space: pre-wrap;
 }
 
 .problem-text {
   margin-bottom: 12px;
+  font-size: 18px;
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
+  font-family: "Inter"
 }
 
 .example-text {
@@ -59,4 +63,9 @@
   padding: 8px;
   border-left: 4px solid #2a4849;
   font-family: "Courier New", Courier, monospace;
+  margin-bottom: 12px;
+  font-size: 18px;
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
 }
