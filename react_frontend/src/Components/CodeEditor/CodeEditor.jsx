@@ -31,16 +31,25 @@ const CodeEditor = () => {
     }
   };
 
+  const languageMap = {
+    python: "Python",
+    javascript: "JavaScript",
+    java: "Java",
+    cpp: "C++",
+  };
+
   return (
     <div className="code-editor">
       <div className="editor-header">
-        <span></span>
-        <select value={language} onChange={handleLanguageChange}>
-          <option value="python">Python</option>
-          <option value="javascript">JavaScript</option>
-          <option value="java">Java</option>
-          <option value="cpp">C++</option>
-        </select>
+        <div className="custom-dropdown">
+          <button className="dropdown-button">{languageMap[language]}</button>
+          <div className="dropdown-content">
+            <div onClick={() => handleLanguageChange({ target: { value: "python" } })}>Python</div>
+            <div onClick={() => handleLanguageChange({ target: { value: "javascript" } })}>JavaScript</div>
+            <div onClick={() => handleLanguageChange({ target: { value: "java" } })}>Java</div>
+            <div onClick={() => handleLanguageChange({ target: { value: "cpp" } })}>C++</div>
+          </div>
+        </div>
       </div>
       <Editor
         height="85vh"
