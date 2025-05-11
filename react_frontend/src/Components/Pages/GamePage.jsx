@@ -19,9 +19,19 @@ const GameEditor = () => {
   );
 };
 
+const GameTimer = () => {
+  return (
+    <div className="game-timer">
+      <span className="timer-label"> Timer: </span>
+      <span className="timer-value"> 00:00 </span>
+    </div>
+  );
+}
+
 const GamePage = () => {
   return (
     <div className="game-page">
+      <GameTimer />
       <div className="game-container">
         <GameProblem />
         <GameEditor />
