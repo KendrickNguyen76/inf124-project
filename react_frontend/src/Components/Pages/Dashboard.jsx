@@ -3,11 +3,22 @@ import "./Dashboard.css";
 import { useNavigate } from 'react-router-dom';
 
 {/*title of local dashboard*/}
+// const LeaderDashTitle = () => (
+//   <div className = "leader_dash_title">
+//     <h1> ⸺⸺ LeaderBoard ⸺⸺ </h1>
+//   </div>
+// );
+
+
 const LeaderDashTitle = () => (
-  <div className = "leader_dash_title">
-    <h1> ⸺⸺ LeaderBoard ⸺⸺ </h1>
-  </div>
+  <div className="leader_dash_title">
+  <div className="name_line"></div>
+    <h1> LeaderBoard</h1>
+  <div className="name_line"></div>
+
+</div>
 );
+
 
 {/*title of user hello*/}
 const LeaderDashHello = () => (

@@ -7,20 +7,20 @@
 }
 
 .leader_global_title{
+    /* border: 8px solid black; remove later */
     display: flex;
     justify-content: center;
-    text-align:center;
-    width: 100%;
+    align-items: center;
+    font-size: 28px;
 }
 
-.leader_global_title h1{
-    font-size: 3.7rem;
-    margin-top: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
+  .name_line {
+    width: 25%;
+    height: 2px;
+    margin: 10px 5px 0px 5px;
+    background-color: #426B69;
   }
-
+  
 .leader_global_label {
     display: flex;
     justify-content: center;

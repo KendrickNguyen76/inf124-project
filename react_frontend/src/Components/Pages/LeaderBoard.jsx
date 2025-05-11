@@ -2,10 +2,18 @@ import React from "react";
 import "./LeaderBoard.css";
 
 {/*title of global leaderboard*/}
+// const LeaderGlobalTitle = () => (
+//   <div className = "leader_global_title">
+//     <h1> ⸺ Global LeaderBoard ⸺ </h1>
+//   </div>
+// );
+
 const LeaderGlobalTitle = () => (
-  <div className = "leader_global_title">
-    <h1> ⸺ Global LeaderBoard ⸺ </h1>
-  </div>
+  <div className="leader_global_title">
+    <div className="name_line"></div>
+      <h1> Global LeaderBoard </h1>
+    <div className="name_line"></div>
+</div>
 );
 
 {/*leaderboard rank, title, etc. labels*/}
