@@ -1,8 +1,7 @@
-import React from 'react';
-import './CodeProblem.css';
+import React from "react";
+import "./CodeProblem.css";
 
 const CodeProblem = () => {
-
   const problemStatement = `
 Given an array of integers, return the indices of the two numbers such that they add up to a specific target.
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -17,9 +16,9 @@ Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].`;
   return (
     <div className="code-problem">
       <div className="code-problem-header">
-        <span> Two Sum</span>
-        <span>Easy</span>
-      </div>
+        <span className="problem-title">Two Sum</span>
+        <span className="difficulty-badge">Easy</span>
+      </div>{" "}
       <div className="code-problem-body">
         <pre className="problem-text">{problemStatement}</pre>
         <pre className="example-text">{exampleInput}</pre>
