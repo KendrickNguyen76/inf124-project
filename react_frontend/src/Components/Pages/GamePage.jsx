@@ -2,6 +2,7 @@ import React from "react";
 import "./GamePage.css";
 import CodeEditor from "../CodeEditor/CodeEditor.jsx";
 import CodeProblem from "../CodeProblem/CodeProblem.jsx";
+import { useNavigate } from 'react-router-dom';
 
 const GameProblem = () => {
   return (
@@ -28,10 +29,27 @@ const GameTimer = () => {
   );
 }
 
+const GameQuitButton = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/dashboard");
+  };
+
+  return (
+    <button className="quit-button" onClick={handleClick}>
+      <span className="quit-label">QUIT GAME</span>
+    </button>
+  );
+};
+
 const GamePage = () => {
   return (
     <div className="game-page">
-      <GameTimer />
+      <div className="game-header">
+        <GameTimer />
+        <GameQuitButton />
+      </div>
       <div className="game-container">
         <GameProblem />
         <GameEditor />

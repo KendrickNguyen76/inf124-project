@@ -42,3 +42,34 @@
   align-items: center;
   justify-content: center;
 }
+
+.game-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+.quit-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px;
+  text-transform: uppercase;
+  gap: 8px;
+  position: relative;
+}
+
+.quit-button:hover .quit-label {
+  text-decoration: underline;
+}
+
+.quit-icon {
+  font-size: 24px;
+}
