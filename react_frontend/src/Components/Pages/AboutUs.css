@@ -1,0 +1,73 @@
+.about_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center children horizontally */
+  width: 100%;
+}
+
+.about_title h1 {
+  font-size: 3.7rem;
+  text-align: center;
+  margin: 0;
+}
+
+.about_paragraph {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.about_paragraph p {
+  max-width: 1000px;
+  width: 100%;
+  text-align: center;
+  font-size: 2.2rem;
+  line-height: 1.6;
+  color: #8BB174;
+  margin: 0;
+}
+
+.about_team h1{
+    
+font-size: 3.7rem;
+text-align: center;
+margin: 0;
+
+}
+
+.profile_container_1{
+    display: flex;
+    max-width : 1000px;
+    flex-direction: row;
+    align-items: center; /* center children horizontally */
+    width: 100%;
+}
+
+.profile_container_2{
+    display: flex;
+    max-width : 1000px;
+    flex-direction: row;
+    align-items: center; /* center children horizontally */
+    width: 100%;
+}
+
+.member_1{
+    font-size: 3.7rem;
+    text-align: center;
+    margin: 0;
+}
+.member_2{
+    font-size: 3.7rem;
+    text-align: center;
+    margin: 0;
+}
+.member_3{
+    font-size: 3.7rem;
+    text-align: center;
+    margin: 0;
+}
+.member_4{
+    font-size: 3.7rem;
+    text-align: center;
+    margin: 0;
+}
