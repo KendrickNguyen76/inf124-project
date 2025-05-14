@@ -3,7 +3,6 @@ import "./UserSettings.css";
 import { useState } from 'react';
 import Select from "react-select";
 
-
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
 import BlueBash from '../../assets/bash_blue.png'
@@ -15,6 +14,10 @@ import SiteViewGreen from '../../assets/SiteOverviewOG.png'
 import { FiEdit } from "react-icons/fi";
 import { MdStars } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+
+import linkedinIcon from"../../assets/icon_assets/linkedin.png"; 
+import twitterIcon from"../../assets/icon_assets/twitter.png";
+import giticon from "../../assets/icon_assets/gitlabLogo.png";
 
 
 // Left Column
@@ -92,15 +95,48 @@ function InputBoxes() {
   );
 }
 // EditAccount View - Edit Social Media
-// function SocialMediaInput() {
-//   return (
-//     <div className = "editprofile-box">
-//       <div className="inputDiv">
+function SocialMediaInput() {
+const iconMapping = {
+  GitLab: <img className="icon-img" src={giticon} alt="LinkedIn" />,
+  LinkedIn: <img className="icon-img" src={linkedinIcon} alt="LinkedIn" />,
+  Twitter: <img className="icon-img" src={twitterIcon} alt="X" />
+};
 
-//       </div>
-//     </div>
-//   );
-// }
+
+  const allIcons = Object.keys(iconMapping);
+  const [selectedIcons, setSelectedIcons] = useState(["GitLab", "LinkedIn", "Twitter"]);
+
+  const addIcon = () => {
+    const remainingIcons = allIcons.filter(icon => !selectedIcons.includes(icon));
+    if (remainingIcons.length > 0) {
+      const nextIcon = remainingIcons[0]; // Or use Math.random() to pick randomly
+      setSelectedIcons([...selectedIcons, nextIcon]);
+    }
+  };
+
+  const removeIcon = (icon) => {
+    setSelectedIcons(selectedIcons.filter(i => i !== icon));
+  };
+
+  return (
+    <div className="editprofile-box">
+      <div className="inputDiv">
+        <label className="inputLabel" htmlFor="name">Social Media</label>
+        <div className="icons-wrapper">
+          {selectedIcons.map((icon) => (
+            <div className="icon-box" key={icon}>
+              {iconMapping[icon]}
+              <button className="remove-btn" onClick={() => removeIcon(icon)}>×</button>
+            </div>
+          ))}
+          {selectedIcons.length < allIcons.length && (
+            <button className="add-icon" onClick={addIcon}>+</button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 
 
@@ -148,6 +184,10 @@ function BioInput() {
   return (
     <div className = "editprofile-box">
       <div className="inputDiv">
+        <label className="inputLabel" htmlFor="bio">Edit Bio</label>
+        <form action="" method="post">
+          <textarea className="textInput createAccountTextInput" id="bio" name="bio" placeholder="<current Bio>..." rows="4"></textarea>
+        </form>
       </div>
     </div>
   );
@@ -200,7 +240,7 @@ const UserSettings = () => {
           <>
             <h2> Edit Account</h2>
             <InputBoxes />
-            {/* <SocialMediaInput /> */}
+            <SocialMediaInput />
             <EditButtons />
             <DeleteButton />
           </>

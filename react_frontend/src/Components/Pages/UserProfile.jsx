@@ -1,11 +1,11 @@
 import React from "react";
 import "./UserProfile.css";
-// import avatar from "../../assets/gitlab.png"; // Replace with actual path
-import linkedinIcon from "../../assets/linkedin.png";
-import twitterIcon from "../../assets/twitter.png";
-import chatIcon from "../../assets/chat.png";
+
+import linkedinIcon from"../../assets/icon_assets/linkedin.png"; 
+import twitterIcon from"../../assets/icon_assets/twitter.png";
+import icon from "../../assets/icon_assets/gitlabLogo.png";
+import chatIcon from "../../assets/icon_assets/chat.png";
 import lvl1 from "../../assets/Level1.png";
-import icon from "../../assets/gitlabLogo.png";
 import { useNavigate } from "react-router-dom";
 
 

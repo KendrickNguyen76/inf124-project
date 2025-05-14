@@ -204,3 +204,74 @@ input[type="radio"] {
     max-width: 100%; 
     margin-right: 5px;
 }
+
+/* For Social Media Icons */
+.social-container {
+  font-family: sans-serif;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  color: #4a6b66;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.icons-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-box {
+  margin-top: 3%;
+  width: 80px;
+  height: 80px;
+  background-color: #e2e2e2;
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5%;
+}
+
+.icon-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -6px; /* position of the x button on the icon top to bottom*/
+  right: -6px; /* position of the x button on the icon left to right*/
+  background-color: white;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  line-height: -1px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.add-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #d1d1d1;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  transition-duration: 0.2s ease;
+}
+
+.add-icon:hover {
+  background-color: #c0c0c0;
+}
