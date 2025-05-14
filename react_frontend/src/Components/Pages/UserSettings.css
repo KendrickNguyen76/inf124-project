@@ -172,6 +172,28 @@ input[type="radio"] {
     
 }
 
+.delete-buttons {
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    flex-direction: row;
+    
+/* align-items: center; */
+    gap: 75px;
+    margin-bottom: 20px;
+}
+.delete-buttons button {
+    background-color: #444444;
+    color: white;
+    border: 4px solid #444444;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 150px;
+    
+}
+
+
 .selectedView{
     display: flex;
     justify-content: center;    

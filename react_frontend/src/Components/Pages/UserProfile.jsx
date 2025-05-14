@@ -88,6 +88,7 @@ const MatchHistory = () => (
             <li>Played Against</li>
             <li>Winner</li>
             <li>Winner's Time</li>
+            <li>Loser's Time</li>
             <li>Date</li>
           </ul>
         </div>
@@ -97,6 +98,7 @@ const MatchHistory = () => (
         <div key={i} className="data_row">
           <span className="data_column">Player {i + 1}</span>
           <span className="data_column">#{i + 1}</span>
+          <span className="data_column">{Math.floor(Math.random() * 10)}</span>
           <span className="data_column">{Math.floor(Math.random() * 10)}</span>
           <span className="data_column">{Math.floor(Math.random() * 10)}</span>
         </div>
