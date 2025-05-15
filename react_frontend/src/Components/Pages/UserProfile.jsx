@@ -1,11 +1,11 @@
 import React from "react";
 import "./UserProfile.css";
-// import avatar from "../../assets/gitlab.png"; // Replace with actual path
-import linkedinIcon from "../../assets/linkedin.png";
-import twitterIcon from "../../assets/twitter.png";
-import chatIcon from "../../assets/chat.png";
+
+import linkedinIcon from"../../assets/icon_assets/linkedin.png"; 
+import twitterIcon from"../../assets/icon_assets/twitter.png";
+import icon from "../../assets/icon_assets/gitlabLogo.png";
+import chatIcon from "../../assets/icon_assets/chat.png";
 import lvl1 from "../../assets/Level1.png";
-import icon from "../../assets/gitlabLogo.png";
 import { useNavigate } from "react-router-dom";
 
 
@@ -88,6 +88,7 @@ const MatchHistory = () => (
             <li>Played Against</li>
             <li>Winner</li>
             <li>Winner's Time</li>
+            <li>Loser's Time</li>
             <li>Date</li>
           </ul>
         </div>
@@ -97,6 +98,7 @@ const MatchHistory = () => (
         <div key={i} className="data_row">
           <span className="data_column">Player {i + 1}</span>
           <span className="data_column">#{i + 1}</span>
+          <span className="data_column">{Math.floor(Math.random() * 10)}</span>
           <span className="data_column">{Math.floor(Math.random() * 10)}</span>
           <span className="data_column">{Math.floor(Math.random() * 10)}</span>
         </div>
