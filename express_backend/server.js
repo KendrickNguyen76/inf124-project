@@ -1,9 +1,12 @@
-// .env setup
+/* 
+ * As it turns out, we only need to require this at the very beginning
+ * By doing this, the rest of the project has access to it.
+ */ 
 require('dotenv').config();
 
 // Supabase setup
 const supabaseClient = require('./services/supabaseClient');
-const supabase = supabaseClient.createSupabaseClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const supabase = supabaseClient.supabase
 
 // Other constants
 const express = require('express');
