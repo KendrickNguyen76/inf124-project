@@ -1,12 +1,14 @@
 // .env setup
 require('dotenv').config();
 
-// Constants
-const supabaseClient = require('./services/supabseClient.js');
+// Supabase setup
+const supabaseClient = require('./services/supabaseClient');
+const supabase = supabaseClient.createSupabaseClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
+// Other constants
 const express = require('express');
 const app = express();
 const port = 3000;
-
 
 
 app.get('/', (req, res) => {
