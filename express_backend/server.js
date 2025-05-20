@@ -1,6 +1,13 @@
-const express = require('express')
-const app = express()
-const port = 3000
+// .env setup
+require('dotenv').config();
+
+// Constants
+const supabaseClient = require('./services/supabseClient.js');
+const express = require('express');
+const app = express();
+const port = 3000;
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
