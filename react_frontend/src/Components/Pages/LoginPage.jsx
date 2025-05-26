@@ -10,7 +10,7 @@ function InputBoxes({ form, onChange }) {
   return (
     <div className="inputDiv">
       <label className="inputLabel" htmlFor="username">
-        Username/Email
+        Email
       </label>
       <input
         className="textInput"
@@ -77,7 +77,7 @@ const LoginPage = ({ setLoggedIn }) => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Login failed");
       setLoggedIn(true);
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       setError(err.message);
     } finally {
