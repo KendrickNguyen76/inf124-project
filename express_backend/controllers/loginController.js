@@ -3,6 +3,8 @@ const { supabase } = require('../services/supabaseClient');
 async function login(req, res) {
   const { username, password } = req.body;
 
+  console.log('Login attempt:', { username, password });
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email: username,
     password: password,
