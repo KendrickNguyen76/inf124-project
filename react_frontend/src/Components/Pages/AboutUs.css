@@ -5,14 +5,45 @@
   align-items: center;
 }
 
-.about_title h1{
-  font-family: 'Inter', sans-serif;
-  font-size: 3.7rem;
-  text-align: center;
-  margin: 1rem 0;
-  margin-bottom: 10px;
+.about_title {
+  position: relative;
+  width: 100%;
+  height: 300px; /* adjust as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
+.about_title img{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.4;
+  border: 1px solid #2a4849;
+}
+
+.about_title h1{
+  position: relative;
+  z-index: 1;
+  color: #ffffff;
+  font-size: 3.7rem;
+  text-shadow: 1px 1px 3px #2a4849;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  background-color: #2a4849;
+  z-index: 1;
+}
 .about_team{
   display: flex;
   align-content: center;
@@ -23,7 +54,9 @@
   margin-top: 0px;
   background-color: #2a4849;
   margin-bottom: 20px;
+  opacity: 0.9;
 }
+
 .about_team h1 {
   font-family: 'Inter', sans-serif;
   font-size: 2.7rem;
@@ -38,8 +71,9 @@
   align-items: flex-start;
   align-content: left;
   width: 100%;
-  margin-left: 40px;
-  margin-bottom: 40px;
+  margin-left: 60px;
+  margin-bottom: 60px;
+  margin-top: 40px;
 }
 
 .our_mission h1{
@@ -48,13 +82,13 @@
   text-align: left;
   margin: 0;
   padding: 0 1rem;
-  max-width: 1000px;
+  max-width: 1100px;
 }
 
 .our_mission p{
   padding: 0 1rem;
   text-align: left;
-  max-width: 1000px;
+  max-width: 1100px;
   font-family: Arial, sans-serif;
   font-size: 2.2rem;
   line-height: 1.6;
@@ -62,25 +96,36 @@
   margin: 0;
 }
 
-/*.about_paragraph {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  display: flex;
-  margin: 1rem 0;
+.about_paragraph{
+  display:flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: flex-end;
+  align-content: right;
+  width: 100%;
+  margin-right: 60px;
+  margin-bottom: 40px;
 }
 
-.about_paragraph p {
+.about_paragraph h1{
+  font-family: 'Inter', sans-serif;
+  font-size: 2.7rem;
+  text-align: right;
+  margin: 0;
   padding: 0 1rem;
-  justify-content: center;
-  text-align: center;
-  max-width: 1000px;
+  max-width: 1100px;
+}
+
+.about_paragraph p{
+  padding: 0 1rem;
+  text-align: right;
+  max-width: 1100px;
   font-family: Arial, sans-serif;
   font-size: 2.2rem;
   line-height: 1.6;
   color: #8BB174;
-  margin: 0 auto;
-}*/
+  margin: 0;
+}
 
 .members {
   display: grid;
@@ -98,6 +143,7 @@
   max-width: 400px;
   min-width: 200px;
   padding: 1rem;
+  margin-bottom: 0px;
   box-sizing: border-box;
   display: flex;             
   align-items: center;      
