@@ -4,18 +4,21 @@ import bashpurpleIcon from "../../assets/bash_purple.png";
 import bashredIcon from "../../assets/bash_red.png";
 import bashblueIcon from "../../assets/bash_blue.png";
 import bashgreenIcon from "../../assets/bash_green.png";
+import aboutBanner from "../../assets/about us banner.png";
 {/* have seperate sections for title, concept, and team description */}
 
 {/* Title about us concept*/}
 const AboutTitle = () => (
   <div className = "about_title">
+    <img src={aboutBanner} alt="Mockup Banner behind About Us Text" />
+    <div className="overlay"></div>
     <h1>About Us</h1>
   </div>
 )
 
 const OurMission = () => (
   <div className = "our_mission">
-    <h1>Our Mission</h1>
+    <h1>Our Mission  ⸺⸺⸺⸺⸺⸺⸺⸺   </h1>
     <p>
       At ByteMe, we believe technical interview questions don't have to be
       intimidating — they can actually be exciting. Most people struggle because
@@ -24,16 +27,17 @@ const OurMission = () => (
   </div>
 )
 
-/* have the paragraph of about us here
+/* have the paragraph of about us here*/
 const AboutParagraph = () => (
-  <div className="about_paragraph">
+  <div className = "about_paragraph">
+    <h1> ⸺⸺⸺⸺⸺⸺⸺⸺  Our Story</h1>
     <p>
-      At ByteMe, we believe technical interview questions don't have to be
-      intimidating — they can actually be exciting. Most people struggle because
-      practicing alone feels overwhelming and repetitive.
+      Inspired by a lack of such a product in industry our team decided
+      to create a gamified leet code in order to inspire more coders out
+      there to test their skills and have more motivation to improve.
     </p>
   </div>
-);*/
+)
 
 /*our individual team member paragraphs*/
 const AboutTeam = () => (
@@ -106,6 +110,7 @@ const AboutUs = () => {
     <div className = "about_page">
       <AboutTitle/>
       <OurMission/>
+      <AboutParagraph/>
       <AboutTeam/>
       <div className = "members">
         <Image1/>

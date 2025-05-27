@@ -13,7 +13,8 @@ import {
   AboutUs,
   CreateAccount,
   GamePage,
-  UserSettings
+  UserSettings,
+  QuestionBank
 } from "./Components/Pages";
 
 const App = () => {
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/howtoplay" element={<HowToPlay />} />
+        <Route path="/questionbank" element={<QuestionBank />} />
 
         {/* change the path name to be soemthing different */}
         <Route path="/userprofile" element={<UserProfile />} />
@@ -44,6 +46,7 @@ const App = () => {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/createaccount" element={<CreateAccount setLoggedIn={setLoggedIn}/>} />
         <Route path="/gamepage" element={<GamePage />} />
+
       </Routes>
       {/* have footer at bottom of each page w link to about us, this will hide the footer for speciifc pages*/}
       {!hideNavAndFooter && <Footer />}
