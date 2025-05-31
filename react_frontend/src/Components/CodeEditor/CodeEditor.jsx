@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import Editor from "@monaco-editor/react";
+import Console from "./Console";
 import "./CodeEditor.css";
 
 const CodeEditor = () => {
@@ -7,19 +8,27 @@ const CodeEditor = () => {
   const [code, setCode] = useState(
     `class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        `
   );
+  const [outputs, setOutputs] = useState([]);
   const editorRef = useRef(null);
 
   const editorOptions = {
     selectOnLineNumbers: true,
     automaticLayout: true,
-    fontSize: 14,
-    lineHeight: 22,
+    fontSize: 20,
+    lineHeight: 28,
     minimap: { enabled: false },
     scrollBeyondLastLine: false,
+    wordWrap: 'on',
   };
 
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;
+    // Disable context menu
+    editor.onContextMenu((e) => {
+      e.event.preventDefault();
+      e.event.stopPropagation();
+      return false;
+    });
   };
 
   const handleLanguageChange = (e) => {
@@ -39,7 +48,48 @@ const CodeEditor = () => {
   };
 
   const handleClick = (action) => {
-    alert(`You clicked the ${action} button!`);
+    if (action === "Run") {
+      setOutputs([
+        {
+          type: 'output',
+          message: '[*] Running code...',
+          category: 'stdout'
+        },
+        {
+          type: 'testCase',
+          testNumber: 1,
+          input: '[2,7,11,15], target = 9',
+          expected: '[0,1]',
+          output: '[0,1]',
+          success: true
+        },
+        {
+          type: 'output',
+          message: '✓ Test case 1 passed',
+          category: 'stdout'
+        },
+        {
+          type: 'testCase',
+          testNumber: 2,
+          input: '[3,2,4], target = 6',
+          expected: '[1,2]',
+          output: '[0,2]',
+          success: false
+        },
+        {
+          type: 'output',
+          message: '✗ Test case 2 failed\nExpected: [1,2]\nGot: [0,2]',
+          category: 'error'
+        },
+        {
+          type: 'output',
+          message: '\nExecution finished: 2/1 test cases passed.',
+          category: 'result'
+        }
+      ]);
+    } else {
+      alert(`You clicked the ${action} button!`);
+    }
   };
 
   return (
@@ -59,16 +109,22 @@ const CodeEditor = () => {
           <button className="submit-button" onClick={() => handleClick("Submit")}>Submit</button>
         </div>
       </div>
-      <Editor
-        height="85vh"
-        width="100%"
-        language={language}
-        value={code}
-        onMount={handleEditorDidMount}
-        onChange={(value) => setCode(value)}
-        theme="light"
-        options={editorOptions}
-      />
+      <div className="editor-container" onContextMenu={(e) => e.preventDefault()}>
+        <Editor
+          height="calc(100% - 200px)"
+          width="100%"
+          language={language}
+          value={code}
+          onMount={handleEditorDidMount}
+          onChange={(value) => setCode(value)}
+          theme="light"
+          options={{
+            ...editorOptions,
+            contextmenu: false
+          }}
+        />
+        <Console outputs={outputs} />
+      </div>
     </div>
   );
 };
