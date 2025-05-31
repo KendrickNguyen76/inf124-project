@@ -1,0 +1,277 @@
+/* whole screen */
+  /* allows for us to have the left and right column */
+.settings-box{
+    border: 8px solid black;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: left;
+    width: 94%;
+}
+
+.content-row{
+    display: flex;
+    
+}
+
+/* Left Side */
+.left-sidebar{
+    flex: 0.5;
+    min-width: 150px;
+    max-width: 360px;
+    border-right: 8px solid black; 
+    height: auto;
+}
+
+/* Left Side CONTENT */
+.settings-bar{
+}
+.settings-bar h2{
+    font-size: 2rem;
+    justify-content: center;
+    align-items: left;
+    display: flex;
+    color: #2A4849;
+}
+.selection-box {
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    height: 60px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* removed selection-box.edit-active  idk why they both don't work*/
+/* removed selection-box.appearence-active */
+
+.selection-box:hover {
+    background-color: grey;
+}
+
+.edit-profile-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.8rem;
+    margin: 0;
+    width: 200px;
+}
+
+
+
+
+
+/* Right Side */
+.right-sidebar{
+    flex:2;
+    height: auto;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+}
+
+.right-sidebar h2{
+    font-size: 2rem;
+    justify-content: center;
+    align-items: left;
+    display: flex;
+}
+
+.right-sidebar h3{
+    font-size: 1rem;
+    color: grey;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* Right Side CONTENT */
+
+.bashSelectionDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-color: #2A4849;
+}
+
+
+  /* CSS for the bash customization header at the top */
+.bashCustomizeHeader {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: bold;
+    color: #2A4849;
+    margin-bottom: 30px;
+    
+}
+
+/* CSS for the bash image */
+.selectedBash {
+    width: 124px;
+    height: auto;
+}
+
+/* CSS for the radio buttons */
+input[type="radio"] {
+    margin: 40px 20px;
+    transform: scale(2);
+}
+
+#green {
+    accent-color: green;
+}
+
+#blue {
+    accent-color: blue;
+}
+
+#red {
+    accent-color: #FF4E4E;
+}
+
+#orange {
+    accent-color: #de7b2f;
+}
+
+#purple {
+    accent-color: #C032EC;
+}
+
+#pink {
+    accent-color: #FD389E;
+}
+
+
+/* CSS for the submit button */
+.edit-buttons {
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    flex-direction: row;
+    
+/* align-items: center; */
+    gap: 75px;
+    margin-bottom: 20px;
+}
+.edit-buttons button {
+    background-color: #96b389;
+    color: white;
+    border: 4px solid black;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 150px;
+    
+}
+
+.delete-buttons {
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    flex-direction: row;
+    
+/* align-items: center; */
+    gap: 75px;
+    margin-bottom: 20px;
+}
+.delete-buttons button {
+    background-color: #444444;
+    color: white;
+    border: 4px solid #444444;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 150px;
+    
+}
+
+
+.selectedView{
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    width: 100%;
+}
+.selectedView img{
+    max-width: 100%; 
+    margin-right: 5px;
+}
+
+/* For Social Media Icons */
+.social-container {
+  font-family: sans-serif;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  color: #4a6b66;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.icons-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-box {
+  margin-top: 3%;
+  width: 80px;
+  height: 80px;
+  background-color: #e2e2e2;
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5%;
+}
+
+.icon-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -6px; /* position of the x button on the icon top to bottom*/
+  right: -6px; /* position of the x button on the icon left to right*/
+  background-color: white;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  line-height: -1px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.add-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #d1d1d1;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  transition-duration: 0.2s ease;
+}
+
+.add-icon:hover {
+  background-color: #c0c0c0;
+}

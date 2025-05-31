@@ -1,0 +1,155 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 50vh;
+  width: 100%;
+}
+/* Start of: Landing Sections */
+.landing_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.landing_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 30px;
+}
+.landing_text h1 {
+  border-top: none;
+  margin: 0;
+  padding-top: 20px;
+}
+.landing_text h2 {
+  border-top: none;
+  margin: 0;
+  padding: 0;
+}
+.landing_image {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: -150px;
+}
+#landing_bash,
+#landing_hsaB {
+  margin-right: 850px;
+  width: 489px;
+  height: 446px;
+}
+#landing_hsaB {
+  margin-right: 0;
+  width: 489px;
+  height: 446px;
+}
+/* End of: Landing Sections */
+
+/* About Section */
+.about_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.about_section h1 {
+  margin: 0;
+  text-align: left;
+  padding: 0 0 50px 100px;
+}
+.about_section h2 {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+  padding: 0 0 0 100px;
+  display: inline;
+}
+.about_section p {
+  margin: 0;
+  padding: 0 0 50px 100px;
+  text-align: left;
+}
+/* End of: About Section  */
+
+/* Start of Features Section  */
+.features_section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.features_text h1,
+h2,
+p {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0 0 0 100px;
+}
+/*End of: Features Section */
+
+/* Start of How It Works Section  */
+.how_it_works_section {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+}
+.how_it_works_section h1 {
+  margin: 0;
+  padding: 0 0 0 100px;
+  text-align: left;
+}
+.how_it_works_section h2 {
+  margin: 0;
+  padding: 0 0 50px 100px;
+  text-align: left;
+}
+/*End of: How It Works Section */
+
+/* Start of Play Now Section  */
+
+.play_now_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.play_now_section h1 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  padding: 50px 0 50px 0;
+}
+
+.play_now_section button {
+  border-radius: 36px;
+  background: #182c2d;
+  width: 617px;
+  height: 213px;
+  flex-shrink: 0;
+  color: #d9d9d9;
+  text-align: center;
+  font-family: Inter;
+  font-size: 82px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+.play_now_section button:hover {
+  cursor: pointer;
+}
+/* End of Play Now Section  */

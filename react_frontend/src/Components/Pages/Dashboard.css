@@ -1,0 +1,171 @@
+.dashboard {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.leadercontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.leader_dash_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* gap: 10px; */
+  margin: 20px 0;
+  width: 100%;
+}
+
+
+.leader_dash_title h1 {
+  font-size: 3.7rem;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.leader_dash_hello h1{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 0;
+    padding-top: 0;
+}
+.leader_dash_play h1{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin-top: 60px;
+    padding-top: 30px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.leader_dash_title h1{
+    font-size: 3.7rem;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+.label_row,
+.data_row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.1fr 2fr; /* use consistent ratios */
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.label_row {
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #2a4849;
+  color: white;
+  border-bottom: 2px solid #8BB174;
+}
+
+.data_row {
+  font-size: 16px;
+  color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.label_row span,
+.data_row span {
+  padding: 0 5px;
+  margin: 0;
+  overflow-wrap: break-word;
+}
+  
+  .leaderboard_scroll {
+    max-height: 250px;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px auto;
+    border: 1px solid #182c2d;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #2a4849;
+  }
+  
+
+
+  .click_to_play_section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 150px;
+    margin-top: 40px;
+    padding-top: 10px;
+    padding-bottom: 60px;
+    margin-bottom: 30px;
+  }
+
+  .practice_button{
+    border-radius: 36px;
+    border-color:#2a4849;
+    background-color:  #8BB174;
+    width: 300px;
+    height: 100px;
+    flex-shrink: 0;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+
+  .practice_button:hover{
+    border-radius: 36px;
+    background-color: #2a4849;
+    color: #fff;
+    text-decoration: none;
+    padding: 4px 8px;
+  }
+
+  .match_button{
+    border-radius: 36px;
+    border-color:#2a4849;
+    background-color:  #8BB174;
+    width: 300px;
+    height: 100px;
+    flex-shrink: 0;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+  }
+
+  .match_button:hover{
+    border-radius: 36px;
+    background-color: #2a4849;
+    color: #fff;
+    text-decoration: none;
+    padding: 4px 8px;
+  }

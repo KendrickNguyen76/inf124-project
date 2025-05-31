@@ -1,18 +1,58 @@
-import React from 'react';
-import './Navbar.css'
-import logo from '../../assets/ByteMe_Logo.png'
+import React, {useState} from 'react';
+import logo from '../../assets/byteme_logo.png'
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+import './Navbar.css'
+
+
+const Navbar = ({loggedIn, setLoggedIn}) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setLoggedIn(false);
+    navigate('/'); // Redirect to homepage
+  };
+
   return (
-  <div className= 'navigation'>
-    <img src={logo} className='nav-logo'/>
-    {/* <div className="nav-logo"> Byte Me </div> */}
-    <ul className="nav-menu">
-        <li> Home </li>
-        <li> About</li>
-        <li className='nav-enter'> Log In </li>
+    <nav>
+      {/* This makes our logo clickable and take us to the homepage */}
+      <Link to ="/"> 
+        <img src={logo} className='title'/>
+      </Link>
+
+      <div 
+        /* This creates a drop down menu when screen is small (responsive)*/
+        className='menu' 
+        onClick={() => 
+        {setMenuOpen(!menuOpen)}}
+      >
+        {/* This creates the three lines that represent the menu */}
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      {/* This creates the links to the different pages */}
+      <ul className={menuOpen ? 'open' : ''}> {loggedIn ? (
+        <>
+          {/*  Pages available when logged in */}
+          <li><NavLink to ="/dashboard"> Dashboard</NavLink></li>
+          <li><NavLink to ="/leaderboard"> Leaderboard</NavLink></li>
+          <li><NavLink to ="/howtoplay"> How To Play</NavLink></li>
+          <li><NavLink to ="/userprofile"> User Profile</NavLink></li>
+          <li><NavLink to="/login" onClick={handleLogout}>Logout</NavLink></li>
+          </>
+        ) : (
+          <>
+          {/*  Pages available when not logged in */}
+          <li><NavLink to ="/howtoplay"> How To Play</NavLink></li>
+          <li><NavLink to ="/login"> LogIn</NavLink></li>
+          </>
+        )}
       </ul>
-    </div>
+    </nav>
   )
 }
 

@@ -1,0 +1,77 @@
+/* CSS file for the Create Account Page */
+
+/* CSS for the main div */
+.createAccountDiv {
+    text-align: center;
+}
+
+/* 
+ * CSS for createAccountTextInput class
+ * You may be wondering why this is necessary. Essentially, this 
+ * is just here to override the margin-bottom setting of the TextInput
+ * class so that the text boxes on the Create Account page are closer together
+ */
+.createAccountTextInput {
+    margin-bottom: 30px;
+}
+
+/* CSS for the bash customization header at the top */
+.bashCustomizeHeader {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: bold;
+    color: #2A4849;
+    margin-bottom: 30px;
+}
+
+/* CSS for the bash image */
+.selectedBash {
+    width: 124px;
+    height: auto;
+}
+
+/* CSS for the radio buttons */
+input[type="radio"] {
+    margin: 40px 20px;
+    transform: scale(2);
+}
+
+/* CSS to set different accent colors of each radio button */
+
+/* Quick Notes: For some godforsaken reason, using our custom colors
+ * Makes the radio buttons look really really weird. From what I can
+ * find online, it's a bug that results from how browsers rend colors
+ * As a result, I'm gonna have to use slightly different colors to solve 
+ * this problem. 
+ */
+
+/* Also, due to it requiring some intense
+ * CSS dark magic, I don't know how I can
+ * possibly make the radio buttons appear like
+ * they do in our Figma, so we'll have to settle
+ * for our current setup
+ */
+
+#green {
+    accent-color: green;
+}
+
+#blue {
+    accent-color: blue;
+}
+
+#red {
+    accent-color: #FF4E4E;
+}
+
+#orange {
+    accent-color: #de7b2f;
+}
+
+#purple {
+    accent-color: #C032EC;
+}
+
+#pink {
+    accent-color: #FD389E;
+}

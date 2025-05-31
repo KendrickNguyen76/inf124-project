@@ -1,0 +1,75 @@
+.game-page {
+    display: flex;
+    flex-direction: column; 
+    height: 100vh;
+    width: 100vw;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.game-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.game-problem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.game-editor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.game-timer {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+.quit-button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px;
+  text-transform: uppercase;
+  gap: 8px;
+  position: relative;
+}
+
+.quit-button:hover .quit-label {
+  text-decoration: underline;
+}
+
+.quit-icon {
+  font-size: 24px;
+}
