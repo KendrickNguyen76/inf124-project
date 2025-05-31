@@ -52,7 +52,7 @@ function BashSelection({ selectedColor, setSelectedColor}) {
     <div className="bashSelectionDiv">
       <img className="selectedBash" src={selectedBash} alt="Bash" />
       <form>
-        {['Green', 'Blue', 'Red', 'Orange', 'Purple', 'Pink'].map((color) => (
+        {colorOptions.map((color) => (
             <input
               type="radio"
               className="colorSelectionRadio"
