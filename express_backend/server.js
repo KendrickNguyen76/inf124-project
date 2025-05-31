@@ -16,7 +16,26 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const regRoutes = require('./routes/regRoutes');
 
-app.use(cors());
+
+
+const prodOrigin =[process.env.ORIGIN_1, process.env.ORIGIN_2]; // Replace with your production domain
+const devOrigin = ['http://localhost:5173']; // Replace with your development domain
+const allowedOrigins = process.env.NODE_ENV === 'production' ? prodOrigin : devOrigin;
+
+
+app.use(cors(
+  {
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin)) {
+        console.log(origin, allowedOrigins);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  }
+));
 app.use(express.json()); // Add this to parse JSON bodies
 app.use('/login', authRoutes);
 app.use('/register', regRoutes);
@@ -29,6 +48,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 });
-
-
-
