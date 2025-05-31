@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import logo from '../../assets/byteme_logo.png'
+import logo from '../../assets/ByteMe_logo.png'
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import './Navbar.css'
