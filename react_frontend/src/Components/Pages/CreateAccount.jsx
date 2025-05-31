@@ -34,13 +34,11 @@ function CreateAccountInputBoxes({ form, onChange }) {
   );
 };
 
-/* I ChatGPTed this and fixed it up, hopefully this works..*/
-function BashSelection() {
-  /* Potentially the jankiest piece of code i've written so far, but it does work so....*/
+/* Moved all of the state up to CreateAccount, messy solution that works for now */
+function BashSelection({ selectedColor, setSelectedColor}) {
   const bashImages = [GreenBash, BlueBash, RedBash, OrangeBash, PurpleBash, PinkBash]
   const colorOptions = ["Green", "Blue", "Red", "Orange", "Purple", "Pink"]
 
-  const [selectedColor, setSelectedColor] = useState('Green');
   const [selectedBash, setSelectedBash] = useState(bashImages[0]);
 
   const handleColorChange = (value) => {
@@ -53,7 +51,6 @@ function BashSelection() {
   return (
     <div className="bashSelectionDiv">
       <img className="selectedBash" src={selectedBash} alt="Bash" />
-
       <form>
         {['Green', 'Blue', 'Red', 'Orange', 'Purple', 'Pink'].map((color) => (
             <input
@@ -82,11 +79,14 @@ function CreateAccount ({setLoggedIn}) {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [selectedColor, setSelectedColor] = useState('Green');
 
+  /* Handle changes in the text form */
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  /* Called when user hits createAccount button */
   const handleCreateAccount = async (e) => {
     e.preventDefault();
     setError("");
@@ -103,7 +103,8 @@ function CreateAccount ({setLoggedIn}) {
           name: form.name,
           username: form.username,
           email: form.email,
-          password: form.password
+          password: form.password,
+          pfp: selectedColor.toUpperCase(),// Pass in the selected color of Bash
         }),
       });
       const data = await res.json();
@@ -116,10 +117,12 @@ function CreateAccount ({setLoggedIn}) {
       setLoading(false);
     }
   };
+
+  /* Create Account Page format */
   return (
     <div className="createAccountDiv">
       <h3 className="bashCustomizeHeader">Customize Your Bash!</h3>
-      <BashSelection />
+      <BashSelection selectedColor={selectedColor} setSelectedColor={setSelectedColor} />
       <form onSubmit={handleCreateAccount}>
         <CreateAccountInputBoxes form={form} onChange={handleChange} />
         <button className="submitButton" id="createAccount" type="submit" disabled={loading}>
