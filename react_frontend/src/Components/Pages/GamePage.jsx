@@ -3,6 +3,11 @@ import "./GamePage.css";
 import CodeEditor from "../CodeEditor/CodeEditor.jsx";
 import CodeProblem from "../CodeProblem/CodeProblem.jsx";
 import { useNavigate } from 'react-router-dom';
+import {
+  Panel,
+  PanelGroup,
+  PanelResizeHandle
+} from "react-resizable-panels";
 
 const GameProblem = () => {
   return (
@@ -50,10 +55,15 @@ const GamePage = () => {
         <GameTimer />
         <GameQuitButton />
       </div>
-      <div className="game-container">
-        <GameProblem />
-        <GameEditor />
-      </div>
+      <PanelGroup direction="horizontal" className="panel-group">
+        <Panel defaultSize={45} minSize={30} maxSize={70}>
+          <CodeProblem />
+        </Panel>
+        <PanelResizeHandle className="resize-handle" />
+        <Panel defaultSize={55} minSize={30} maxSize={70}>
+          <CodeEditor />
+        </Panel>
+      </PanelGroup>
     </div>
   );
 };
