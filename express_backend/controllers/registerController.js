@@ -1,17 +1,17 @@
 const { supabase } = require("../services/supabaseClient");
 
 async function register(req, res) {
-  const { email, password, username, name } = req.body;
+  const { email, password, username, name, pfp } = req.body;
 
-  console.log("Registration attempt:", { email, username, name });
+  console.log("Registration attempt:", { email, username, name, pfp});
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: { 
-        display_name: username,
         username, //trigger for custom table
-        name 
+        name,
+        pfp,
     },
     },
   });
