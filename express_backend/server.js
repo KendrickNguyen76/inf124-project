@@ -23,19 +23,18 @@ const devOrigin = ['http://localhost:5173']; // Replace with your development do
 const allowedOrigins = process.env.NODE_ENV === 'production' ? prodOrigin : devOrigin;
 
 
-app.use(cors(
-  {
-    origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin)) {
-        console.log(origin, allowedOrigins);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-  }
-));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // ✅ Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
+
 app.use(express.json()); // Add this to parse JSON bodies
 app.use('/login', authRoutes);
 app.use('/register', regRoutes);
