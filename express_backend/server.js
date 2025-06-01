@@ -41,6 +41,10 @@ app.options('*', cors(corsOptions));
 
 
 app.use(express.json()); // Add this to parse JSON bodies
+
+console.log('Using login route:', '/login');
+console.log('Using register route:', '/register');
+
 app.use('/login', authRoutes);
 app.use('/register', regRoutes);
 
