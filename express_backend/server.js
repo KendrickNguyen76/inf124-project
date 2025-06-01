@@ -16,6 +16,11 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const regRoutes = require('./routes/regRoutes');
 
+// CORS configuration; setup origin
+const prodOrigin = [process.env.ORIGIN_1, process.env.ORIGIN_2].filter(Boolean);
+const devOrigin = ['http://localhost:5173'];
+const allowedOrigins = process.env.NODE_ENV === 'production' ? prodOrigin : devOrigin;
+
 app.use(cors());
 app.use(express.json()); // Add this to parse JSON bodies
 app.use('/login', authRoutes);
