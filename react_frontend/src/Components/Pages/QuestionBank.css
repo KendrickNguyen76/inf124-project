@@ -32,10 +32,10 @@
 }
 
 .category_section{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(250px, 7fr));
+  display: flex;
+  flex-direction: row;
   padding: 0;
-  gap: 50px;
+  gap: 35px;
   margin-top: 40px;
   column-gap: 80px;
   margin-bottom: 40px;
@@ -43,8 +43,7 @@
 
 .category_1,
 .category_2,
-.category_3,
-.category_4 {
+.category_3{
     border-radius: 36px;
     border-color:#2a4849;
     background-color:  #8BB174;
@@ -67,8 +66,7 @@
 
 .category_1:hover,
 .category_2:hover,
-.category_3:hover,
-.category_4:hover {
+.category_3:hover{
     border-radius: 36px;
     background-color: #2a4849;
     color: #fff;

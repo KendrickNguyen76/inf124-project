@@ -14,7 +14,8 @@ import {
   CreateAccount,
   GamePage,
   UserSettings,
-  QuestionBank
+  QuestionBank,
+  QuestionBankQuestions
 } from "./Components/Pages";
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/howtoplay" element={<HowToPlay />} />
         <Route path="/questionbank" element={<QuestionBank />} />
+        <Route path="/questionbankquestions" element={<QuestionBankQuestions />} />
 
         {/* change the path name to be soemthing different */}
         <Route path="/userprofile" element={<UserProfile />} />

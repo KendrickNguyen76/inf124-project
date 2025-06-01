@@ -1,0 +1,32 @@
+.question_bank_questions_cat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
+.question_bank_question_title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.question_bank_question_title h1{
+  font-size: 3.7rem;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
+
+.question_bank_question_title p{
+    font-size: 2.0rem;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
