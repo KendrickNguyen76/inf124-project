@@ -11,18 +11,20 @@ const supabase = supabaseClient.supabase
 // Other constants
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const regRoutes = require('./routes/regRoutes');
 
 
 
-const prodOrigin = [process.env.ORIGIN_1, process.env.ORIGIN_2].filter(Boolean);
-const devOrigin = ['http://localhost:5173'];
-const allowedOrigins = process.env.NODE_ENV === 'production' ? prodOrigin : devOrigin;
+const prodOrigin =[process.env.ORIGIN_1, process.env.ORIGIN_2]; // Replace with your production domain
+const devOrigin = ['http://localhost:5173']; // Replace with your development domain
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? [process.env.ORIGIN_1, process.env.ORIGIN_2].filter(Boolean)
+  : ['http://localhost:5173'];
 
-const corsOptions = {
+app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -34,17 +36,9 @@ const corsOptions = {
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-
+}));
 
 app.use(express.json()); // Add this to parse JSON bodies
-
-console.log('Using login route:', '/login');
-console.log('Using register route:', '/register');
-
 app.use('/login', authRoutes);
 app.use('/register', regRoutes);
 
