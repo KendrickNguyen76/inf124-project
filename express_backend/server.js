@@ -20,13 +20,14 @@ const regRoutes = require('./routes/regRoutes');
 
 const prodOrigin =[process.env.ORIGIN_1, process.env.ORIGIN_2]; // Replace with your production domain
 const devOrigin = ['http://localhost:5173']; // Replace with your development domain
-const allowedOrigins = process.env.NODE_ENV === 'production' ? prodOrigin : devOrigin;
-
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? [process.env.ORIGIN_1, process.env.ORIGIN_2].filter(Boolean)
+  : ['http://localhost:5173'];
 
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true); // ✅ Allow the request
+      callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
