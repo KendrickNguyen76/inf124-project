@@ -113,7 +113,7 @@ const CodeEditor = () => {
 ${userCode}
 
 if __name__ == "__main__":
-    ${config.callSolution(vars)}
+${config.callSolution(vars)}
 `;
       case "javascript":
         return `
