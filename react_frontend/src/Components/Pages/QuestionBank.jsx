@@ -5,7 +5,7 @@ import "./QuestionBank.css";
 const QuestionBankTitle = () => (
     <div className = "question_bank_container">
       <h1> Byte Me Practice Mode </h1>
-      <p> Select a category below to begin honing your coding skills </p>
+      <p> Select a difficulty level below to begin honing your coding skills </p>
     </div>
   )
 
@@ -14,17 +14,14 @@ const QuestionCategories = () =>
   const navigate = useNavigate();
   return(
     <div className = "category_section">
-      <button className = "category_1" onClick = {() => navigate("/gamepage")}>
-        Algorithms
+      <button className = "category_1" onClick = {() => navigate("/questionbankquestions", {state: { difficulty: "EASY"} })}>
+        Easy
       </button>
-      <button className = "category_2" onClick = {() => navigate("/gamepage")}>
-        Data Structures
+      <button className = "category_2" onClick = {() => navigate("/questionbankquestions", {state: { difficulty: "MEDIUM"} })}>
+        Medium
       </button>
-      <button className = "category_3" onClick = {() => navigate("/gamepage")}>
-        Databases
-      </button>
-      <button className = "category_4" onClick = {() => navigate("/gamepage")}>
-        System Design
+      <button className = "category_3" onClick = {() => navigate("/questionbankquestions", {state: { difficulty: "HARD"} })}>
+        Hard
       </button>
     </div>
   );

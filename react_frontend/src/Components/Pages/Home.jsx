@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import Bash from "../../assets/bash.png";
+import Bash from "../../assets/Bash.png";
 import hsaB from "../../assets/hsaB.png";
 import laptop from "../../assets/laptop_landing.png";
 

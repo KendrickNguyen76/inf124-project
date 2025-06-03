@@ -1,12 +1,10 @@
 .code-editor {
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  border-radius: 8px;
+  height: 100%;
+  margin: 0;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  border: 8px solid #426b69;
-  background: #426b69;
+  background: white;
+  outline: none !important;
 }
 
 .editor-header {
@@ -17,7 +15,7 @@
   display: flex;
   align-items: center;
   font-family: "inter";
-  border-radius: 10px;
+  border-radius: none;
   background: #426b69;
   width: 100%;
 }
@@ -89,4 +87,22 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.monaco-editor {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

@@ -3,10 +3,10 @@
     flex-direction: column; 
     height: 100vh;
     width: 100vw;
-    gap: 20px;
-    padding: 20px;
     box-sizing: border-box;
+    padding: 20px 20px 0 20px;
 }
+
 .game-container {
   display: flex;
   flex-direction: row;
@@ -72,4 +72,47 @@
 
 .quit-icon {
   font-size: 24px;
+}
+
+.panel-group {
+    flex: 1;
+    display: flex;
+    margin-top: 20px;
+    height: calc(100vh - 100px);
+    background: #426b69;
+    padding: 8px;
+    border-radius: 8px;
+    gap: 8px;
+}
+
+.panel {
+    height: 100%;
+    overflow: hidden;
+    background: white;
+    border-radius: 4px;
+    outline: none !important;
+}
+
+.resize-handle {
+    width: 8px;
+    background: #426b69;
+    cursor: col-resize;
+    position: relative;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none !important;
+}
+
+.resize-handle::after {
+    content: "";
+    width: 4px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+}
+
+.resize-handle:hover::after {
+    background: rgba(255, 255, 255, 0.4);
 }
