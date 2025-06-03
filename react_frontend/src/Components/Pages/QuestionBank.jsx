@@ -14,13 +14,13 @@ const QuestionCategories = () =>
   const navigate = useNavigate();
   return(
     <div className = "category_section">
-      <button className = "category_1" onClick = {() => navigate("/questionbankquestions")}>
+      <button className = "category_1" onClick = {() => navigate("/questionbankquestions", {state: { difficulty: "EASY"} })}>
         Easy
       </button>
-      <button className = "category_2" onClick = {() => navigate("/questionbankquestions")}>
+      <button className = "category_2" onClick = {() => navigate("/questionbankquestions", {state: { difficulty: "MEDIUM"} })}>
         Medium
       </button>
-      <button className = "category_3" onClick = {() => navigate("/questionbankquestions")}>
+      <button className = "category_3" onClick = {() => navigate("/questionbankquestions", {state: { difficulty: "HARD"} })}>
         Hard
       </button>
     </div>
