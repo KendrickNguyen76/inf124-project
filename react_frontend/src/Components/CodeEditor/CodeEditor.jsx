@@ -60,7 +60,7 @@ const CodeEditor = () => {
           };
         },
         callSolution: (vars) =>
-          `sol = Solution()\n    print(sol.twoSum(${vars.nums}, ${vars.target}))`,
+          `sol = Solution()\nprint(str(sol.twoSum(${vars.nums}, ${vars.target})).replace(' ', ''))`,
       },
       javascript: {
         parseInput: (input) => {
@@ -70,7 +70,8 @@ const CodeEditor = () => {
             target: `${targetLine}`,
           };
         },
-        callSolution: (vars) => `console.log(twoSum(${vars.nums}, ${vars.target}));`,
+        callSolution: (vars) =>
+          `console.log(twoSum(${vars.nums}, ${vars.target}));`,
       },
       java: {
         parseInput: (input) => {
@@ -109,11 +110,18 @@ const CodeEditor = () => {
 
     switch (language) {
       case "python":
+        // Indent each line of the callSolution block by 4 spaces
+        const indentedCall = config
+          .callSolution(vars)
+          .split("\n")
+          .map((line) => "    " + line)
+          .join("\n");
         return `
+from typing import List
 ${userCode}
 
 if __name__ == "__main__":
-${config.callSolution(vars)}
+${indentedCall}
 `;
       case "javascript":
         return `
