@@ -57,11 +57,11 @@ const SettingsBar = ({ activeTab, onSelect }) => {
 };
 
 // Component for the right sidebar
-function EditButtons() {
+function EditButtons({ handleSave }) {
   return (
       <div className="edit-buttons">
         <button className="edit-button" type = "settings button">Cancel</button>
-        <button className="edit-button" type = "settings button">Save Changes</button>
+        <button className="edit-button" type = "settings button" onClick={handleSave}>Save Changes</button>
       </div>
   );
 }
@@ -178,8 +178,8 @@ function BashSelection() {
     </div>
   );
 }
-// EditProfile View - Edit Bio
 
+// EditProfile View - Edit Bio
 function BioInput() {
   return (
     <div className = "editprofile-box">
@@ -223,6 +223,18 @@ function InputTheme() {
   );
 }
 
+// Handler functions for saving settings
+const editAccountHandler = () => {
+  console.log("Hello, this is what is called when you hit save on the Edit Account page");
+}
+
+const editProfileHandler = () => {
+  console.log("Hello, this is what is called when you hit save on the Edit Profile page");
+}
+
+const editAppearanceHandler = () => {
+  console.log("Hello, this is what is called when you hit save on the Edit Appearance page");
+}
 
 
 // Main UserSettings Component
@@ -241,7 +253,7 @@ const UserSettings = () => {
             <h2> Edit Account</h2>
             <InputBoxes />
             <SocialMediaInput />
-            <EditButtons />
+            <EditButtons handleSave={editAccountHandler}/>
             <DeleteButton />
           </>
         ) : tab === "editProfile" ? (
@@ -249,15 +261,14 @@ const UserSettings = () => {
             <h2> Edit Profile</h2>
             <BashSelection />
             <BioInput />
-            <EditButtons />
-
+            <EditButtons handleSave={editProfileHandler} />
           </>
         ) : (
           <>
             <h2> Appearence</h2>
             <AppearanceSettings />
             <InputTheme />
-            <EditButtons />
+            <EditButtons handleSave={editAppearanceHandler} />
           </>
         )}
         </div>
