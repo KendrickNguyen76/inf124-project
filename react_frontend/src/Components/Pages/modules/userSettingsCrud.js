@@ -10,4 +10,10 @@ export async function getUserProfile() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: user_token}),
     });
+
+    const profile_data = await res.json();
+
+    if (!res.ok) throw new Error(profile_data.error || "Failed to get Profile Info");
+    
+    console.log(profile_data);
 }
