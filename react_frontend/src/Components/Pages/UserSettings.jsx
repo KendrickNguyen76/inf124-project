@@ -242,6 +242,7 @@ const editAppearanceHandler = () => {
 // Main UserSettings Component
 const UserSettings = () => {
   const [tab, setTab] = useState("editAccount"); // default to edit
+  
   getUserProfile();
 
   return (
