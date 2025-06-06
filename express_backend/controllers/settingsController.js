@@ -11,4 +11,11 @@ async function editProfile(req, res) {
 // getProfileDetails - pulls all of the details
 // about the current user from the profile table
 async function getProfileDetails(req, res){
+    const { token } = req.body;
+
+    console.log(token);
 }
+
+module.exports = {
+    getProfileDetails: getProfileDetails,
+};
