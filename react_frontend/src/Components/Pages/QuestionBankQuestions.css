@@ -30,3 +30,33 @@
     white-space: nowrap;
     margin-bottom: 20px;
 }
+
+.scroll-table{
+  max-height: 325px;
+  overflow-y:auto;
+  width: 100%;
+  max-width: 1000px;
+  margin-bottom: 60px;
+}
+.question-table {
+  width: 100%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.question-table th, .question-table td {
+  border: 2px solid black;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  font-family: Inter;
+}
+
+.question-table th{
+  font-size: 1.0rem;
+  background-color: #2a4849;
+}
+.question-table td{
+  font-size: 0.8rem;
+  background-color:  #8BB174;
+}

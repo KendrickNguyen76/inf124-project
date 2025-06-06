@@ -14,17 +14,68 @@ const QuestionBankQuestionsTitle = () => (
 /*figure out how to call the previous state of question set in here */
 const QuestionsCall = () => {
   const location = useLocation();
-  const difficulty = location.state?.difficulty;
+  const difficulty = location.state?.difficulty || 'easy'; // default to 'easy' if not provided
 
-  /*use the difficulty to query the database*/
+  console.log("Difficulty passed:", difficulty);
+
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const res = await fetch(`http://localhost:3000/questionDiff?difficulty=${difficulty}`);
+        const data = await res.json();
+
+         console.log('Received questions:', data);
+
+        setQuestions(data);
+      } catch (err) {
+        console.error('Failed to fetch questions:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuestions();
+  }, [difficulty]);
+
+  
   return (
-    <div>
-      <h2> Selected Difficulty: </h2>
-      <p>{difficulty ? difficulty: "no difficulty selected."}</p>
+  <div>
+    {loading ? (
+      <p>Loading...</p>
+    ) : (
+    <div className = "scroll-table">
+      <table className="question-table">
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Description</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          {questions.length > 0 ? (
+            questions.map((q) => (
+              <tr key={q.id}>
+                <td>{q.name}</td>
+                <td>{q.description}</td>
+                <td>{q.category}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3">No questions found.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
-  )
+    )}
+  </div>
+);
 }
-
 const QuestionBankQuestions = () => {
 
   return(
