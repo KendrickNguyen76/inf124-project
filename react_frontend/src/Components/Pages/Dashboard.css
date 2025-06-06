@@ -20,6 +20,14 @@
   margin: 20px 0;
   width: 100%;
 }
+.name_line{
+  content: "";
+  display: block;
+  height: 2px;
+  width: 150px;
+  background-color: #426B69;
+  flex-shrink: 0;
+}
 
 
 .leader_dash_title h1 {

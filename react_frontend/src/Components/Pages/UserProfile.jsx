@@ -15,7 +15,7 @@ const UserTitle = () => (
   <div className="name_line"></div>
     <h1> Byte’s Page</h1>
   <div className="name_line"></div>
-
+  
 </div>
 );
 

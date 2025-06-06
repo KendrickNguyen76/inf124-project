@@ -10,10 +10,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 28px;
 }
-.leader_global_title h1{
-  font-size: 65px;
+.name_line{
+  width: 25%;
+  height: 2px;
+  margin: 10px 5px 0px 5px;
+  background-color: #426B69;
 }
+
 .label_row,
 .data_row {
   display: grid;
