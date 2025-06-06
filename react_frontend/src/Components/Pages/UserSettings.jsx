@@ -3,6 +3,8 @@ import "./UserSettings.css";
 import { useState } from 'react';
 import Select from "react-select";
 
+import { getUserProfile } from './modules/userSettingsCrud';
+
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
 import BlueBash from '../../assets/bash_blue.png'
@@ -240,6 +242,7 @@ const editAppearanceHandler = () => {
 // Main UserSettings Component
 const UserSettings = () => {
   const [tab, setTab] = useState("editAccount"); // default to edit
+  getUserProfile();
 
   return (
     <div className = "settings-box"> 
