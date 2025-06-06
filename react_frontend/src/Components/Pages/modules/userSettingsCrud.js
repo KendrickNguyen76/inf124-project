@@ -20,8 +20,7 @@ export async function getUserProfile() {
     // Due to the weird way Promises work, profile_data is an array of
     // objects that are key value pairs. In order ot access this information,
     // I'm converting it to a Map and returning that instead.
-    const map = new Map(Object.entries(profile_data[0]));
-    // This one actually doesn't work the way I want it to LMAO
+    // const map = new Map(Object.entries(profile_data[0]));
 
-    return map;
+    return profile_data;
 }

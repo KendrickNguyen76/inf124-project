@@ -1,6 +1,6 @@
 import React from "react";
 import "./UserSettings.css";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Select from "react-select";
 
 import { getUserProfile } from './modules/userSettingsCrud';
@@ -243,7 +243,15 @@ const editAppearanceHandler = () => {
 const UserSettings = () => {
   const [tab, setTab] = useState("editAccount"); // default to edit
   
-  getUserProfile();
+  useEffect(() => {
+    const getProfileInfo = async () => {
+      const profile_info = await getUserProfile();
+      console.log(profile_info);
+    }
+
+    getProfileInfo();
+  })
+  
 
   return (
     <div className = "settings-box"> 
