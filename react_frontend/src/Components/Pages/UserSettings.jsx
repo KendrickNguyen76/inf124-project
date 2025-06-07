@@ -256,7 +256,6 @@ const UserSettings = () => {
     }
 
     getProfileInfo();
-    setSelectedColor(existingProfile.current.get("profile_pic"))
   }, []);
 
   return (
