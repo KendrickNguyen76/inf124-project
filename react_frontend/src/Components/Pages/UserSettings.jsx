@@ -3,7 +3,7 @@ import "./UserSettings.css";
 import { useState, useEffect, useRef } from 'react';
 import Select from "react-select";
 
-import { getUserProfile } from './modules/userSettingsCrud';
+import { getUserProfile, updateUserProfile } from './modules/userSettingsCrud';
 
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
@@ -207,8 +207,7 @@ function EditProfileTab( { existingBash, existingBio } ) {
     const [currentBio, setCurrentBio] = useState(existingBio);
 
     const editProfileHandler = (color, bio) => {
-      console.log(color);
-      console.log(bio);
+        updateUserProfile(color, bio);
     }
 
     return (

@@ -3,23 +3,35 @@
 // Imports
 const { supabase } = require("../services/supabaseClient");
 
-// editProfile - handles requests/responses for the "Edit Profile"
-// part of the user settings page
+// editProfile()
+// handles requests/responses to update the "Edit Profile" part 
+// of the user settings page
 async function editProfile(req, res) {
+    // Written, but has not been tested yet
+    const {token, newPfp, newBio} = req.body;
+    const { data: { user } } = await supabase.auth.getUser(token);
+
+    const { error } = await supabase
+        .from('profile')  
+        .update({ profile_pic: newPfp, bio: newBio })  
+        .eq('id', user.id)
+    
+    if (error) {
+        return res.status(401).json({ error: error.message });
+    }
 }
 
-// getProfileDetails - pulls all of the details
-// about the current user from the profile table
+// getProfileDetails()
+// Pulls all of the details about the current user from the profile table
 async function getProfileDetails(req, res){
     const { token } = req.body;
     // Get the user from the auth table, and store its id
     const { data: { user } } = await supabase.auth.getUser(token);
-    const user_id = user.id;
     
     const { data:user_profile, error } = await supabase
         .from('profile')
         .select('bio, is_light, profile_pic')
-        .eq('id', user_id);
+        .eq('id', user.id);
 
     // Come back to error handling later
     if (error) {
@@ -31,4 +43,5 @@ async function getProfileDetails(req, res){
 
 module.exports = {
     getProfileDetails: getProfileDetails,
+    editProfile: editProfile,
 };

@@ -23,3 +23,12 @@ export async function getUserProfile() {
         console.error(error.message);
     }
 }
+
+// updateUserProfile()
+// Sends the users's new profile picture and bio to the backend
+export function updateUserProfile(newPfp, newBio) {
+    // Come back to this once the routes have been set up
+    const user_token = localStorage.getItem('supbase_token');
+    console.log(newPfp);
+    console.log(newBio);
+}
