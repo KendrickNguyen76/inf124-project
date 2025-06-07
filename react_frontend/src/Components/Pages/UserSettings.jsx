@@ -188,7 +188,13 @@ function BioInput( { currentBio, setCurrentBio } ) {
       <div className="inputDiv">
         <label className="inputLabel" htmlFor="bio">Edit Bio</label>
         <form action="" method="post">
-          <textarea className="textInput createAccountTextInput" id="bio" name="bio" placeholder={currentBio} rows="4"></textarea>
+          <textarea 
+            className="textInput createAccountTextInput" 
+            id="bio" name="bio" 
+            value={currentBio} 
+            onChange={e => setCurrentBio(e.target.value)}
+            rows="4">
+          </textarea>
         </form>
       </div>
     </div>
@@ -200,8 +206,9 @@ function EditProfileTab( { existingBash, existingBio } ) {
     const [selectedColor, setSelectedColor] = useState(existingBash);
     const [currentBio, setCurrentBio] = useState(existingBio);
 
-    const editProfileHandler = () => {
-      console.log("Hello, this is what is called when you hit save on the Edit Profile page");
+    const editProfileHandler = (color, bio) => {
+      console.log(color);
+      console.log(bio);
     }
 
     return (
@@ -209,7 +216,7 @@ function EditProfileTab( { existingBash, existingBio } ) {
         <h2> Edit Profile</h2>
         <BashSelection selectedColor={selectedColor} setSelectedColor={setSelectedColor}/>
         <BioInput currentBio={currentBio} setCurrentBio={setCurrentBio}/>
-        <EditButtons handleSave={editProfileHandler} />
+        <EditButtons handleSave={() => editProfileHandler(selectedColor, currentBio)} />
       </>
     );
 }
