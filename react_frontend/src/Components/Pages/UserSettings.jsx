@@ -143,12 +143,12 @@ const iconMapping = {
 
 
 // EditProfile View - Bash Selection
-function BashSelection() {
+function BashSelection( { existingBash } ) {
   const bashImages = [GreenBash, BlueBash, RedBash, OrangeBash, PurpleBash, PinkBash]
-  const colorOptions = ["Green", "Blue", "Red", "Orange", "Purple", "Pink"]
+  const colorOptions = ["GREEN", "BLUE", "RED", "ORANGE", "PURPLE", "PINK"]
 
-  const [selectedColor, setSelectedColor] = useState('Green');
-  const [selectedBash, setSelectedBash] = useState(bashImages[0]);
+  const [selectedColor, setSelectedColor] = useState(existingBash);
+  const [selectedBash, setSelectedBash] = useState(bashImages[colorOptions.indexOf(existingBash)]);
 
   const handleColorChange = (value) => {
     if (colorOptions.includes(value)) {
@@ -163,7 +163,7 @@ function BashSelection() {
       <img className="selectedBash" src={selectedBash} alt="Bash" />
 
       <form>
-        {['Green', 'Blue', 'Red', 'Orange', 'Purple', 'Pink'].map((color) => (
+        {colorOptions.map((color) => (
             <input
               type="radio"
               className="colorSelectionRadio"
@@ -182,13 +182,13 @@ function BashSelection() {
 }
 
 // EditProfile View - Edit Bio
-function BioInput() {
+function BioInput( { existingBio } ) {
   return (
     <div className = "editprofile-box">
       <div className="inputDiv">
         <label className="inputLabel" htmlFor="bio">Edit Bio</label>
         <form action="" method="post">
-          <textarea className="textInput createAccountTextInput" id="bio" name="bio" placeholder="<current Bio>..." rows="4"></textarea>
+          <textarea className="textInput createAccountTextInput" id="bio" name="bio" placeholder={existingBio} rows="4"></textarea>
         </form>
       </div>
     </div>
@@ -246,16 +246,13 @@ const UserSettings = () => {
   
   useEffect(() => {
     const getProfileInfo = async () => {
-      console.log("I got called!");
       const profile_info = await getUserProfile();
       const map = new Map(Object.entries(profile_info[0]));
       setExistingProfile(map);
   }
 
     getProfileInfo();
-  });
-
-  console.log(existingProfile);
+  }, []);
 
   return (
     <div className = "settings-box"> 
@@ -275,8 +272,8 @@ const UserSettings = () => {
         ) : tab === "editProfile" ? (
           <>
             <h2> Edit Profile</h2>
-            <BashSelection />
-            <BioInput />
+            <BashSelection existingBash={existingProfile.get("profile_pic")}/>
+            <BioInput existingBio={existingProfile.get("bio")}/>
             <EditButtons handleSave={editProfileHandler} />
           </>
         ) : (
