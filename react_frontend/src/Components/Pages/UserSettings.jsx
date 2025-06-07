@@ -242,16 +242,20 @@ const editAppearanceHandler = () => {
 // Main UserSettings Component
 const UserSettings = () => {
   const [tab, setTab] = useState("editAccount"); // default to edit
+  const [existingProfile, setExistingProfile] = useState(new Map()); 
   
   useEffect(() => {
     const getProfileInfo = async () => {
+      console.log("I got called!");
       const profile_info = await getUserProfile();
-      console.log(profile_info);
-    }
+      const map = new Map(Object.entries(profile_info[0]));
+      setExistingProfile(map);
+  }
 
     getProfileInfo();
-  })
-  
+  });
+
+  console.log(existingProfile);
 
   return (
     <div className = "settings-box"> 
