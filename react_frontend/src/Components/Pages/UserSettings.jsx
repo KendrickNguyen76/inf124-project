@@ -96,6 +96,8 @@ function InputBoxes() {
     </div>
   );
 }
+
+
 // EditAccount View - Edit Social Media
 function SocialMediaInput() {
 const iconMapping = {
@@ -141,16 +143,12 @@ const iconMapping = {
 }
 
 
-
 // EditProfile View - Bash Selection
-
-
-function BashSelection( { existingBash } ) {
+function BashSelection( { selectedColor, setSelectedColor} ) {
   const bashImages = [GreenBash, BlueBash, RedBash, OrangeBash, PurpleBash, PinkBash]
   const colorOptions = ["GREEN", "BLUE", "RED", "ORANGE", "PURPLE", "PINK"]
 
-  const [selectedColor, setSelectedColor] = useState(existingBash);
-  const [selectedBash, setSelectedBash] = useState(bashImages[colorOptions.indexOf(existingBash)]);
+  const [selectedBash, setSelectedBash] = useState(bashImages[colorOptions.indexOf(selectedColor)]);
 
   const handleColorChange = (value) => {
     if (colorOptions.includes(value)) {
@@ -184,18 +182,39 @@ function BashSelection( { existingBash } ) {
 }
 
 // EditProfile View - Edit Bio
-function BioInput( { existingBio } ) {
+function BioInput( { currentBio, setCurrentBio } ) {
   return (
     <div className = "editprofile-box">
       <div className="inputDiv">
         <label className="inputLabel" htmlFor="bio">Edit Bio</label>
         <form action="" method="post">
-          <textarea className="textInput createAccountTextInput" id="bio" name="bio" placeholder={existingBio} rows="4"></textarea>
+          <textarea className="textInput createAccountTextInput" id="bio" name="bio" placeholder={currentBio} rows="4"></textarea>
         </form>
       </div>
     </div>
   );
 }
+
+// EditProfile View - Edit Profile Tab
+function EditProfileTab( { existingBash, existingBio } ) {
+    const [selectedColor, setSelectedColor] = useState(existingBash);
+    const [currentBio, setCurrentBio] = useState(existingBio);
+
+    const editProfileHandler = () => {
+      console.log("Hello, this is what is called when you hit save on the Edit Profile page");
+    }
+
+    return (
+      <>
+        <h2> Edit Profile</h2>
+        <BashSelection selectedColor={selectedColor} setSelectedColor={setSelectedColor}/>
+        <BioInput currentBio={currentBio} setCurrentBio={setCurrentBio}/>
+        <EditButtons handleSave={editProfileHandler} />
+      </>
+    );
+}
+
+
 
 // Appearance View - Display Site 
 const AppearanceSettings = () => (
@@ -232,9 +251,6 @@ const editAccountHandler = () => {
   console.log("Hello, this is what is called when you hit save on the Edit Account page");
 }
 
-const editProfileHandler = () => {
-  console.log("Hello, this is what is called when you hit save on the Edit Profile page");
-}
 
 const editAppearanceHandler = () => {
   console.log("Hello, this is what is called when you hit save on the Edit Appearance page");
@@ -274,12 +290,10 @@ const UserSettings = () => {
             <DeleteButton />
           </>
         ) : tab === "editProfile" ? (
-          <>
-            <h2> Edit Profile</h2>
-            <BashSelection existingBash={existingProfile.current.get("profile_pic")}/>
-            <BioInput existingBio={existingProfile.current.get("bio")}/>
-            <EditButtons handleSave={editProfileHandler} />
-          </>
+          <EditProfileTab 
+            existingBash={existingProfile.current.get("profile_pic")}
+            existingBio={existingProfile.current.get("bio")}
+          />
         ) : (
           <>
             <h2> Appearence</h2>
