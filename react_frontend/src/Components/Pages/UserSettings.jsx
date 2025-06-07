@@ -1,6 +1,6 @@
 import React from "react";
 import "./UserSettings.css";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Select from "react-select";
 
 import { getUserProfile } from './modules/userSettingsCrud';
@@ -143,6 +143,8 @@ const iconMapping = {
 
 
 // EditProfile View - Bash Selection
+
+
 function BashSelection( { existingBash } ) {
   const bashImages = [GreenBash, BlueBash, RedBash, OrangeBash, PurpleBash, PinkBash]
   const colorOptions = ["GREEN", "BLUE", "RED", "ORANGE", "PURPLE", "PINK"]
@@ -242,16 +244,19 @@ const editAppearanceHandler = () => {
 // Main UserSettings Component
 const UserSettings = () => {
   const [tab, setTab] = useState("editAccount"); // default to edit
-  const [existingProfile, setExistingProfile] = useState(new Map()); 
-  
+  const existingProfile = useRef(new Map());
+
+  // How in the world do i store the information i want from getUserProfile
+  // Without triggering a billion rerenders???
   useEffect(() => {
     const getProfileInfo = async () => {
       const profile_info = await getUserProfile();
       const map = new Map(Object.entries(profile_info[0]));
-      setExistingProfile(map);
-  }
+      existingProfile.current = map;
+    }
 
     getProfileInfo();
+    setSelectedColor(existingProfile.current.get("profile_pic"))
   }, []);
 
   return (
@@ -272,8 +277,8 @@ const UserSettings = () => {
         ) : tab === "editProfile" ? (
           <>
             <h2> Edit Profile</h2>
-            <BashSelection existingBash={existingProfile.get("profile_pic")}/>
-            <BioInput existingBio={existingProfile.get("bio")}/>
+            <BashSelection existingBash={existingProfile.current.get("profile_pic")}/>
+            <BioInput existingBio={existingProfile.current.get("bio")}/>
             <EditButtons handleSave={editProfileHandler} />
           </>
         ) : (
