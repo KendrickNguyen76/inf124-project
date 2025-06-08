@@ -22,6 +22,7 @@ const CodeEditor = ({ problem_id }) => {
     wordWrap: "on",
   };
 
+  // Fetch problem data from backend
   useEffect(() => {
     if (!problem_id) return;
     fetch(`http://localhost:3000/question/${problem_id}`)
@@ -29,8 +30,14 @@ const CodeEditor = ({ problem_id }) => {
       .then((data) => {
         setStarterCode(data.starter_code || {});
         setTestCases(data.test_cases || []);
-        setWrapperCode(data.wrapper_code || {});
-        // Set initial code for the default language
+        // Unescape \\ and \n in wrapper code for each language
+        const processedWrapperCode = {};
+        for (const lang in data.wrapper_code || {}) {
+          processedWrapperCode[lang] = data.wrapper_code[lang]
+            .replace(/\\\\/g, "\\")
+            .replace(/\\n/g, "\n");
+        }
+        setWrapperCode(processedWrapperCode);
         setCode(
           data.starter_code && data.starter_code[language]
             ? data.starter_code[language].replace(/\\n/g, "\n")
@@ -39,6 +46,7 @@ const CodeEditor = ({ problem_id }) => {
       });
   }, [problem_id]);
 
+  // Update code when language changes
   useEffect(() => {
     setCode(
       starterCode[language] ? starterCode[language].replace(/\\n/g, "\n") : ""
@@ -47,7 +55,6 @@ const CodeEditor = ({ problem_id }) => {
 
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;
-    // Disable context menu
     editor.onContextMenu((e) => {
       e.event.preventDefault();
       e.event.stopPropagation();
@@ -71,114 +78,35 @@ const CodeEditor = ({ problem_id }) => {
     cpp: "C++",
   };
 
-  // Example problem configuration for scalability
-  const problemConfig = {
-    // Key: problemId or name, here 'twoSum' as example
-    twoSum: {
-      python: {
-        parseInput: (input) => {
-          const [numsLine, targetLine] = input.split("\n");
-          return {
-            nums: `list(map(int, "${numsLine}".split()))`,
-            target: `int("${targetLine}")`,
-          };
-        },
-        callSolution: (vars) =>
-          `sol = Solution()\nprint(str(sol.twoSum(${vars.nums}, ${vars.target})).replace(' ', ''))`,
-      },
-      javascript: {
-        parseInput: (input) => {
-          const [numsLine, targetLine] = input.split("\n");
-          return {
-            nums: `[${numsLine}]`,
-            target: `${targetLine}`,
-          };
-        },
-        callSolution: (vars) =>
-          `console.log(twoSum(${vars.nums}, ${vars.target}));`,
-      },
-      java: {
-        parseInput: (input) => {
-          const [numsLine, targetLine] = input.split("\n");
-          return {
-            nums: `new int[]{${numsLine}}`,
-            target: `${targetLine}`,
-          };
-        },
-        callSolution: (vars) =>
-          `Solution sol = new Solution();\n        System.out.println(java.util.Arrays.toString(sol.twoSum(${vars.nums}, ${vars.target})));`,
-      },
-      cpp: {
-        parseInput: (input) => {
-          const [numsLine, targetLine] = input.split("\n");
-          return {
-            nums: `{${numsLine}}`,
-            target: `${targetLine}`,
-          };
-        },
-        callSolution: (vars) =>
-          `Solution sol;\n    vector<int> res = sol.twoSum(vector<int>${vars.nums}, ${vars.target});\n    cout << "[";\n    for (size_t i = 0; i < res.size(); ++i) {\n        cout << res[i];\n        if (i + 1 < res.size()) cout << ",";\n    }\n    cout << "]" << endl;`,
-      },
-    },
-    // Add more problems here...
+  // Helper: format nums for each language
+  const formatNums = (nums, lang) => {
+    if (lang === "java" || lang === "cpp") {
+      // Java and C++ want {2, 7, 11, 15}
+      return `{${nums.join(", ")}}`;
+    }
+    // Python/JS want [2, 7, 11, 15]
+    return JSON.stringify(nums);
   };
 
-  // Set this to the current problem key (e.g., from props, context, or state)
-  const currentProblemKey = "twoSum"; // TODO: Make dynamic
+  // Helper: format expected for display
+  const formatExpected = (expected) => {
+    if (Array.isArray(expected)) return JSON.stringify(expected);
+    return expected;
+  };
 
+  // Generate code to send to backend for each test case
   const generateWrappedCode = (userCode, language, testCase) => {
-    const config = problemConfig[currentProblemKey]?.[language];
-    if (!config) return userCode;
+    const wrapper = wrapperCode[language];
+    if (!wrapper) return userCode;
+    const [nums, target] = testCase.input;
+    const numsStr = formatNums(nums, language);
+    const targetStr =
+      typeof target === "number" ? target : JSON.stringify(target);
 
-    const vars = config.parseInput(testCase.input);
-
-    switch (language) {
-      case "python":
-        // Indent each line of the callSolution block by 4 spaces
-        const indentedCall = config
-          .callSolution(vars)
-          .split("\n")
-          .map((line) => "    " + line)
-          .join("\n");
-        return `
-from typing import List
-${userCode}
-
-if __name__ == "__main__":
-${indentedCall}
-`;
-      case "javascript":
-        return `
-${userCode}
-
-${config.callSolution(vars)}
-`;
-      case "java":
-        return `
-${userCode}
-
-public class Main {
-    public static void main(String[] args) {
-        ${config.callSolution(vars)}
-    }
-}
-`;
-      case "cpp":
-        return `
-${userCode}
-
-#include <iostream>
-#include <vector>
-using namespace std;
-
-int main() {
-    ${config.callSolution(vars)}
-    return 0;
-}
-`;
-      default:
-        return userCode;
-    }
+    return wrapper
+      .replace("{user_code}", userCode)
+      .replace("{nums}", numsStr)
+      .replace("{target}", targetStr);
   };
 
   const handleClick = async (action) => {
@@ -186,16 +114,9 @@ int main() {
       setOutputs([
         { type: "output", message: "[*] Running code...", category: "stdout" },
       ]);
-
-      const testCases = [
-        { input: "2 7 11 15\n9", expected: "[0,1]" },
-        { input: "3 2 4\n6", expected: "[1,2]" },
-      ];
-
       let newOutputs = [];
       for (let i = 0; i < testCases.length; i++) {
         try {
-          // Wrap user code for this test case
           const wrappedCode = generateWrappedCode(code, language, testCases[i]);
           const response = await fetch("http://localhost:3000/code/execute", {
             method: "POST",
@@ -207,29 +128,38 @@ int main() {
             }),
           });
           const result = await response.json();
-          console.log(result);
-
           let output = (result.stdout || "").trim();
           let errorMsg = "";
-
-          // Show compile or runtime errors if present
           if (result.compile_output) {
             errorMsg = result.compile_output.trim();
           } else if (result.stderr) {
             errorMsg = result.stderr.trim();
           }
-
-          let success = output === testCases[i].expected && !errorMsg;
-
+          // Compare output as JSON if expected is array
+          let expected = testCases[i].expected;
+          let success = false;
+          try {
+            // Try to parse output as JSON if expected is array
+            if (Array.isArray(expected)) {
+              const parsed = JSON.parse(output);
+              success =
+                JSON.stringify(parsed) === JSON.stringify(expected) &&
+                !errorMsg;
+            } else {
+              success = output === String(expected) && !errorMsg;
+            }
+          } catch {
+            // fallback to string compare
+            success = output === String(expected) && !errorMsg;
+          }
           newOutputs.push({
             type: "testCase",
             testNumber: i + 1,
-            input: testCases[i].input,
-            expected: testCases[i].expected,
+            input: JSON.stringify(testCases[i].input),
+            expected: formatExpected(expected),
             output: errorMsg ? errorMsg : output,
             success,
           });
-
           if (errorMsg) {
             newOutputs.push({
               type: "output",
@@ -241,9 +171,9 @@ int main() {
               type: "output",
               message: success
                 ? `✓ Test case ${i + 1} passed`
-                : `✗ Test case ${i + 1} failed\nExpected: ${
-                    testCases[i].expected
-                  }\nGot: ${output}`,
+                : `✗ Test case ${i + 1} failed\nExpected: ${formatExpected(
+                    expected
+                  )}\nGot: ${output}`,
               category: success ? "stdout" : "error",
             });
           }
