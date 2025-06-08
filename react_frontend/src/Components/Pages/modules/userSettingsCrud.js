@@ -11,7 +11,7 @@ export async function getUserProfile() {
         const res = await fetch(`${API_URL}/settings/profiledetails`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ token: user_token}),
+            body: JSON.stringify({ token: user_token }),
         });
 
         const profile_data = await res.json(); 
@@ -26,9 +26,21 @@ export async function getUserProfile() {
 
 // updateUserProfile()
 // Sends the users's new profile picture and bio to the backend
-export function updateUserProfile(newPfp, newBio) {
-    // Come back to this once the routes have been set up
-    const user_token = localStorage.getItem('supbase_token');
-    console.log(newPfp);
-    console.log(newBio);
+export async function updateUserProfile(newPfp, newBio) {
+    const user_token = localStorage.getItem('supabase_token');
+
+    try {
+        console.log("Sending new bio and profile pic");
+
+        const res = await fetch(`${API_URL}/settings/editprofile`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: user_token, newPfp: newPfp, newBio: newBio }),
+        });
+
+        if (!res.ok) throw new Error("Failed to get Profile Info");
+
+    } catch (error) {
+        console.error(error.message);
+    }
 }

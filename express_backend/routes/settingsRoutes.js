@@ -7,6 +7,6 @@ const { getProfileDetails, editProfile } = require('../controllers/settingsContr
 router.post('/profiledetails', getProfileDetails);
 
 // Route that updates the user's pfp and bio
-// router.post('/editprofile', editProfile);
+router.post('/editprofile', editProfile);
 
 module.exports = router;

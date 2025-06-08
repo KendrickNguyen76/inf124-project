@@ -10,10 +10,13 @@ async function editProfile(req, res) {
     // Written, but has not been tested yet
     const {token, newPfp, newBio} = req.body;
     const { data: { user } } = await supabase.auth.getUser(token);
+    
+    console.log(user.id);
+    console.log(`Changing Profile Pic and Bio to ${newPfp} and ${newBio}`);
 
     const { error } = await supabase
-        .from('profile')  
-        .update({ profile_pic: newPfp, bio: newBio })  
+        .from('profile') 
+        .update({ bio: newBio, profile_pic: newPfp })
         .eq('id', user.id)
     
     if (error) {
