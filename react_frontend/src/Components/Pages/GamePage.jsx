@@ -53,7 +53,7 @@ const GameQuitButton = () => {
 
 const GamePage = () => {
   const location = useLocation();
-  const { question_id, question_name, question_description, question_example, question_difficulty, question_category, starter_code} = location.state || {};
+  const { question_id, question_name, question_description, question_example, question_difficulty} = location.state || {};
   
   return (
     <div className="game-page">
@@ -68,7 +68,7 @@ const GamePage = () => {
         </Panel>
         <PanelResizeHandle className="resize-handle" />
         <Panel defaultSize={55} minSize={30} maxSize={70}>
-          <CodeEditor />
+          <CodeEditor problem_id={question_id}/>
         </Panel>
       </PanelGroup>
     </div>

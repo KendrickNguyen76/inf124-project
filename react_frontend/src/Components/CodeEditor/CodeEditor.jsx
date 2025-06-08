@@ -1,14 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import Console from "./Console";
 import "./CodeEditor.css";
 
-const CodeEditor = () => {
+const CodeEditor = ({ problem_id }) => {
   const [language, setLanguage] = useState("python");
-  const [code, setCode] = useState(
-    `class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        `
-  );
+  const [code, setCode] = useState("");
   const [outputs, setOutputs] = useState([]);
+  const [starterCode, setStarterCode] = useState({});
+  const [testCases, setTestCases] = useState([]);
+  const [wrapperCode, setWrapperCode] = useState({});
   const editorRef = useRef(null);
 
   const editorOptions = {
@@ -20,6 +21,29 @@ const CodeEditor = () => {
     scrollBeyondLastLine: false,
     wordWrap: "on",
   };
+
+  useEffect(() => {
+    if (!problem_id) return;
+    fetch(`http://localhost:3000/question/${problem_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setStarterCode(data.starter_code || {});
+        setTestCases(data.test_cases || []);
+        setWrapperCode(data.wrapper_code || {});
+        // Set initial code for the default language
+        setCode(
+          data.starter_code && data.starter_code[language]
+            ? data.starter_code[language].replace(/\\n/g, "\n")
+            : ""
+        );
+      });
+  }, [problem_id]);
+
+  useEffect(() => {
+    setCode(
+      starterCode[language] ? starterCode[language].replace(/\\n/g, "\n") : ""
+    );
+  }, [language, starterCode]);
 
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;

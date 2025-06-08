@@ -18,6 +18,8 @@ const regRoutes = require('./routes/regRoutes');
 const codeRoutes = require('./routes/codeRoutes');
 const questionDiffRoutes = require('./routes/questionsDifficultyQuery');
 const settingsRoutes = require('./routes/settingsRoutes');
+const questionRoutes = require('./routes/questionRoutes');
+
 
 // CORS configuration; setup origin
 const prodOrigin = [process.env.ORIGIN_1, process.env.ORIGIN_2].filter(Boolean);
@@ -31,6 +33,7 @@ app.use('/register', regRoutes);
 app.use('/code', codeRoutes);
 app.use('/questionDiff', questionDiffRoutes);
 app.use('/settings', settingsRoutes);
+app.use('/question', questionRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
