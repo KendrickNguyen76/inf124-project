@@ -54,8 +54,23 @@ export async function updateUserProfile(newPfp, newBio) {
 // Updates the user's appearance to light or dark mode
 export async function updateUserAppearance(newLightOption) {
     const user_token = localStorage.getItem('supabase_token');
-    console.log(newLightOption);
-    console.log(user_token);
 
-    // Come back to this once backend is set up
+    try {
+        console.log("Sending new light/dark mode preference.");
+
+        const res = await fetch(`${API_URL}/settings/editappearance`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: user_token, newIsLight: newLightOption }),
+        });
+        
+        if (!res.ok) {
+            throw new Error("Failed to Update Apperance")
+        } else {
+            console.log("Successfully Updated Appearance!")
+        }
+
+    } catch (error) {
+        console.error(error.message);
+    }
 }
