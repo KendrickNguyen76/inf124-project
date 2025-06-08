@@ -12,19 +12,31 @@ async function editProfile(req, res) {
     const { data: { user } } = await supabase.auth.getUser(token);
     
     console.log(user.id);
-    console.log(`Changing Profile Pic and Bio to ${newPfp} and ${newBio}`);
 
     const { error } = await supabase
         .from('profile') 
         .update({ bio: newBio, profile_pic: newPfp })
         .eq('id', user.id)
-    
+
+
+    const { data:user_profile, error:profile_fetch_error } = await supabase
+        .from('profile')
+        .select('bio, profile_pic')
+        .eq('id', user.id);
+
+    updateSuccess = (user_profile[0].bio === newBio) && (user_profile[0].profile_pic === newPfp);
+
     if (error) {
         return res.status(401).json({ error: error.message });
+    } else if (!updateSuccess) {
+        res.status(406).send(`
+            Attempted to change profile pic to ${newPfp} and ${newBio} but values are ${user_profile[0].profile_pic} and ${user_profile[0].bio}
+            `);
+    } else {
+        res.status(200).send('Successly Updated Profile!');
     }
-
-    res.status(200).send('Successly Updated Profile!');
 }
+
 
 // getProfileDetails()
 // Pulls all of the details about the current user from the profile table
