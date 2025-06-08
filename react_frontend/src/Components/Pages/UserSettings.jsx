@@ -1,6 +1,7 @@
 import React from "react";
 import "./UserSettings.css";
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 import { getUserProfile, updateUserProfile } from './modules/userSettingsCrud';
@@ -59,10 +60,21 @@ const SettingsBar = ({ activeTab, onSelect }) => {
 };
 
 // Component for the right sidebar
-function EditButtons({ handleSave }) {
+function EditButtons({ handleSaveAction }) {
+  const navigate = useNavigate();
+
+  const handleSave = () => {
+    handleSaveAction();
+    navigate("/userprofile");
+  }
+
+  const handleCancel = () => {
+    navigate("/userprofile");
+  }
+  
   return (
       <div className="edit-buttons">
-        <button className="edit-button" type = "settings button">Cancel</button>
+        <button className="edit-button" type = "settings button" onClick={handleCancel}>Cancel</button>
         <button className="edit-button" type = "settings button" onClick={handleSave}>Save Changes</button>
       </div>
   );
@@ -215,7 +227,7 @@ function EditProfileTab( { existingBash, existingBio } ) {
         <h2> Edit Profile</h2>
         <BashSelection selectedColor={selectedColor} setSelectedColor={setSelectedColor}/>
         <BioInput currentBio={currentBio} setCurrentBio={setCurrentBio}/>
-        <EditButtons handleSave={() => editProfileHandler(selectedColor, currentBio)} />
+        <EditButtons handleSaveAction={() => editProfileHandler(selectedColor, currentBio)} />
       </>
     );
 }
@@ -296,7 +308,7 @@ const UserSettings = () => {
             <DeleteButton />
           </>
         ) : tab === "editProfile" ? (
-          <EditProfileTab 
+          <EditProfileTab
             existingBash={existingProfile.current.get("profile_pic")}
             existingBio={existingProfile.current.get("bio")}
           />
