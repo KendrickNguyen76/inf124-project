@@ -79,6 +79,7 @@ function EditButtons({ handleSaveAction }) {
       </div>
   );
 }
+
 function DeleteButton() {
   return (
       <div className="delete-buttons">
@@ -215,21 +216,21 @@ function BioInput( { currentBio, setCurrentBio } ) {
 
 // EditProfile View - Edit Profile Tab
 function EditProfileTab( { existingBash, existingBio } ) {
-    const [selectedColor, setSelectedColor] = useState(existingBash);
-    const [currentBio, setCurrentBio] = useState(existingBio);
+  const [selectedColor, setSelectedColor] = useState(existingBash);
+  const [currentBio, setCurrentBio] = useState(existingBio);
 
-    const editProfileHandler = (color, bio) => {
-        updateUserProfile(color, bio);
-    }
+  const editProfileHandler = (color, bio) => {
+    updateUserProfile(color, bio);
+  };
 
-    return (
-      <>
-        <h2> Edit Profile</h2>
-        <BashSelection selectedColor={selectedColor} setSelectedColor={setSelectedColor}/>
-        <BioInput currentBio={currentBio} setCurrentBio={setCurrentBio}/>
-        <EditButtons handleSaveAction={() => editProfileHandler(selectedColor, currentBio)} />
-      </>
-    );
+  return (
+    <>
+      <h2> Edit Profile</h2>
+      <BashSelection selectedColor={selectedColor} setSelectedColor={setSelectedColor}/>
+      <BioInput currentBio={currentBio} setCurrentBio={setCurrentBio}/>
+      <EditButtons handleSaveAction={() => editProfileHandler(selectedColor, currentBio)} />
+    </>
+  );
 }
 
 
@@ -244,8 +245,7 @@ const AppearanceSettings = () => (
 );
 
 // Appearance View - Choose Theme
-function InputTheme() {
-  const [selectedOption, setSelectedOption] = useState(null);
+function InputTheme( { selectedOption, setSelectedOption } ) {
   const options = [
     { value: "displayLight", label: "Light Mode (Regular Mode)" },
     { value: "displayDark", label: "Dark Mode" }
@@ -264,15 +264,36 @@ function InputTheme() {
   );
 }
 
+// Appearance View - Edit Appearance Tab
+function EditAppearanceTab() {
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const editAppearanceHandler = (themeOption) => {
+      let isLight = true;
+
+      if (themeOption === null) {
+          // Do nothing
+      } else if (themeOption.value === "displayDark") {
+        isLight = false;
+      }
+  };
+
+  return (
+    <>
+      <h2> Appearence</h2>
+      <AppearanceSettings />
+      <InputTheme selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
+      <EditButtons handleSaveAction={() => editAppearanceHandler(selectedOption)} />
+    </>
+  );
+}
+
+
 // Handler functions for saving settings
 const editAccountHandler = () => {
   console.log("Hello, this is what is called when you hit save on the Edit Account page");
 }
 
-
-const editAppearanceHandler = () => {
-  console.log("Hello, this is what is called when you hit save on the Edit Appearance page");
-}
 
 
 // Main UserSettings Component
@@ -304,7 +325,7 @@ const UserSettings = () => {
             <h2> Edit Account</h2>
             <InputBoxes />
             <SocialMediaInput />
-            <EditButtons handleSave={editAccountHandler}/>
+            <EditButtons handleSaveAction={editAccountHandler}/>
             <DeleteButton />
           </>
         ) : tab === "editProfile" ? (
@@ -313,12 +334,7 @@ const UserSettings = () => {
             existingBio={existingProfile.current.get("bio")}
           />
         ) : (
-          <>
-            <h2> Appearence</h2>
-            <AppearanceSettings />
-            <InputTheme />
-            <EditButtons handleSave={editAppearanceHandler} />
-          </>
+            <EditAppearanceTab />
         )}
         </div>
       </div>
