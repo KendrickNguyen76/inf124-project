@@ -60,3 +60,20 @@
   font-size: 0.8rem;
   background-color:  #8BB174;
 }
+.clickable-row {
+  cursor: pointer;
+}
+.clickable-row:hover td,
+.clickable-row:focus td {
+  background-color: #4E8141;
+  color: white;
+}
+
+.clickable-row:active td {
+  background-color: #4E8141;
+}
+
+.clickable-row td {
+  padding: 12px;
+  transition: background-color 0.2s ease;
+}

@@ -14,7 +14,8 @@ const QuestionBankQuestionsTitle = () => (
 /*figure out how to call the previous state of question set in here */
 const QuestionsCall = () => {
   const location = useLocation();
-  const difficulty = location.state?.difficulty || 'easy'; // default to 'easy' if not provided
+  const navigate = useNavigate();
+  const difficulty = location.state?.difficulty || 'easy';
 
   console.log("Difficulty passed:", difficulty);
 
@@ -41,41 +42,59 @@ const QuestionsCall = () => {
   }, [difficulty]);
 
   
-  return (
-  <div>
-    {loading ? (
-      <p>Loading...</p>
-    ) : (
-    <div className = "scroll-table">
-      <table className="question-table">
-        <thead>
-          <tr>
-            <th>Question</th>
-            <th>Description</th>
-            <th>Category</th>
-          </tr>
-        </thead>
-        <tbody>
-          {questions.length > 0 ? (
-            questions.map((q) => (
-              <tr key={q.id}>
-                <td>{q.name}</td>
-                <td>{q.description}</td>
-                <td>{q.category}</td>
+return (
+    <div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="scroll-table">
+          <table className="question-table">
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Description</th>
+                <th>Category</th>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="3">No questions found.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {questions.length > 0 ? (
+                questions.map((q) => (
+                  <tr
+                    key={q.id}
+                    className="clickable-row"
+                    onClick={() =>
+                      navigate("/gamepage", {
+                        state: {
+                          question_id: q.id,
+                          question_name: q.name,
+                          question_example: q.example,
+                          question_description: q.description,
+                          question_category: q.category,
+                          question_difficulty: q.difficulty,
+                        },
+                      })
+                    }
+                    
+                  >
+                    
+                    <td>{q.name}</td>
+                    <td>{q.description}</td>
+                    <td>{q.category}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3">No questions found.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
-    )}
-  </div>
-);
-}
+  );
+};
+
 const QuestionBankQuestions = () => {
 
   return(

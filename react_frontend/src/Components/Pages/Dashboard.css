@@ -135,8 +135,9 @@
   }
 
   .practice_button:hover{
+    cursor: pointer;
     border-radius: 36px;
-    background-color: #2a4849;
+    background-color: #4E8141;
     color: #fff;
     text-decoration: none;
     padding: 4px 8px;
@@ -163,8 +164,9 @@
   }
 
   .match_button:hover{
+    cursor: pointer;
     border-radius: 36px;
-    background-color: #2a4849;
+    background-color: #4E8141;
     color: #fff;
     text-decoration: none;
     padding: 4px 8px;
