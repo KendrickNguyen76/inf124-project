@@ -48,3 +48,14 @@ export async function updateUserProfile(newPfp, newBio) {
         console.error(error.message);
     }
 }
+
+
+// updateUserTheme()
+// Updates the user's appearance to light or dark mode
+export async function updateUserAppearance(newLightOption) {
+    const user_token = localStorage.getItem('supabase_token');
+    console.log(newLightOption);
+    console.log(user_token);
+
+    // Come back to this once backend is set up
+}

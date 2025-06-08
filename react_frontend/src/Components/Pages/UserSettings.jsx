@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
-import { getUserProfile, updateUserProfile } from './modules/userSettingsCrud';
+import { getUserProfile, updateUserProfile, updateUserAppearance } from './modules/userSettingsCrud';
 
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
@@ -276,6 +276,8 @@ function EditAppearanceTab() {
       } else if (themeOption.value === "displayDark") {
         isLight = false;
       }
+
+      updateUserAppearance(isLight);
   };
 
   return (
