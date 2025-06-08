@@ -22,6 +22,8 @@ async function editProfile(req, res) {
     if (error) {
         return res.status(401).json({ error: error.message });
     }
+
+    res.status(200).send('Successly Updated Profile!');
 }
 
 // getProfileDetails()

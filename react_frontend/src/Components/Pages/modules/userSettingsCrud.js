@@ -37,8 +37,12 @@ export async function updateUserProfile(newPfp, newBio) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ token: user_token, newPfp: newPfp, newBio: newBio }),
         });
-
-        if (!res.ok) throw new Error("Failed to get Profile Info");
+        
+        if (!res.ok) {
+            throw new Error("Failed to Update Profile Info")
+        } else {
+            console.log("Successfully updated User Profile!")
+        }
 
     } catch (error) {
         console.error(error.message);
