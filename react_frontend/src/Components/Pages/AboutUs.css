@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
 }
-
+/* Header for About Us */
 .about_title {
   position: relative;
   width: 100%;
@@ -24,7 +24,6 @@
   object-fit: cover;
   z-index: 0;
   opacity: 0.4;
-  border: 1px solid #2a4849;
 }
 
 .about_title h1{
@@ -44,41 +43,54 @@
   background-color: #2a4849;
   z-index: 1;
 }
-.about_team{
+/* End of header for about us */
+
+.name_line_title {
+  flex-grow: 1;
+  height: 2px;
+  background-color: #426B69;
+}
+
+.our_mission_title,
+.about_paragraph_title {
+  gap: 10px;
+  padding: 10px 0;
+  /* border: #2a4849 2px solid; */
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
+  overflow: hidden;
+  max-width: 1100px;
   width: 100%;
-  max-height: 100px;
-  text-align: center;
-  margin-top: 0px;
-  background-color: #2a4849;
-  margin-bottom: 20px;
-  opacity: 0.9;
+  margin: 0 auto;
+}
+/* Default direction: text then line */
+.our_mission_title {
+  flex-direction: row;
 }
 
-.about_team h1 {
-  font-family: 'Inter', sans-serif;
-  font-size: 2.7rem;
-  color: white;
-  max-height: 100px;
+/* Reverse direction: line then text */
+.about_paragraph_title {
+  flex-direction: row-reverse;
 }
 
-.our_mission{
+.our_mission
+.about_paragraph{
+  margin-top: 10px;
   display:flex;
   flex-direction: column;
-  justify-content: left;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   align-content: left;
   width: 100%;
-  margin-left: 60px;
-  margin-bottom: 60px;
-  margin-top: 40px;
+  max-width: 1100px;
+  margin: 40px auto 60px auto;
+  padding: 0 1rem;
 }
 
-.our_mission h1{
+.our_mission_title h1{
   font-family: 'Inter', sans-serif;
-  font-size: 2.7rem;
+  /* font-size: 2.7rem; */
   text-align: left;
   margin: 0;
   padding: 0 1rem;
@@ -90,26 +102,15 @@
   text-align: left;
   max-width: 1100px;
   font-family: Arial, sans-serif;
-  font-size: 2.2rem;
+  /* font-size: 2.2rem; */
   line-height: 1.6;
   color: #8BB174;
   margin: 0;
 }
 
-.about_paragraph{
-  display:flex;
-  flex-direction: column;
-  justify-content: right;
-  align-items: flex-end;
-  align-content: right;
-  width: 100%;
-  margin-right: 60px;
-  margin-bottom: 40px;
-}
-
-.about_paragraph h1{
+.about_paragraph_title h1{
   font-family: 'Inter', sans-serif;
-  font-size: 2.7rem;
+  /* font-size: 2.7rem; */
   text-align: right;
   margin: 0;
   padding: 0 1rem;
@@ -121,22 +122,59 @@
   text-align: right;
   max-width: 1100px;
   font-family: Arial, sans-serif;
-  font-size: 2.2rem;
+  /* font-size: 2.2rem; */
   line-height: 1.6;
   color: #8BB174;
   margin: 0;
 }
 
-.members {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(250px, 1fr));
-  padding-right: 150px;
+.our_mission_title h1,
+.about_paragraph_title h1,
+.about_team h1 {
+  font-size: clamp(1.8rem, 4vw, 2.7rem); /* Scales between 1.8rem and 2.7rem */
 }
 
-.member_1,
-.member_2,
-.member_3,
-.member_4 {
+.our_mission p,
+.about_paragraph p {
+  font-size: clamp(1rem, 3vw, 2.2rem);
+}
+
+/* TEAM SECTION Header Start*/
+.about_team{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 60px; /* adjust as needed */
+  text-align: center;
+  margin-top: 0px;
+  background-color: #2a4849;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.about_team h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.7rem;
+  color: white;
+  max-height: 200px;
+}
+/* TEAM SECTION Header Start*/
+
+/* TEAM MEMBERS Start*/
+.members {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 2rem; /* Adds spacing between items */
+  justify-items: center;
+  align-items: start;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.team_member {
   flex-direction: column;
   justify-content: center; 
   flex: 1 1 40%;
@@ -149,18 +187,23 @@
   align-items: center;      
   text-align: center;
 }
-.member_1 h1,
-.member_2 h1,
-.member_3 h1,
-.member_4 h1 {
+.member_img {
+  display: flex;
+  align-items: top;
+  justify-content: right;
+}
+
+.member_img img {
+  width: 100px;
+  height: 100px;
+}
+
+.member_info h1 {
   font-size: 1.4rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
   width: 100%;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding-bottom: 0px;
   line-height: 1;
   display: flex;            
   justify-content: center;  
@@ -168,10 +211,7 @@
   text-align: center;
 }
 
-.member_1 p,
-.member_2 p,
-.member_3 p,
-.member_4 p {
+.member_info p {
   line-height: 1.2;
   min-height: 115px;
   align-items: center;
@@ -186,20 +226,23 @@
   white-space: normal;
   width: 100%;
 }
-
-.bash1,
-.bash2,
-.bash3,
-.bash4{
-  display: flex;
-  margin-top: 30px;
-  align-items: top;
-  justify-content: right;
+/* TEAM MEMBERS end*/
+@media (max-width: 600px) {
+  .members {
+    grid-template-columns: 1fr;
+  }
 }
-.bash1 img,
-.bash2 img,
-.bash3 img,
-.bash4 img {
-  width: 100px;
-  height: 100px;
+@media (max-width: 480px) {
+  .member_info h1 {
+    font-size: 1.1rem;
+  }
+
+  .member_info p {
+    font-size: 0.95rem;
+  }
+
+  .member_image img {
+    width: 80px;
+    height: 80px;
+  }
 }

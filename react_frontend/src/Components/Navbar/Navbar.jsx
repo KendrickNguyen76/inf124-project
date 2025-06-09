@@ -48,7 +48,7 @@ const Navbar = ({loggedIn, setLoggedIn}) => {
           <>
           {/*  Pages available when not logged in */}
           <li><NavLink to ="/howtoplay"> How To Play</NavLink></li>
-          <li><NavLink to ="/login"> LogIn</NavLink></li>
+          <li><NavLink to ="/login"> Log In</NavLink></li>
           </>
         )}
       </ul>
