@@ -92,19 +92,95 @@ function DeleteButton() {
 
 // EditAccount View - Edit UserName & Password
 function InputBoxes() {
+  const socialPlatforms = {
+    Github: {
+      icon: <img className="icon-img" src={giticon} alt="GitHub" />,
+      baseUrl: "https://github.com/",
+    },
+    LinkedIn: {
+      icon: <img className="icon-img" src={linkedinIcon} alt="LinkedIn" />,
+      baseUrl: "https://linkedin.com/in/",
+    },
+    Twitter: {
+      icon: <img className="icon-img" src={twitterIcon} alt="X" />,
+      baseUrl: "https://twitter.com/",
+    },
+  };
+
+  const [socialLinks, setSocialLinks] = useState({});
+  const [platformToAdd, setPlatformToAdd] = useState("");
+
+  const handleAddPlatform = () => {
+    if (platformToAdd && !socialLinks[platformToAdd]) {
+      setSocialLinks(prev => ({ ...prev, [platformToAdd]: "" }));
+    }
+    setPlatformToAdd(""); // Close dropdown
+  };
+
+  const handleRemovePlatform = (platform) => {
+    const updated = { ...socialLinks };
+    delete updated[platform];
+    setSocialLinks(updated);
+  };
+
+  const handleInputChange = (platform, value) => {
+    setSocialLinks(prev => ({ ...prev, [platform]: value }));
+  };
+
+  const availableOptions = Object.keys(socialPlatforms).filter(
+    (platform) => !socialLinks[platform]
+  );
+
   return (
-    <div className = "editprofile-box">
+    <div className="editprofile-box">
       <div className="inputDiv">
-        <form action="" method="post">
-          <label className="inputLabel" htmlFor="name"> Modify UserName </label>
-          <input className="textInput createAccountTextInput" type="text" id="name" name="name" placeholder="<current UserName>..." />
+        <form>
+          <label className="inputLabel">Modify UserName </label>
+          <input className="textInput createAccountTextInput" type="text" placeholder="<current UserName>..." />
 
-          <label className="inputLabel" htmlFor="username"> New Password</label>
-          <input className="textInput createAccountTextInput" type="text" id="username" name="username" placeholder="Type new password..." />
+          <label className="inputLabel"> New Password </label>
+          <input className="textInput createAccountTextInput" type="password" placeholder="Type new password..." />
 
-          <label className="inputLabel" htmlFor="confirm_password">Confirm New Password</label>
-          <input className="textInput createAccountTextInput" type="password" name="confirm_password" placeholder="Confirm New Password..." />
+          <label className="inputLabel">Confirm New Password</label>
+          <input className="textInput createAccountTextInput" type="password" placeholder="Confirm New Password..." />
         </form>
+
+        <label className="inputLabel">Social Media Links</label>
+        <div className="social-media-section">
+          {Object.entries(socialLinks).map(([platform, username]) => (
+            <div key={platform} className="social-input-row">
+              {socialPlatforms[platform].icon}
+              <span className="base-url">{socialPlatforms[platform].baseUrl}</span>
+              <input
+                className="social-input"
+                type="text"
+                value={username}
+                onChange={(e) => handleInputChange(platform, e.target.value)}
+                placeholder="your-handle"
+              />
+              <button className="remove-btn" type="button" onClick={() => handleRemovePlatform(platform)}>×</button>
+            </div>
+          ))}
+
+          {availableOptions.length > 0 && (
+            <div className="add-social-wrapper">
+              <select
+                value={platformToAdd}
+                onChange={(e) => setPlatformToAdd(e.target.value)}
+              >
+                <option value="">Add social media...</option>
+                {availableOptions.map((platform) => (
+                  <option key={platform} value={platform}>
+                    {platform}
+                  </option>
+                ))}
+              </select>
+              <button type="button" onClick={handleAddPlatform} disabled={!platformToAdd}>
+                Add
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -113,41 +189,45 @@ function InputBoxes() {
 
 // EditAccount View - Edit Social Media
 function SocialMediaInput() {
-const iconMapping = {
-  GitLab: <img className="icon-img" src={giticon} alt="LinkedIn" />,
-  LinkedIn: <img className="icon-img" src={linkedinIcon} alt="LinkedIn" />,
-  Twitter: <img className="icon-img" src={twitterIcon} alt="X" />
-};
-
-
-  const allIcons = Object.keys(iconMapping);
-  const [selectedIcons, setSelectedIcons] = useState(["GitLab", "LinkedIn", "Twitter"]);
-
-  const addIcon = () => {
-    const remainingIcons = allIcons.filter(icon => !selectedIcons.includes(icon));
-    if (remainingIcons.length > 0) {
-      const nextIcon = remainingIcons[0]; // Or use Math.random() to pick randomly
-      setSelectedIcons([...selectedIcons, nextIcon]);
-    }
-  };
-
-  const removeIcon = (icon) => {
-    setSelectedIcons(selectedIcons.filter(i => i !== icon));
-  };
-
   return (
     <div className="editprofile-box">
       <div className="inputDiv">
-        <label className="inputLabel" htmlFor="name">Social Media</label>
+        <label className="inputLabel">Social Media</label>
         <div className="icons-wrapper">
-          {selectedIcons.map((icon) => (
-            <div className="icon-box" key={icon}>
-              {iconMapping[icon]}
-              <button className="remove-btn" onClick={() => removeIcon(icon)}>×</button>
+          {Object.entries(socialLinks).map(([platform, suffix]) => (
+            <div className="icon-box" key={platform}>
+              {socialPlatforms[platform].icon}
+              <span className="base-url">{socialPlatforms[platform].baseUrl}</span>
+              <input
+                className="social-input"
+                type="text"
+                placeholder="your-username"
+                value={suffix}
+                onChange={(e) => handleInputChange(platform, e.target.value)}
+              />
+              <button className="remove-btn" onClick={() => handleRemovePlatform(platform)}>×</button>
             </div>
           ))}
-          {selectedIcons.length < allIcons.length && (
-            <button className="add-icon" onClick={addIcon}>+</button>
+
+          {/* Dropdown Add Button */}
+          {Object.keys(socialPlatforms).length > Object.keys(socialLinks).length && (
+            <div className="add-icon-dropdown">
+              <button onClick={() => setPlatformToAdd("open")}>+</button>
+              {platformToAdd === "open" && (
+                <div className="dropdown-menu">
+                  {Object.keys(socialPlatforms).filter(p => !(p in socialLinks)).map((platform) => (
+                    <div
+                      key={platform}
+                      className="dropdown-item"
+                      onClick={() => handleAddPlatform(platform)}
+                    >
+                      {socialPlatforms[platform].icon}
+                      <span>{platform}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -326,7 +406,6 @@ const UserSettings = () => {
           <>
             <h2> Edit Account</h2>
             <InputBoxes />
-            <SocialMediaInput />
             <EditButtons handleSaveAction={editAccountHandler}/>
             <DeleteButton />
           </>
