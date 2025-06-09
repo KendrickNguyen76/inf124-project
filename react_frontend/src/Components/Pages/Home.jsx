@@ -49,7 +49,8 @@ const AboutSection = () => (
 const FeaturesSection = () => (
   <div className="features_section">
     <div className="features_image">
-      <img id="laptop_landing"
+      <img
+        id="laptop_landing"
         src={laptop}
         alt="Image of a laptop with bashes on podium"
       />
@@ -82,13 +83,20 @@ const HowItWorksSection = () => (
 
 const PlayNowSection = () => {
   const navigate = useNavigate();
+
+  const handlePlayNow = () => {
+    const isLoggedIn = localStorage.getItem("supabase_token");
+    if (isLoggedIn) {
+      navigate("/dashboard");
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <div className="play_now_section">
       <h1>Why aren't you coding yet?</h1>
       <div className="play_now_button">
-        <button onClick={() => navigate("/login")}>
-          Play Now.
-        </button>
+        <button onClick={handlePlayNow}>Play Now.</button>
       </div>
     </div>
   );
@@ -99,7 +107,7 @@ const Home = () => {
     <div className="home">
       <div className="landing_container">
         <LandingText />
-        <LandingImage bash_image={bash_image}/>
+        <LandingImage bash_image={bash_image} />
       </div>
       <AboutSection />
       <FeaturesSection />
