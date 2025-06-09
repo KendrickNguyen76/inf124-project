@@ -17,6 +17,8 @@ import {
   QuestionBank,
   QuestionBankQuestions,
   ComingSoon,
+  ForgotPasswordPage, 
+  UpdatePasswordPage
 } from "./Components/Pages";
 
 const App = () => {
@@ -26,7 +28,7 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("supabase_token");
-    console.log("Token for logged in used")
+    console.log("Token for logged in used");
     setLoggedIn(!!token);
     const initTheme = async () => {
       const data = await fetchUserTheme(token);
@@ -34,17 +36,21 @@ const App = () => {
         applyTheme(data.is_light);
       } else {
         console.warn("Theme data was invalid or missing.");
-      }};
-  if (token) {
-    initTheme();
-  }
-}, []);
+      }
+    };
+    if (token) {
+      initTheme();
+    }
+  }, []);
 
   const applyTheme = (isLight) => {
     const existingLink = document.getElementById("theme-stylesheet");
     console.log(` Applying ${isLight ? "Light" : "Dark"} Mode`);
     const themeHref = isLight ? "/App_light.css" : "/App_dark.css";
-    console.log(`Applying ${isLight ? "Light" : "Dark"} Mode with href:`, themeHref);
+    console.log(
+      `Applying ${isLight ? "Light" : "Dark"} Mode with href:`,
+      themeHref
+    );
     if (existingLink) {
       existingLink.href = themeHref;
     } else {
@@ -55,26 +61,26 @@ const App = () => {
       document.head.appendChild(link);
     }
   };
-  
+
   const fetchUserTheme = async (token) => {
-  try {
-    const res = await fetch("http://localhost:3000/usertheme", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token }),
-    });
+    try {
+      const res = await fetch("http://localhost:3000/usertheme", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
 
-    if (!res.ok) {
-      throw new Error(`Server responded with status ${res.status}`);
+      if (!res.ok) {
+        throw new Error(`Server responded with status ${res.status}`);
+      }
+
+      const data = await res.json();
+      console.log(" Theme boolean fetched:", data);
+      return data;
+    } catch (err) {
+      console.error(" Failed to fetch user theme:", err);
+      return null;
     }
-
-    const data = await res.json();
-    console.log(" Theme boolean fetched:", data); 
-    return data;
-  } catch (err) {
-    console.error(" Failed to fetch user theme:", err);
-    return null;
-  }
   };
 
   return (
@@ -82,7 +88,8 @@ const App = () => {
       {!hideNavAndFooter && (
         <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       )}
-      {!hideNavAndFooter && <div style={{height: '80px'}}></div>} {/* spacer */}
+      {!hideNavAndFooter && <div style={{ height: "80px" }}></div>}{" "}
+      {/* spacer */}
       <main className="main-content">
         <Routes>
           {/* If you lok at our Navbar.jsx file, it should reflect what is here, this will also hide the nav bar for specific pages */}
@@ -105,6 +112,8 @@ const App = () => {
             path="/login"
             element={<LoginPage setLoggedIn={setLoggedIn} />}
           />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/update-password" element={<UpdatePasswordPage />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route
             path="/createaccount"
