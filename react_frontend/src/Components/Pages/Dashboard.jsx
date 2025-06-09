@@ -77,7 +77,7 @@ const Dashboard = () => {
       <LeaderDashTitle/>
       <LeaderDashScrollable/>
       <LeaderDashPlay/>
-      <PlayButtons/>
+              <PlayButtons/>
     </div>
   )
 };
