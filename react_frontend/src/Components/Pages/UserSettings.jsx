@@ -91,7 +91,7 @@ function DeleteButton() {
 // Right Column
 
 // EditAccount View - Edit UserName & Password
-function InputBoxes( { userName, setUserName, socialLinks, setSocialLinks } ) {
+function InputBoxes( { userName, setUserName, socialLinks, setSocialLinks, pass, setPass, confirmPass, setConfirmPass } ) {
   const socialPlatforms = {
     Github: {
       icon: <img className="icon-img" src={giticon} alt="GitHub" />,
@@ -139,10 +139,18 @@ function InputBoxes( { userName, setUserName, socialLinks, setSocialLinks } ) {
           <input className="textInput createAccountTextInput" type="text" value={userName} onChange={(e) => setUserName(e.target.value)}/>
 
           <label className="inputLabel"> New Password </label>
-          <input className="textInput createAccountTextInput" type="password" placeholder="Type new password..." />
+          <input className="textInput createAccountTextInput" type="password" 
+            placeholder="Type new password..." 
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
+          />
 
           <label className="inputLabel">Confirm New Password</label>
-          <input className="textInput createAccountTextInput" type="password" placeholder="Confirm New Password..." />
+          <input className="textInput createAccountTextInput" type="password" 
+            placeholder="Confirm New Password..." 
+            value={confirmPass}
+            onChange={(e) => setConfirmPass(e.target.value)}
+          />
         </form>
 
         <label className="inputLabel">Social Media Links</label>
@@ -239,6 +247,8 @@ function SocialMediaInput() {
 function EditAccountTab( { currentUserName, currentLinks } ) {
   const [userName, setUserName] = useState(currentUserName);
   const [socialLinks, setSocialLinks] = useState({});
+  const [pass, setPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
   const linkStarters = {github: "https://github.com/", twitter: "https://twitter.com/", linkedin: "https://linkedin.com/in/"};
 
   useEffect(() => {
@@ -259,7 +269,7 @@ function EditAccountTab( { currentUserName, currentLinks } ) {
     setSocialLinks(currSocialLinks);
   }, []);
 
-  const editAccountHandler = (userName, socialLinks) => {
+  const editAccountHandler = (userName, socialLinks, pass, confirmPass) => {
     let linkArray = [];
     
     if ("Github" in socialLinks && socialLinks.Github.length > 0) {
@@ -275,6 +285,7 @@ function EditAccountTab( { currentUserName, currentLinks } ) {
     }
 
     updateNameSocials(userName, linkArray);
+    // Set up function to send passwords here
   };
 
   return (
@@ -285,6 +296,10 @@ function EditAccountTab( { currentUserName, currentLinks } ) {
         setUserName={setUserName}
         socialLinks={socialLinks}
         setSocialLinks={setSocialLinks}
+        pass={pass}
+        setPass={setPass}
+        confirmPass={confirmPass}
+        setConfirmPass={setConfirmPass}
       />
       <EditButtons handleSaveAction={() => editAccountHandler(userName, socialLinks)}/>
       <DeleteButton />
