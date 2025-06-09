@@ -5,6 +5,7 @@ import CodeProblem from "../CodeProblem/CodeProblem.jsx";
 /*import use nav to get question details from user's selection*/
 import { useNavigate } from 'react-router-dom';
 import {useLocation} from 'react-router-dom';
+import { useState, useEffect } from "react";
 import {
   Panel,
   PanelGroup,
@@ -29,13 +30,30 @@ const GameEditor = () => {
 };
 
 const GameTimer = () => {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (secs) => {
+    const mins = Math.floor(secs / 60)
+      .toString()
+      .padStart(2, "0");
+    const s = (secs % 60).toString().padStart(2, "0");
+    return `${mins}:${s}`;
+  };
+
   return (
     <div className="game-timer">
       <span className="timer-label"> Timer: </span>
-      <span className="timer-value"> 00:00 </span>
+      <span className="timer-value"> {formatTime(seconds)} </span>
     </div>
   );
-}
+};
 
 const GameQuitButton = () => {
   const navigate = useNavigate();
