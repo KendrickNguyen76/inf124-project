@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
+html, #root, .App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
   background-color: #f0f0f0;
   min-height: 100vh;
@@ -6,14 +12,6 @@
   display: flex; /* to use flexbox for layout */
   flex-direction: column; /*for footer to be at the bottom */
 }
-
-html {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  background-color: #f0f0f0;
-}
-
 /* create a box for the content to keep it responsive */
 .main-content {
   flex-grow: 1;
