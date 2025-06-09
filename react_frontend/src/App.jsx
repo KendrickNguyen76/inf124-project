@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 /*import "./App.css";*/
 import { Route, Routes, useLocation } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import {
@@ -31,6 +32,7 @@ const App = () => {
     location.pathname
   );
 
+  /*added theme functionality*/
   useEffect(() => {
     const checkSession = async () => {
       const token = localStorage.getItem("supabase_token");

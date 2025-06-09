@@ -122,7 +122,6 @@ const MatchHistory = () => (
 );
 
 function UserProfileChild( { userProfile } ) {
-  console.log(userProfile);
   return (
     <>
     <UserTitle username={userProfile.get("username")}/>
@@ -175,7 +174,7 @@ const UserProfile = () => {
     }
 
     mapUserProfile();
-    setTimeout(() => {setIsLoading(false)}, 500)
+    setTimeout(() => {setIsLoading(false)}, 1000)
   }, []);
 
   return (

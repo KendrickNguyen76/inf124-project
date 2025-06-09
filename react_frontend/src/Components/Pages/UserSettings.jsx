@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
-import { getUserProfile, updateUserProfile, updateUserAppearance } from './modules/userSettingsCrud';
+import { getUserProfile, updateUserProfile, updateUserAppearance, updateNameSocials } from './modules/userSettingsCrud';
 
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
@@ -91,7 +91,7 @@ function DeleteButton() {
 // Right Column
 
 // EditAccount View - Edit UserName & Password
-function InputBoxes() {
+function InputBoxes( { userName, setUserName, socialLinks, setSocialLinks } ) {
   const socialPlatforms = {
     Github: {
       icon: <img className="icon-img" src={giticon} alt="GitHub" />,
@@ -107,7 +107,7 @@ function InputBoxes() {
     },
   };
 
-  const [socialLinks, setSocialLinks] = useState({});
+  // const [socialLinks, setSocialLinks] = useState({});
   const [platformToAdd, setPlatformToAdd] = useState("");
 
   const handleAddPlatform = () => {
@@ -135,8 +135,8 @@ function InputBoxes() {
     <div className="editprofile-box">
       <div className="inputDiv">
         <form>
-          <label className="inputLabel">Modify UserName </label>
-          <input className="textInput createAccountTextInput" type="text" placeholder="<current UserName>..." />
+          <label className="inputLabel">Modify Username </label>
+          <input className="textInput createAccountTextInput" type="text" value={userName} onChange={(e) => setUserName(e.target.value)}/>
 
           <label className="inputLabel"> New Password </label>
           <input className="textInput createAccountTextInput" type="password" placeholder="Type new password..." />
@@ -232,6 +232,63 @@ function SocialMediaInput() {
         </div>
       </div>
     </div>
+  );
+}
+
+// EditAccount View - Edit Account Tab
+function EditAccountTab( { currentUserName, currentLinks } ) {
+  const [userName, setUserName] = useState(currentUserName);
+  const [socialLinks, setSocialLinks] = useState({});
+  const linkStarters = {github: "https://github.com/", twitter: "https://twitter.com/", linkedin: "https://linkedin.com/in/"};
+
+  useEffect(() => {
+    var currSocialLinks = {};
+
+    if (!(currentLinks === null) && !(currentLinks.length === 0)) {
+      for (var link of currentLinks) {
+        if (link.includes(linkStarters.github)) {
+          currSocialLinks.Github = link.replace(linkStarters.github, "");
+        } else if (link.includes(linkStarters.linkedin)) {
+          currSocialLinks.LinkedIn = link.replace(linkStarters.linkedin, "");
+        } else if (link.includes(linkStarters.twitter)) {
+          currSocialLinks.Twitter = link.replace(linkStarters.twitter, "");
+        }
+      }
+    }
+
+    setSocialLinks(currSocialLinks);
+  }, []);
+
+  const editAccountHandler = (userName, socialLinks) => {
+    let linkArray = [];
+    
+    if ("Github" in socialLinks && socialLinks.Github.length > 0) {
+      linkArray.push(linkStarters.github + socialLinks.Github);
+    }
+
+    if ("LinkedIn" in socialLinks && socialLinks.LinkedIn.length > 0) {
+      linkArray.push(linkStarters.linkedin + socialLinks.LinkedIn);
+    }
+
+    if ("Twitter" in socialLinks && socialLinks.Twitter.length > 0) {
+      linkArray.push(linkStarters.twitter + socialLinks.Twitter);
+    }
+
+    updateNameSocials(userName, linkArray);
+  };
+
+  return (
+    <>
+      <h2> Edit Account</h2>
+      <InputBoxes 
+        userName={userName}
+        setUserName={setUserName}
+        socialLinks={socialLinks}
+        setSocialLinks={setSocialLinks}
+      />
+      <EditButtons handleSaveAction={() => editAccountHandler(userName, socialLinks)}/>
+      <DeleteButton />
+    </>
   );
 }
 
@@ -371,55 +428,57 @@ function EditAppearanceTab() {
 }
 
 
-// Handler functions for saving settings
-const editAccountHandler = () => {
-  console.log("Hello, this is what is called when you hit save on the Edit Account page");
+// UserSettings Child Component
+function UserSettingsChild( { existingProfile } ) {
+  const [tab, setTab] = useState("editAccount"); // default to edit
+
+  return (
+    <div className = "settings-box"> 
+      <div className="content-row">
+        <div className="left-sidebar">
+          <SettingsBar onSelect={setTab} />
+        </div>
+        <div className="right-sidebar">
+          {tab === "editAccount" ? (
+            <EditAccountTab 
+              currentUserName={existingProfile.get("username")}
+              currentLinks={existingProfile.get("links")}
+            />
+          ) : tab === "editProfile" ? (
+            <EditProfileTab
+              existingBash={existingProfile.get("profile_pic")}
+              existingBio={existingProfile.get("bio")}
+            />
+          ) : (
+            <EditAppearanceTab />
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
-
-
 
 // Main UserSettings Component
 const UserSettings = () => {
-  const [tab, setTab] = useState("editAccount"); // default to edit
+  const [isLoading, setIsLoading] = useState(true);
   const existingProfile = useRef(new Map());
 
-  // How in the world do i store the information i want from getUserProfile
-  // Without triggering a billion rerenders???
   useEffect(() => {
     const getProfileInfo = async () => {
       const profile_info = await getUserProfile();
       const map = new Map(Object.entries(profile_info[0]));
       existingProfile.current = map;
     }
-
+    
     getProfileInfo();
+    setTimeout(() => {setIsLoading(false)}, 500);
   }, []);
 
   return (
-    <div className = "settings-box"> 
-    <div className="content-row">
-      <div className="left-sidebar">
-        <SettingsBar onSelect={setTab} />
-        </div>
-      <div className="right-sidebar">
-        {tab === "editAccount" ? (
-          <>
-            <h2> Edit Account</h2>
-            <InputBoxes />
-            <EditButtons handleSaveAction={editAccountHandler}/>
-            <DeleteButton />
-          </>
-        ) : tab === "editProfile" ? (
-          <EditProfileTab
-            existingBash={existingProfile.current.get("profile_pic")}
-            existingBio={existingProfile.current.get("bio")}
-          />
-        ) : (
-            <EditAppearanceTab />
-        )}
-        </div>
-      </div>
+    <div>
+      { isLoading ? <h1> Loading... </h1> : <UserSettingsChild existingProfile={existingProfile.current} /> }
     </div>
   );
 };
+
 export default UserSettings;
