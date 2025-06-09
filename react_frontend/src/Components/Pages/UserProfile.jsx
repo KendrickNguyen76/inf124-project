@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import "./UserProfile.css";
 
 import linkedinIcon from"../../assets/icon_assets/linkedin.png"; 
@@ -13,10 +13,10 @@ const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://loca
 
 
 // This will be for the title, user's name, Top Row in the middle
-const UserTitle = () => (
+const UserTitle = ( {username} ) => (
   <div className="page-title">
   <div className="name_line"></div>
-    <h1> Byte’s Page</h1>
+    <h1> {`${username}'s Page`} </h1>
   <div className="name_line"></div>
 
 </div>
@@ -111,11 +111,32 @@ const MatchHistory = () => (
     </div>
 );
 
+function UserProfileChild( { userProfile } ) {
+  return (
+    <>
+    <UserTitle username={userProfile.get("username")}/>
+    <div className="content-row">
+      <div className="left-column">
+        <Avatar />
+        <SocialMediaIcons />
+        <UserRank />
+      </div>
+      <div className="right-column">
+        <BioSection />
+        <MatchHistory />
+      </div>
+    </div>
+    </>
+  );
+}
+
 
 const UserProfile = () => {
-  const user_token = localStorage.getItem('supabase_token');
-  const existingProfile = useRef(new Map());
-
+  const userToken = localStorage.getItem('supabase_token');
+  const [isLoading, setIsLoading] = useState(true); 
+  const userProfile = useRef(new Map());
+  
+  console.log(isLoading);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -123,37 +144,33 @@ const UserProfile = () => {
         const res = await fetch(`${API_URL}/userprofile`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token: user_token }),
+          body: JSON.stringify({ token: userToken }),
         });
 
         const profile_data = await res.json(); 
 
         if (!res.ok) throw new Error(profile_data.error || "Failed to get Profile Info");
 
-        console.log(profile_data);
+        return profile_data;
       } catch (error) {
         console.error(error.message);
       }
     }
-    
-    fetchProfile();
+
+    const mapUserProfile = async () => {
+      const profile_info = await fetchProfile();
+      const map = new Map(Object.entries(profile_info[0]));
+      userProfile.current = map;
+    }
+
+    mapUserProfile();
+    console.log("Setting false here!")
+    setTimeout(() => {setIsLoading(false)}, 1000)
   }, []);
-  
 
   return (
-    <div className = "profile-box"> 
-    <UserTitle/>
-    <div className="content-row">
-      <div className="left-column">
-        <Avatar />
-        <SocialMediaIcons />
-        <UserRank />
-        </div>
-      <div className="right-column">
-        <BioSection />
-        <MatchHistory />
-        </div>
-      </div>
+    <div className = "profile-box">
+      { isLoading ? <h1> Loading... </h1> : <UserProfileChild userProfile={userProfile.current}/> }
     </div>
   );
 };
