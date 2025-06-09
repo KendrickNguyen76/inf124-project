@@ -91,7 +91,7 @@ function DeleteButton() {
 // Right Column
 
 // EditAccount View - Edit UserName & Password
-function InputBoxes( { userName, setUserName } ) {
+function InputBoxes( { userName, setUserName, socialLinks, setSocialLinks } ) {
   const socialPlatforms = {
     Github: {
       icon: <img className="icon-img" src={giticon} alt="GitHub" />,
@@ -107,7 +107,7 @@ function InputBoxes( { userName, setUserName } ) {
     },
   };
 
-  const [socialLinks, setSocialLinks] = useState({});
+  // const [socialLinks, setSocialLinks] = useState({});
   const [platformToAdd, setPlatformToAdd] = useState("");
 
   const handleAddPlatform = () => {
@@ -236,9 +236,15 @@ function SocialMediaInput() {
 }
 
 // EditAccount View - Edit Account Tab
-function EditAccountTab( { currentUserName } ) {
+function EditAccountTab( { currentUserName, currentLinks } ) {
   const [userName, setUserName] = useState(currentUserName);
-  
+  const [socialLinks, setSocialLinks] = useState({});
+
+  useEffect(() => {
+    if (!(currentLinks === null)) {
+      // Come back to this
+    }
+  });
 
   const editAccountHandler = () => {
     console.log("Hello, this is what is called when you hit save on the Edit Account page");
@@ -250,6 +256,8 @@ function EditAccountTab( { currentUserName } ) {
       <InputBoxes 
         userName={userName}
         setUserName={setUserName}
+        socialLinks={socialLinks}
+        setSocialLinks={setSocialLinks}
       />
       <EditButtons handleSaveAction={editAccountHandler}/>
       <DeleteButton />
@@ -407,6 +415,7 @@ function UserSettingsChild( { existingProfile } ) {
           {tab === "editAccount" ? (
             <EditAccountTab 
               currentUserName={existingProfile.get("username")}
+              currentLinks={existingProfile.get("links")}
             />
           ) : tab === "editProfile" ? (
             <EditProfileTab

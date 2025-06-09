@@ -95,10 +95,43 @@ async function editAppearance(req, res) {
 }
 
 
+async function editNameSocials(req, res) {
+    const {token, newUserName, newLinks} = req.body;
+    const { data: { user } } = await supabase.auth.getUser(token);
+
+    console.log(`Updating Username and Socials: ${user.id}`);
+
+    const { error } = await supabase
+        .from('profile') 
+        .update({ username: newUserName, links: newLinks })
+        .eq('id', user.id)
+
+    const { data:user_name_socials, error:name_socials_fetch_error } = await supabase
+        .from('profile')
+        .select('name, links')
+        .eq('id', user.id);
+
+    updateSuccess = (user_name_socials[0].username === newUserName) 
+        && (JSON.stringify(user_name_socials[0].links) === JSON.stringify(newLinks));
+
+    if (error) {
+        return res.status(401).json({ error: error.message });
+    } else if (updateSuccess) {
+        res.status(406).send(`
+            Attempted to set username and links to ${newUserName} and ${newLinks}, 
+            but value is ${user_name_socials[0].username} and ${user_name_socials[0].links}
+            `);
+    } else {
+        res.status(200).send('Successly Updated Appearance!');
+    }
+}
+
+
 module.exports = {
     getProfileDetails: getProfileDetails,
     editProfile: editProfile,
     editAppearance: editAppearance,
+    editNameSocials: editNameSocials,
 };
 
 
