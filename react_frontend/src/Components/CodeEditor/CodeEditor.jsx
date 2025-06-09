@@ -99,17 +99,36 @@ const CodeEditor = ({ problem_id }) => {
   const generateWrappedCode = (userCode, language, testCase) => {
     const wrapper = wrapperCode[language];
     if (!wrapper) return userCode;
-    const [nums, target] = testCase.input;
-    const numsStr = formatNums(nums, language);
-    const targetStr =
-      typeof target === "number" ? target : JSON.stringify(target);
+
+    let formattedInputs;
+    if (Array.isArray(testCase.input)) {
+      formattedInputs = testCase.input
+        .map((arg) =>
+          typeof arg === "number" || typeof arg === "boolean"
+            ? arg
+            : JSON.stringify(arg)
+        )
+        .join(", ");
+    } else {
+      // Single input (string, number, boolean, etc.)
+      formattedInputs =
+        typeof testCase.input === "number" ||
+        typeof testCase.input === "boolean"
+          ? testCase.input
+          : JSON.stringify(testCase.input);
+    }
+
+    const expectedStr =
+      typeof testCase.expected === "number" ||
+      typeof testCase.expected === "boolean"
+        ? testCase.expected
+        : JSON.stringify(testCase.expected);
 
     return wrapper
       .replace("{user_code}", userCode)
-      .replace("{nums}", numsStr)
-      .replace("{target}", targetStr);
+      .replace("{inputs}", formattedInputs)
+      .replace("{expected}", expectedStr);
   };
-
   const handleClick = async (action) => {
     if (action === "Run") {
       setOutputs([
