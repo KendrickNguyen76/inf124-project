@@ -96,10 +96,10 @@ function InputBoxes() {
     <div className = "editprofile-box">
       <div className="inputDiv">
         <form action="" method="post">
-          <label className="inputLabel" htmlFor="name">Modify UserName</label>
+          <label className="inputLabel" htmlFor="name"> Modify UserName </label>
           <input className="textInput createAccountTextInput" type="text" id="name" name="name" placeholder="<current UserName>..." />
 
-          <label className="inputLabel" htmlFor="username">New Password</label>
+          <label className="inputLabel" htmlFor="username"> New Password</label>
           <input className="textInput createAccountTextInput" type="text" id="username" name="username" placeholder="Type new password..." />
 
           <label className="inputLabel" htmlFor="confirm_password">Confirm New Password</label>
