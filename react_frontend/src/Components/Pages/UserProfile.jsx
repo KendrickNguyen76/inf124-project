@@ -1,14 +1,24 @@
 import React from "react";
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 import "./UserProfile.css";
 
+// Colored Bashes
+import GreenBash from '../../assets/Bash.png'
+import BlueBash from '../../assets/bash_blue.png'
+import RedBash from '../../assets/bash_red.png'
+import OrangeBash from '../../assets/bash_orange.png'
+import PurpleBash from '../../assets/bash_purple.png'
+import PinkBash from '../../assets/bash_pink.png'
+
+// Different Icons
 import linkedinIcon from"../../assets/icon_assets/linkedin.png"; 
 import twitterIcon from"../../assets/icon_assets/twitter.png";
 import icon from "../../assets/icon_assets/gitlabLogo.png";
 import chatIcon from "../../assets/icon_assets/chat.png";
 import lvl1 from "../../assets/Level1.png";
-import { useNavigate } from "react-router-dom";
 
+// Constants
 const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
 
 
@@ -24,11 +34,16 @@ const UserTitle = ( {username} ) => (
 
 // Left Column 
 // This will be for the profile picture, Left Column , Top
-const Avatar = () => (
-  <div className="avatar-section">
-    <img src={icon} className="avatar" /> {/* Replace with actual avatar image */}
-  </div>
-);
+function Avatar({ userPfp }) {
+  const bashImages = [GreenBash, BlueBash, RedBash, OrangeBash, PurpleBash, PinkBash];
+  const colorOptions = ["GREEN", "BLUE", "RED", "ORANGE", "PURPLE", "PINK"];
+    
+  return (
+    <div className="avatar-section">
+      <img src={ bashImages[colorOptions.indexOf(userPfp)] } className="avatar" />
+    </div>
+  );
+}
 
 // This will be for the social media icons, Left Column, Middle
 const SocialMediaIcons = () => (
@@ -43,10 +58,11 @@ const SocialMediaIcons = () => (
 );
 
 // This will be for the rank section, Left Column, Bottom
-const UserRank = () => (
+const UserRank = ({ userRank }) => (
   <div>
     <div className="media-title"> Rank</div>
     <div className="rank-icon">
+      <p> {userRank} </p>
       <img src={lvl1} alt="trophy" />
     </div>
   </div>
@@ -55,7 +71,7 @@ const UserRank = () => (
 // Left Column 
 // This will be for the main content, Right Column , Top
 
-const BioSection = () => {
+const BioSection = ({ userBio }) => {
   const navigate = useNavigate();
 
   const modifyPage = () => {
@@ -66,23 +82,16 @@ const BioSection = () => {
     <div className="bio-section">
     <h2>Bio</h2>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat...
+      {userBio}
     </p>
     <div className="bio-buttons">
       <button className="edit-button" id = "settings button" onClick={modifyPage}>Edit Profile </button>
-
-
     </div>
   </div>
   );
 };
 
 const MatchHistory = () => (
-  
   <div className = "History-section">
       <div className="match-title"> Match History</div>   
       <div className="history-section">
@@ -112,17 +121,18 @@ const MatchHistory = () => (
 );
 
 function UserProfileChild( { userProfile } ) {
+  console.log(userProfile);
   return (
     <>
     <UserTitle username={userProfile.get("username")}/>
     <div className="content-row">
       <div className="left-column">
-        <Avatar />
+        <Avatar userPfp={userProfile.get("profile_pic")}/>
         <SocialMediaIcons />
-        <UserRank />
+        <UserRank userRank={userProfile.get("rank")}/>
       </div>
       <div className="right-column">
-        <BioSection />
+        <BioSection userBio={userProfile.get("bio")}/>
         <MatchHistory />
       </div>
     </div>
@@ -135,8 +145,6 @@ const UserProfile = () => {
   const userToken = localStorage.getItem('supabase_token');
   const [isLoading, setIsLoading] = useState(true); 
   const userProfile = useRef(new Map());
-  
-  console.log(isLoading);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -164,8 +172,7 @@ const UserProfile = () => {
     }
 
     mapUserProfile();
-    console.log("Setting false here!")
-    setTimeout(() => {setIsLoading(false)}, 1000)
+    setTimeout(() => {setIsLoading(false)}, 500)
   }, []);
 
   return (
