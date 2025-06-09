@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
-import { getUserProfile, updateUserProfile, updateUserAppearance } from './modules/userSettingsCrud';
+import { getUserProfile, updateUserProfile, updateUserAppearance, updateNameSocials } from './modules/userSettingsCrud';
 
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
@@ -136,7 +136,7 @@ function InputBoxes( { userName, setUserName, socialLinks, setSocialLinks } ) {
       <div className="inputDiv">
         <form>
           <label className="inputLabel">Modify Username </label>
-          <input className="textInput createAccountTextInput" type="text" placeholder={userName} />
+          <input className="textInput createAccountTextInput" type="text" value={userName} onChange={(e) => setUserName(e.target.value)}/>
 
           <label className="inputLabel"> New Password </label>
           <input className="textInput createAccountTextInput" type="password" placeholder="Type new password..." />
@@ -246,9 +246,24 @@ function EditAccountTab( { currentUserName, currentLinks } ) {
     }
   });
 
-  const editAccountHandler = () => {
-    console.log("Hello, this is what is called when you hit save on the Edit Account page");
-  }
+  const editAccountHandler = (userName, socialLinks) => {
+    const linkStarters = {github: "https://github.com/", twitter: "https://twitter.com/", linkedin: "https://linkedin.com/in/"};
+    let linkArray = [];
+    
+    if ("Github" in socialLinks && socialLinks.Github.length > 0) {
+      linkArray.push(linkStarters.github + socialLinks.Github);
+    }
+
+    if ("LinkedIn" in socialLinks && socialLinks.LinkedIn.length > 0) {
+      linkArray.push(linkStarters.linkedin + socialLinks.LinkedIn);
+    }
+
+    if ("Twitter" in socialLinks && socialLinks.Twitter.length > 0) {
+      linkArray.push(linkStarters.twitter + socialLinks.Twitter);
+    }
+
+    updateNameSocials(userName, linkArray);
+  };
 
   return (
     <>
@@ -259,7 +274,7 @@ function EditAccountTab( { currentUserName, currentLinks } ) {
         socialLinks={socialLinks}
         setSocialLinks={setSocialLinks}
       />
-      <EditButtons handleSaveAction={editAccountHandler}/>
+      <EditButtons handleSaveAction={() => editAccountHandler(userName, socialLinks)}/>
       <DeleteButton />
     </>
   );

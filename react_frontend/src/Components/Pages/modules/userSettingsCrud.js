@@ -74,3 +74,28 @@ export async function updateUserAppearance(newLightOption) {
         console.error(error.message);
     }
 }
+
+// updateNameSocials()
+// Updates the user's name and social media links
+export async function updateNameSocials(newUserName, newLinksArray) {
+    const user_token = localStorage.getItem('supabase_token');
+
+    try {
+        console.log("Updating Username and Social Media Links");
+
+        const res = await fetch(`${API_URL}/settings/editnamesocials`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: user_token, newUserName: newUserName, newLinks: newLinksArray }),
+        });
+        
+        if (!res.ok) {
+            throw new Error("Failed to Update Username and Links")
+        } else {
+            console.log("Successfully Updated Username and Links")
+        }
+
+    } catch (error) {
+        console.error(error.message);
+    }
+}
