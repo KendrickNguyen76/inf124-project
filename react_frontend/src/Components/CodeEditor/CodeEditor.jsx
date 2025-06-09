@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import Console from "./Console";
 import "./CodeEditor.css";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
 const CodeEditor = ({ problem_id }) => {
   const [language, setLanguage] = useState("python");
@@ -235,25 +236,38 @@ const CodeEditor = ({ problem_id }) => {
           </button>
         </div>
       </div>
-      <div
-        className="editor-container"
-        onContextMenu={(e) => e.preventDefault()}
-      >
-        <Editor
-          height="calc(100% - 200px)"
-          width="100%"
-          language={language}
-          value={code}
-          onMount={handleEditorDidMount}
-          onChange={(value) => setCode(value)}
-          theme="light"
-          options={{
-            ...editorOptions,
-            contextmenu: false,
-          }}
-        />
-        <Console outputs={outputs} />
-      </div>
+      <PanelGroup direction="vertical" style={{ height: "100%" }}>
+        <Panel defaultSize={70} minSize={30}>
+          <div
+            className="editor-container"
+            onContextMenu={(e) => e.preventDefault()}
+          >
+            <Editor
+              height="100%"
+              width="100%"
+              language={language}
+              value={code}
+              onMount={handleEditorDidMount}
+              onChange={(value) => setCode(value)}
+              theme="light"
+              options={{
+                ...editorOptions,
+                contextmenu: false,
+              }}
+            />
+          </div>
+        </Panel>
+        <Panel defaultSize={30} minSize={10}>
+          {/* Resize handle as a header at the top of Console */}
+          <PanelResizeHandle className="console-resize-header">
+            <div className="console-header-bar">
+              <span className="console-header-title">Console</span>
+              <span className="console-drag-indicator">⋮⋮</span>
+            </div>
+          </PanelResizeHandle>
+          <Console outputs={outputs} />
+        </Panel>
+      </PanelGroup>
     </div>
   );
 };
