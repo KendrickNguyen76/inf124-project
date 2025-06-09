@@ -1,4 +1,4 @@
-html, #root, .App {
+html{
   height: 100%;
   margin: 0;
   padding: 0;
@@ -15,7 +15,6 @@ html, #root, .App {
 /* create a box for the content to keep it responsive */
 .main-content {
   flex-grow: 1;
-  padding-top: 80px; /* same as navbar height */
   padding-left: 20px;
   padding-right: 20px;
 }
