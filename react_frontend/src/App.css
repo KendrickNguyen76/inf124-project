@@ -15,9 +15,9 @@ html, #root, .App {
 /* create a box for the content to keep it responsive */
 .main-content {
   flex-grow: 1;
-  padding-top: 80px; /* same as navbar height */
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-top: 20px; /* same as navbar height */
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .footer {
