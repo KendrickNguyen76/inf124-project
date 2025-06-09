@@ -22,3 +22,4 @@ async function getEntireUserProfile(req, res){
     res.json(user_profile);
 }
 
+module.exports= { getEntireUserProfile };

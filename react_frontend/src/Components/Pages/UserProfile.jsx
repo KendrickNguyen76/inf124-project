@@ -9,6 +9,8 @@ import chatIcon from "../../assets/icon_assets/chat.png";
 import lvl1 from "../../assets/Level1.png";
 import { useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
+
 
 // This will be for the title, user's name, Top Row in the middle
 const UserTitle = () => (
@@ -114,9 +116,9 @@ const UserProfile = () => {
   const user_token = localStorage.getItem('supabase_token');
   const existingProfile = useRef(new Map());
 
-  /*
+
   useEffect(() => {
-    const fetchProfile = () => {
+    const fetchProfile = async () => {
       try {
         const res = await fetch(`${API_URL}/userprofile`, {
           method: "POST",
@@ -128,13 +130,15 @@ const UserProfile = () => {
 
         if (!res.ok) throw new Error(profile_data.error || "Failed to get Profile Info");
 
-        return profile_data;
+        console.log(profile_data);
       } catch (error) {
         console.error(error.message);
+      }
     }
-    }
+    
+    fetchProfile();
   }, []);
-  */
+  
 
   return (
     <div className = "profile-box"> 
