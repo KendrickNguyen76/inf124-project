@@ -12,6 +12,8 @@ const Navbar = ({loggedIn, setLoggedIn}) => {
   const handleLogout = (e) => {
     e.preventDefault();
     setLoggedIn(false);
+    localStorage.removeItem("supabase_token");
+    console.log("token removed from session")
     navigate('/'); // Redirect to homepage
   };
 

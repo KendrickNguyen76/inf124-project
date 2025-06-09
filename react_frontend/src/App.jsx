@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 /*import "./App.css";*/
 import { Route, Routes, useLocation } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import {
@@ -23,7 +24,9 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const location = useLocation();
   const hideNavAndFooter = ["/gamepage"].includes(location.pathname);
+  const navigate = useNavigate();
 
+  /*added theme functionality*/
   useEffect(() => {
     const token = localStorage.getItem("supabase_token");
     console.log("Token for logged in used")
@@ -38,7 +41,7 @@ const App = () => {
   if (token) {
     initTheme();
   }
-}, []);
+}, [loggedIn]);
 
   const applyTheme = (isLight) => {
     const existingLink = document.getElementById("theme-stylesheet");
