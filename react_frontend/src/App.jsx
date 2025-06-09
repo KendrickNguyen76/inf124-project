@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./App.css";
+/*import "./App.css";*/
 import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
@@ -26,8 +26,56 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("supabase_token");
+    console.log("Token for logged in used")
     setLoggedIn(!!token);
-  }, []);
+    const initTheme = async () => {
+      const data = await fetchUserTheme(token);
+      if (data && typeof data.is_light === "boolean") {
+        applyTheme(data.is_light);
+      } else {
+        console.warn("Theme data was invalid or missing.");
+      }};
+  if (token) {
+    initTheme();
+  }
+}, []);
+
+  const applyTheme = (isLight) => {
+    const existingLink = document.getElementById("theme-stylesheet");
+    console.log(` Applying ${isLight ? "Light" : "Dark"} Mode`);
+    const themeHref = isLight ? "/App_light.css" : "/App_dark.css";
+    console.log(`Applying ${isLight ? "Light" : "Dark"} Mode with href:`, themeHref);
+    if (existingLink) {
+      existingLink.href = themeHref;
+    } else {
+      const link = document.createElement("link");
+      link.id = "theme-stylesheet";
+      link.rel = "stylesheet";
+      link.href = themeHref;
+      document.head.appendChild(link);
+    }
+  };
+  
+  const fetchUserTheme = async (token) => {
+  try {
+    const res = await fetch("http://localhost:3000/usertheme", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Server responded with status ${res.status}`);
+    }
+
+    const data = await res.json();
+    console.log(" Theme boolean fetched:", data); 
+    return data;
+  } catch (err) {
+    console.error(" Failed to fetch user theme:", err);
+    return null;
+  }
+  };
 
   return (
     <div className="App">
