@@ -25,9 +25,9 @@ const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://loca
 // This will be for the title, user's name, Top Row in the middle
 const UserTitle = ( {username} ) => (
   <div className="page-title">
-  <div className="name_line"></div>
-    <h1> {`${username}'s Page`} </h1>
-  <div className="name_line"></div>
+    <div className="name_line"></div>
+      <h1> {`${username}'s Page`} </h1>
+    <div className="name_line"></div>
 
 </div>
 );
@@ -62,8 +62,8 @@ const UserRank = ({ userRank }) => (
   <div>
     <div className="media-title"> Rank</div>
     <div className="rank-icon">
-      <p> {userRank} </p>
       <img src={lvl1} alt="trophy" />
+      <p> {userRank} </p>
     </div>
   </div>
 );
@@ -80,44 +80,45 @@ const BioSection = ({ userBio }) => {
 
   return (
     <div className="bio-section">
-    <h2>Bio</h2>
-    <p>
-      {userBio}
-    </p>
-    <div className="bio-buttons">
-      <button className="edit-button" id = "settings button" onClick={modifyPage}>Edit Profile </button>
-    </div>
+      <h2>Bio</h2>
+      <p>
+        {userBio}
+      </p>
+      <div className="bio-buttons">
+        <button className="edit-button" id = "settings button" onClick={modifyPage}>Edit Profile </button>
+      </div>
   </div>
   );
 };
 
 const MatchHistory = () => (
   <div className = "History-section">
-      <div className="match-title"> Match History</div>   
-      <div className="history-section">
-        <div className="history-item">
-          <ul>
-            <li>Played Against</li>
-            <li>Winner</li>
-            <li>Winner's Time</li>
-            <li>Loser's Time</li>
-            <li>Date</li>
-          </ul>
-        </div>
-        <div className="history_scroll">
-        {/*placeholders for back end data integration later*/}
-        {[...Array(10)].map((_, i) => (
-        <div key={i} className="data_row">
-          <span className="data_column">Player {i + 1}</span>
-          <span className="data_column">#{i + 1}</span>
-          <span className="data_column">{Math.floor(Math.random() * 10)}</span>
-          <span className="data_column">{Math.floor(Math.random() * 10)}</span>
-          <span className="data_column">{Math.floor(Math.random() * 10)}</span>
-        </div>
-        ))}
-        </div>
-      </div>
+      <div className="match-title"> Match History</div>  
+        <div className="table_container">  
+        <table>
+          <thead>
+            <tr>
+              <th>Played Against</th>
+              <th>Winner</th>
+              <th>Winner's Time</th>
+              <th>Loser's Time</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...Array(10)].map((_, i) => (
+              <tr key={i}>
+                <td><span>Player {i + 1}</span></td>
+                <td><span>name{i + 1}</span></td>
+                <td><span>{Math.floor(Math.random() * 10)} : {Math.floor(Math.random() * 10)}</span></td>
+                <td><span>{Math.floor(Math.random() * 10)} : {Math.floor(Math.random() * 10)}</span></td>
+                <td><span>{Math.floor(Math.random() * 10)} : {Math.floor(Math.random() * 10)}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
     </div>
+  </div>
 );
 
 function UserProfileChild( { userProfile } ) {
@@ -128,8 +129,10 @@ function UserProfileChild( { userProfile } ) {
     <div className="content-row">
       <div className="left-column">
         <Avatar userPfp={userProfile.get("profile_pic")}/>
-        <SocialMediaIcons />
-        <UserRank userRank={userProfile.get("rank")}/>
+        <div className="side-by-side">
+          <SocialMediaIcons />
+          <UserRank userRank={userProfile.get("rank")}/>
+        </div>
       </div>
       <div className="right-column">
         <BioSection userBio={userProfile.get("bio")}/>
