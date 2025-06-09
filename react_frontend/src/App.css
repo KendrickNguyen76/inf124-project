@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
 .App {
   background-color: #f0f0f0;
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
+  display: flex; /* to use flexbox for layout */
+  flex-direction: column; /*for footer to be at the bottom */
 }
 
 html {
@@ -12,43 +14,60 @@ html {
   background-color: #f0f0f0;
 }
 
-body {
-  padding-top: 200px; /* Same or slightly more than the nav height */
+/* create a box for the content to keep it responsive */
+.main-content {
+  flex-grow: 1;
+  padding-top: 80px; /* same as navbar height */
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-h1 {
-  width: 973px;
-  height: 98px;
-  flex-shrink: 0;
-  color: #2a4849;
-  text-align: center;
-  font-family: Inter;
-  font-size: 82px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: normal;
+.footer {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2A4849;
+  height: 60px;
+  margin-top: 20px;
+  box-sizing: border-box;
 }
 
-h2 {
-  width: 855px;
-  height: 97px;
-  flex-shrink: 0;
+/* If they are all seperate, it messes up the consistancy. Will modify later */
+h1, h2, p {  
+  max-width: 90%;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+}
+
+h1{
+  font-size: 75px;
   color: #2A4849;
   text-align: center;
-  font-family: Inter;
+
+}
+h2{
   font-size: 40px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: normal;
+  color: #2A4849;
+  text-align: left;
+
 }
 
 p{
-  flex-shrink: 0;
-  color: #8BB174;
-  font-family: Inter;
   font-size: 32px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: normal;
-}
+  color: #8BB174;
 
+}
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  p {
+    font-size: 1.2rem;
+  }
+}
