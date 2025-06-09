@@ -1,19 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
-.App {
-  background-color: #f0f0f0;
-  height: 100%;
-  width: 100%;
-}
 
-html {
+
+html, body, #root, .App {
+  height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
-  background-color: #f0f0f0;
-}
-
-body {
-  padding-top: 200px; /* Same or slightly more than the nav height */
+  box-sizing: border-box;
 }
 
 h1 {

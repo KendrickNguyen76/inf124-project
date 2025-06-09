@@ -1,10 +1,10 @@
 .game-page {
-    display: flex;
-    flex-direction: column; 
-    height: 100vh;
-    width: 100vw;
-    box-sizing: border-box;
-    padding: 20px 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 0 40px;
 }
 
 .game-container {
@@ -44,12 +44,12 @@
 }
 
 .game-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0;
 }
 .quit-button {
   display: flex;
@@ -75,44 +75,44 @@
 }
 
 .panel-group {
-    flex: 1;
-    display: flex;
-    margin-top: 20px;
-    height: calc(100vh - 100px);
-    background: #426b69;
-    padding: 8px;
-    border-radius: 8px;
-    gap: 8px;
+  flex: 1;
+  display: flex;
+  margin-top: 20px;
+  height: calc(100vh - 100px);
+  background: #426b69;
+  padding: 8px;
+  border-radius: 8px;
+  gap: 8px;
 }
 
 .panel {
-    height: 100%;
-    overflow: hidden;
-    background: white;
-    border-radius: 4px;
-    outline: none !important;
+  height: 100%;
+  overflow: hidden;
+  background: white;
+  border-radius: 4px;
+  outline: none !important;
 }
 
 .resize-handle {
-    width: 8px;
-    background: #426b69;
-    cursor: col-resize;
-    position: relative;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    outline: none !important;
+  width: 8px;
+  background: #426b69;
+  cursor: col-resize;
+  position: relative;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none !important;
 }
 
 .resize-handle::after {
-    content: "";
-    width: 4px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
+  content: "";
+  width: 4px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
 }
 
 .resize-handle:hover::after {
-    background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.4);
 }
