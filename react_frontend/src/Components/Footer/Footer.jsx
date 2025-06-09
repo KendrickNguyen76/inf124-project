@@ -4,11 +4,11 @@ import './Footer.css'
 
 const Footer = () => {
   return (
-  <div className= 'footer'>
+  <footer className= 'footer'>
     <ul className="footer-menu">
         <li> <NavLink to = "/aboutus" className = "footer-enter">About Us</NavLink></li>
       </ul>
-    </div>
+    </footer>
   )
 }
 

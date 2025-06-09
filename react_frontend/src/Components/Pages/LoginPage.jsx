@@ -48,7 +48,7 @@ function Divider() {
   return (
     <div className="divider">
       <div className="line"></div>
-      <label className="inputLabel">No Account?</label>
+      <label className="inputLabel_end">No Account?</label>
       <div className="line"></div>
     </div>
   );

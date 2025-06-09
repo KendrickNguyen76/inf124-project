@@ -1,3 +1,21 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1, h2, p {
+  word-wrap: break-word;
+}
+
+/* ------------------ Main Layout ------------------ */
 .home {
   display: flex;
   flex-direction: column;
@@ -5,151 +23,168 @@
   min-height: 50vh;
   width: 100%;
 }
-/* Start of: Landing Sections */
+
+/* ------------------ Landing Section ------------------ */
 .landing_container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
 }
+
 .landing_text {
+  text-align: center;
+  margin: 2rem 1rem;
+}
+
+.landing_text h1,
+.landing_text h2 {
+  margin-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.landing_image {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 30px;
+  gap: 1rem;
 }
-.landing_text h1 {
-  border-top: none;
-  margin: 0;
-  padding-top: 20px;
-}
-.landing_text h2 {
-  border-top: none;
-  margin: 0;
-  padding: 0;
-}
-.landing_image {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: -150px;
-}
-#landing_bash,
-#landing_hsaB {
-  margin-right: 850px;
-  width: 489px;
-  height: 446px;
-}
-#landing_hsaB {
-  margin-right: 0;
-  width: 489px;
-  height: 446px;
-}
-/* End of: Landing Sections */
 
-/* About Section */
+.landing_image img {
+  width: 99%;
+  max-width: 700px;
+}
+
+@media (min-width: 768px) {
+  .landing_image {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: -50px; /* gap between picture and h2 text */
+
+  }
+}
+
+/* ------------------ About Section ------------------ */
 .about_section {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
+  padding: 2rem 1rem;
 }
 
-.about_section h1 {
-  margin: 0;
-  text-align: left;
-  padding: 0 0 50px 100px;
-}
-.about_section h2 {
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  width: 100%;
-  padding: 0 0 0 100px;
-  display: inline;
-}
+.about_section h1,
+.about_section h2,
 .about_section p {
-  margin: 0;
-  padding: 0 0 50px 100px;
   text-align: left;
+  padding-bottom: 1rem;
 }
-/* End of: About Section  */
 
-/* Start of Features Section  */
+@media (min-width: 768px) {
+  .about_section {
+    padding: 2rem 4rem;
+  }
+}
+
+/* ------------------ Features Section ------------------ */
 .features_section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
 }
 
 .features_text h1,
-h2,
-p {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin: 0;
-  padding: 0 0 0 100px;
+.features_text h2,
+.features_text p {
+  text-align: left;
+  margin-bottom: 1rem;
 }
-/*End of: Features Section */
+.features_image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#laptop_landing {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+@media (min-width: 768px) {
+  .features_section {
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 2rem 4rem;
+  }
 
-/* Start of How It Works Section  */
+  .features_text {
+    padding-left: 2rem;
+  }
+  #laptop_landing {
+    max-width: 800px;
+   
+  }
+}
+
+/* ------------------ How It Works Section ------------------ */
 .how_it_works_section {
   display: flex;
   flex-direction: column;
-  align-items: left;
   justify-content: center;
+  padding: 2rem 1rem;
 }
-.how_it_works_section h1 {
-  margin: 0;
-  padding: 0 0 0 100px;
-  text-align: left;
-}
-.how_it_works_section h2 {
-  margin: 0;
-  padding: 0 0 50px 100px;
-  text-align: left;
-}
-/*End of: How It Works Section */
 
-/* Start of Play Now Section  */
+.how_it_works_section h1,
+.how_it_works_section h2,
+.how_it_works_section p {
+  text-align: left;
+  margin-bottom: 1rem;
+}
 
+@media (min-width: 768px) {
+  .how_it_works_section {
+    padding: 2rem 4rem;
+  }
+}
+
+/* ------------------ Play Now Section ------------------ */
 .play_now_section {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 50vh;
+  padding: 2rem 1rem;
 }
 
 .play_now_section h1 {
-  margin: 0;
-  padding: 0;
   text-align: center;
-  width: 100%;
-  padding: 50px 0 50px 0;
+  margin-bottom: 2rem;
 }
 
-.play_now_section button {
+.play_now_button button {
   border-radius: 36px;
   background: #182c2d;
-  width: 617px;
-  height: 213px;
-  flex-shrink: 0;
+  width: 90%;
+  max-width: 400px;
+  padding: 2rem;
   color: #d9d9d9;
   text-align: center;
-  font-family: Inter;
-  font-size: 82px;
-  font-style: normal;
+  font-family: Inter, sans-serif;
+  font-size: 2rem;
   font-weight: 800;
-  line-height: normal;
+  border: none;
 }
-.play_now_section button:hover {
+
+.play_now_button button:hover {
   cursor: pointer;
+  opacity: 0.9;
 }
-/* End of Play Now Section  */
+
+@media (min-width: 768px) {
+  .play_now_button button {
+    font-size: 3rem;
+  }
+}

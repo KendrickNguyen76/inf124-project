@@ -22,23 +22,28 @@
     margin: 10px 5px 0px 5px;
     background-color: #426B69;
 }
+
 .instructions {
     margin-top: 20px;
-    font-size: 16px;
-    line-height: 1.6;
-    border: 8px solid black; /* remove later */
-}
-  
-/* .intro-text,
-.support-text {
-    margin-bottom: 12px;
+    /* border: 8px solid red; for debugging */
+    text-align: left;
 }
   
 .instruction-steps {
-    margin-left: 20px;
-    padding-left: 10px;
+  list-style-type: decimal; /* list */
+  padding-left: 40px;
+  margin-left: 0;
 }
-  
+
 .instruction-steps li {
-    margin-bottom: 8px;
-} */
+  font-size: 32px;
+  color: #8BB174;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .instruction-steps li {
+    font-size: 1.2rem;
+  }
+} 
