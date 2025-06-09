@@ -75,8 +75,14 @@ const LoginPage = ({ setLoggedIn }) => {
         body: JSON.stringify(form),
       });
       const data = await res.json();
+      
+      // Fail the login
       if (!res.ok) throw new Error(data.error || "Login failed");
+      
+      // If the login succeeds, set LoggedIn to true, store the access_token,
+      // and navigate to the dashboard
       setLoggedIn(true);
+      localStorage.setItem('supabase_token', data.session.access_token);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);

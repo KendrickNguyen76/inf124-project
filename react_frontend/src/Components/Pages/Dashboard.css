@@ -20,14 +20,6 @@
   margin: 20px 0;
   width: 100%;
 }
-.name_line{
-  content: "";
-  display: block;
-  height: 2px;
-  width: 150px;
-  background-color: #426B69;
-  flex-shrink: 0;
-}
 
 
 .leader_dash_title h1 {
@@ -143,8 +135,9 @@
   }
 
   .practice_button:hover{
+    cursor: pointer;
     border-radius: 36px;
-    background-color: #2a4849;
+    background-color: #4E8141;
     color: #fff;
     text-decoration: none;
     padding: 4px 8px;
@@ -171,8 +164,9 @@
   }
 
   .match_button:hover{
+    cursor: pointer;
     border-radius: 36px;
-    background-color: #2a4849;
+    background-color: #4E8141;
     color: #fff;
     text-decoration: none;
     padding: 4px 8px;

@@ -2,12 +2,10 @@ import React from "react";
 import "./Dashboard.css";
 import { useNavigate } from 'react-router-dom';
 
-{/*title of local dashboard*/}
+
 const LeaderDashTitle = () => (
   <div className="leader_dash_title">
-  <div className="name_line"></div>
-    <h1>LeaderBoard</h1>
-  <div className="name_line"></div>
+    <h1> ⸺⸺ LeaderBoard ⸺⸺ </h1>
 </div>
 );
 
@@ -58,7 +56,7 @@ const PlayButtons = () => {
       <button className = "practice_button" onClick={() => navigate("/questionbank")}>
         Practice
       </button>
-      <button className = "match_button" onClick={() => navigate("/gamepage")}>
+      <button className = "match_button" onClick={() => navigate("/comingsoon")}>
         Find Match
       </button>
     </div>

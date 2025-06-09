@@ -27,7 +27,7 @@
 }
 
 .line {
-    width: 56px; /* Default for mobile */
+    width: 49px; /* Default for mobile */
     height: 2px;
     margin: 10px 5px 0px 5px;
     background-color: #426B69;
@@ -118,3 +118,5 @@
     margin-bottom: 5px;
     color: #426B69;
 }
+
+

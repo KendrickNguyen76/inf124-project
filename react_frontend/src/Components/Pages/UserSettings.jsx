@@ -1,7 +1,10 @@
 import React from "react";
 import "./UserSettings.css";
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+
+import { getUserProfile, updateUserProfile, updateUserAppearance } from './modules/userSettingsCrud';
 
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
@@ -57,14 +60,26 @@ const SettingsBar = ({ activeTab, onSelect }) => {
 };
 
 // Component for the right sidebar
-function EditButtons() {
+function EditButtons({ handleSaveAction }) {
+  const navigate = useNavigate();
+
+  const handleSave = () => {
+    handleSaveAction();
+    navigate("/userprofile");
+  }
+
+  const handleCancel = () => {
+    navigate("/userprofile");
+  }
+  
   return (
       <div className="edit-buttons">
-        <button className="edit-button" type = "settings button">Cancel</button>
-        <button className="edit-button" type = "settings button">Save Changes</button>
+        <button className="edit-button" type = "settings button" onClick={handleCancel}>Cancel</button>
+        <button className="edit-button" type = "settings button" onClick={handleSave}>Save Changes</button>
       </div>
   );
 }
+
 function DeleteButton() {
   return (
       <div className="delete-buttons">
@@ -94,6 +109,8 @@ function InputBoxes() {
     </div>
   );
 }
+
+
 // EditAccount View - Edit Social Media
 function SocialMediaInput() {
 const iconMapping = {
@@ -139,14 +156,12 @@ const iconMapping = {
 }
 
 
-
 // EditProfile View - Bash Selection
-function BashSelection() {
+function BashSelection( { selectedColor, setSelectedColor} ) {
   const bashImages = [GreenBash, BlueBash, RedBash, OrangeBash, PurpleBash, PinkBash]
-  const colorOptions = ["Green", "Blue", "Red", "Orange", "Purple", "Pink"]
+  const colorOptions = ["GREEN", "BLUE", "RED", "ORANGE", "PURPLE", "PINK"]
 
-  const [selectedColor, setSelectedColor] = useState('Green');
-  const [selectedBash, setSelectedBash] = useState(bashImages[0]);
+  const [selectedBash, setSelectedBash] = useState(bashImages[colorOptions.indexOf(selectedColor)]);
 
   const handleColorChange = (value) => {
     if (colorOptions.includes(value)) {
@@ -161,7 +176,7 @@ function BashSelection() {
       <img className="selectedBash" src={selectedBash} alt="Bash" />
 
       <form>
-        {['Green', 'Blue', 'Red', 'Orange', 'Purple', 'Pink'].map((color) => (
+        {colorOptions.map((color) => (
             <input
               type="radio"
               className="colorSelectionRadio"
@@ -178,20 +193,47 @@ function BashSelection() {
     </div>
   );
 }
-// EditProfile View - Edit Bio
 
-function BioInput() {
+// EditProfile View - Edit Bio
+function BioInput( { currentBio, setCurrentBio } ) {
   return (
     <div className = "editprofile-box">
       <div className="inputDiv">
         <label className="inputLabel" htmlFor="bio">Edit Bio</label>
         <form action="" method="post">
-          <textarea className="textInput createAccountTextInput" id="bio" name="bio" placeholder="<current Bio>..." rows="4"></textarea>
+          <textarea 
+            className="textInput createAccountTextInput" 
+            id="bio" name="bio" 
+            value={currentBio} 
+            onChange={e => setCurrentBio(e.target.value)}
+            rows="4">
+          </textarea>
         </form>
       </div>
     </div>
   );
 }
+
+// EditProfile View - Edit Profile Tab
+function EditProfileTab( { existingBash, existingBio } ) {
+  const [selectedColor, setSelectedColor] = useState(existingBash);
+  const [currentBio, setCurrentBio] = useState(existingBio);
+
+  const editProfileHandler = (color, bio) => {
+    updateUserProfile(color, bio);
+  };
+
+  return (
+    <>
+      <h2> Edit Profile</h2>
+      <BashSelection selectedColor={selectedColor} setSelectedColor={setSelectedColor}/>
+      <BioInput currentBio={currentBio} setCurrentBio={setCurrentBio}/>
+      <EditButtons handleSaveAction={() => editProfileHandler(selectedColor, currentBio)} />
+    </>
+  );
+}
+
+
 
 // Appearance View - Display Site 
 const AppearanceSettings = () => (
@@ -203,8 +245,7 @@ const AppearanceSettings = () => (
 );
 
 // Appearance View - Choose Theme
-function InputTheme() {
-  const [selectedOption, setSelectedOption] = useState(null);
+function InputTheme( { selectedOption, setSelectedOption } ) {
   const options = [
     { value: "displayLight", label: "Light Mode (Regular Mode)" },
     { value: "displayDark", label: "Dark Mode" }
@@ -223,11 +264,56 @@ function InputTheme() {
   );
 }
 
+// Appearance View - Edit Appearance Tab
+function EditAppearanceTab() {
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const editAppearanceHandler = (themeOption) => {
+      let isLight = true;
+
+      if (themeOption === null) {
+          // Do nothing
+      } else if (themeOption.value === "displayDark") {
+        isLight = false;
+      }
+
+      updateUserAppearance(isLight);
+  };
+
+  return (
+    <>
+      <h2> Appearence</h2>
+      <AppearanceSettings />
+      <InputTheme selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
+      <EditButtons handleSaveAction={() => editAppearanceHandler(selectedOption)} />
+    </>
+  );
+}
+
+
+// Handler functions for saving settings
+const editAccountHandler = () => {
+  console.log("Hello, this is what is called when you hit save on the Edit Account page");
+}
+
 
 
 // Main UserSettings Component
 const UserSettings = () => {
   const [tab, setTab] = useState("editAccount"); // default to edit
+  const existingProfile = useRef(new Map());
+
+  // How in the world do i store the information i want from getUserProfile
+  // Without triggering a billion rerenders???
+  useEffect(() => {
+    const getProfileInfo = async () => {
+      const profile_info = await getUserProfile();
+      const map = new Map(Object.entries(profile_info[0]));
+      existingProfile.current = map;
+    }
+
+    getProfileInfo();
+  }, []);
 
   return (
     <div className = "settings-box"> 
@@ -241,24 +327,16 @@ const UserSettings = () => {
             <h2> Edit Account</h2>
             <InputBoxes />
             <SocialMediaInput />
-            <EditButtons />
+            <EditButtons handleSaveAction={editAccountHandler}/>
             <DeleteButton />
           </>
         ) : tab === "editProfile" ? (
-          <>
-            <h2> Edit Profile</h2>
-            <BashSelection />
-            <BioInput />
-            <EditButtons />
-
-          </>
+          <EditProfileTab
+            existingBash={existingProfile.current.get("profile_pic")}
+            existingBio={existingProfile.current.get("bio")}
+          />
         ) : (
-          <>
-            <h2> Appearence</h2>
-            <AppearanceSettings />
-            <InputTheme />
-            <EditButtons />
-          </>
+            <EditAppearanceTab />
         )}
         </div>
       </div>

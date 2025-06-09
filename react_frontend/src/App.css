@@ -1,3 +1,10 @@
+html, #root, .App {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
   background-color: #f0f0f0;
   min-height: 100vh;
