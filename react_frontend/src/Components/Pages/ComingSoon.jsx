@@ -21,7 +21,7 @@ const ReturntoDashButton = () =>
     return(
         <div className = "dash_button">
             <button className = "back_dash" onClick = {() => navigate("/dashboard")}>
-                Return to DashBoard
+                Return to Dashboard
             </button>
         </div>
     )

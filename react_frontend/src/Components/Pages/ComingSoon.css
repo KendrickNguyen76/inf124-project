@@ -97,3 +97,27 @@ font-family: 'Inter', sans-serif;
     text-decoration: none;
     padding: 4px 8px;
 }
+
+  /* Responsive Design */
+@media (max-width: 478px) {
+    .coming_soon_title h1 {
+        font-size: 1.5rem;
+        white-space: normal; /* Allow wrapping */
+    }
+    .bash_laptop img{
+        width: 150px;
+        height: 125px;
+    }
+    .bash_laptop h1{
+        font-size: 1.5rem;
+        white-space: normal; /* Allow wrapping */
+    }
+    .back_dash{
+        width: 250px;
+        height: 70px;
+        font-size: 20px;
+    }
+    .dash_button {
+        gap: 50px;
+    }
+}
