@@ -56,7 +56,7 @@ const PlayButtons = () => {
       <button className = "practice_button" onClick={() => navigate("/questionbank")}>
         Practice
       </button>
-      <button className = "match_button" onClick={() => navigate("/gamepage")}>
+      <button className = "match_button" onClick={() => navigate("/comingsoon")}>
         Find Match
       </button>
     </div>

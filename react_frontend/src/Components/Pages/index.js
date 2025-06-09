@@ -10,6 +10,7 @@ export {default as GamePage} from "./GamePage";
 export {default as UserSettings } from "./UserSettings";
 export {default as QuestionBank } from "./QuestionBank";
 export {default as QuestionBankQuestions } from "./QuestionBankQuestions";
+export {default as ComingSoon } from "./ComingSoon";
 // Here we are exporting all the components from the pages folder
 // so that we can import them in the App.jsx file and use them in the routes
 

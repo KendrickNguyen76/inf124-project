@@ -16,6 +16,7 @@ import {
   UserSettings,
   QuestionBank,
   QuestionBankQuestions,
+  ComingSoon,
 } from "./Components/Pages";
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/leaderboard" element={<LeaderBoard />} />
         <Route path="/howtoplay" element={<HowToPlay />} />
         <Route path="/questionbank" element={<QuestionBank />} />
+         <Route path="/comingsoon" element={<ComingSoon />} />
         <Route
           path="/questionbankquestions"
           element={<QuestionBankQuestions />}
