@@ -91,7 +91,7 @@ function DeleteButton() {
 // Right Column
 
 // EditAccount View - Edit UserName & Password
-function InputBoxes() {
+function InputBoxes( { userName, setUserName } ) {
   const socialPlatforms = {
     Github: {
       icon: <img className="icon-img" src={giticon} alt="GitHub" />,
@@ -135,8 +135,8 @@ function InputBoxes() {
     <div className="editprofile-box">
       <div className="inputDiv">
         <form>
-          <label className="inputLabel">Modify UserName </label>
-          <input className="textInput createAccountTextInput" type="text" placeholder="<current UserName>..." />
+          <label className="inputLabel">Modify Username </label>
+          <input className="textInput createAccountTextInput" type="text" placeholder={userName} />
 
           <label className="inputLabel"> New Password </label>
           <input className="textInput createAccountTextInput" type="password" placeholder="Type new password..." />
@@ -232,6 +232,28 @@ function SocialMediaInput() {
         </div>
       </div>
     </div>
+  );
+}
+
+// EditAccount View - Edit Account Tab
+function EditAccountTab( { currentUserName } ) {
+  const [userName, setUserName] = useState(currentUserName);
+  
+
+  const editAccountHandler = () => {
+    console.log("Hello, this is what is called when you hit save on the Edit Account page");
+  }
+
+  return (
+    <>
+      <h2> Edit Account</h2>
+      <InputBoxes 
+        userName={userName}
+        setUserName={setUserName}
+      />
+      <EditButtons handleSaveAction={editAccountHandler}/>
+      <DeleteButton />
+    </>
   );
 }
 
@@ -371,55 +393,56 @@ function EditAppearanceTab() {
 }
 
 
-// Handler functions for saving settings
-const editAccountHandler = () => {
-  console.log("Hello, this is what is called when you hit save on the Edit Account page");
+// UserSettings Child Component
+function UserSettingsChild( { existingProfile } ) {
+  const [tab, setTab] = useState("editAccount"); // default to edit
+
+  return (
+    <div className = "settings-box"> 
+      <div className="content-row">
+        <div className="left-sidebar">
+          <SettingsBar onSelect={setTab} />
+        </div>
+        <div className="right-sidebar">
+          {tab === "editAccount" ? (
+            <EditAccountTab 
+              currentUserName={existingProfile.get("username")}
+            />
+          ) : tab === "editProfile" ? (
+            <EditProfileTab
+              existingBash={existingProfile.get("profile_pic")}
+              existingBio={existingProfile.get("bio")}
+            />
+          ) : (
+            <EditAppearanceTab />
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
-
-
 
 // Main UserSettings Component
 const UserSettings = () => {
-  const [tab, setTab] = useState("editAccount"); // default to edit
+  const [isLoading, setIsLoading] = useState(true);
   const existingProfile = useRef(new Map());
 
-  // How in the world do i store the information i want from getUserProfile
-  // Without triggering a billion rerenders???
   useEffect(() => {
     const getProfileInfo = async () => {
       const profile_info = await getUserProfile();
       const map = new Map(Object.entries(profile_info[0]));
       existingProfile.current = map;
     }
-
+    
     getProfileInfo();
+    setTimeout(() => {setIsLoading(false)}, 500);
   }, []);
 
   return (
-    <div className = "settings-box"> 
-    <div className="content-row">
-      <div className="left-sidebar">
-        <SettingsBar onSelect={setTab} />
-        </div>
-      <div className="right-sidebar">
-        {tab === "editAccount" ? (
-          <>
-            <h2> Edit Account</h2>
-            <InputBoxes />
-            <EditButtons handleSaveAction={editAccountHandler}/>
-            <DeleteButton />
-          </>
-        ) : tab === "editProfile" ? (
-          <EditProfileTab
-            existingBash={existingProfile.current.get("profile_pic")}
-            existingBio={existingProfile.current.get("bio")}
-          />
-        ) : (
-            <EditAppearanceTab />
-        )}
-        </div>
-      </div>
+    <div>
+      { isLoading ? <h1> Loading... </h1> : <UserSettingsChild existingProfile={existingProfile.current} /> }
     </div>
   );
 };
+
 export default UserSettings;

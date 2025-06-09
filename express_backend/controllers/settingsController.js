@@ -40,7 +40,8 @@ async function editProfile(req, res) {
 
 // getProfileDetails()
 // Pulls the profile picture, bio, and light/dark mode settings
-// of the current user from the profile table
+// of the current user from the profile table.
+// 6/9 - Also pulls the social media links and username
 async function getProfileDetails(req, res){
     const { token } = req.body;
     // Get the user from the auth table, and store its id
@@ -48,7 +49,7 @@ async function getProfileDetails(req, res){
     
     const { data:user_profile, error } = await supabase
         .from('profile')
-        .select('bio, is_light, profile_pic')
+        .select('bio, is_light, profile_pic, username, links')
         .eq('id', user.id);
 
     // Come back to error handling later

@@ -122,7 +122,6 @@ const MatchHistory = () => (
 );
 
 function UserProfileChild( { userProfile } ) {
-  console.log(userProfile);
   return (
     <>
     <UserTitle username={userProfile.get("username")}/>

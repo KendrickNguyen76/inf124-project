@@ -3,9 +3,7 @@ const router = express.Router();
 const { getProfileDetails, editProfile, editAppearance} = require('../controllers/settingsController');
 
 // Route that returns information about the specified user
-// stored in the 'profile' database table. More specifically,
-// it should get the profile picture, bio, and light/dark mode 
-// preference of the user.
+// stored in the 'profile' database table.
 router.post('/profiledetails', getProfileDetails);
 
 // Route that updates the user's pfp and bio
