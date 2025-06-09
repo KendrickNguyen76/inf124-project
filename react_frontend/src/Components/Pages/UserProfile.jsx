@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useRef } from 'react';
 import "./UserProfile.css";
 
 import linkedinIcon from"../../assets/icon_assets/linkedin.png"; 
@@ -109,8 +110,31 @@ const MatchHistory = () => (
 );
 
 
-
 const UserProfile = () => {
+  const user_token = localStorage.getItem('supabase_token');
+  const existingProfile = useRef(new Map());
+
+  /*
+  useEffect(() => {
+    const fetchProfile = () => {
+      try {
+        const res = await fetch(`${API_URL}/userprofile`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: user_token }),
+        });
+
+        const profile_data = await res.json(); 
+
+        if (!res.ok) throw new Error(profile_data.error || "Failed to get Profile Info");
+
+        return profile_data;
+      } catch (error) {
+        console.error(error.message);
+    }
+    }
+  }, []);
+  */
 
   return (
     <div className = "profile-box"> 

@@ -39,7 +39,8 @@ async function editProfile(req, res) {
 
 
 // getProfileDetails()
-// Pulls all of the details about the current user from the profile table
+// Pulls the profile picture, bio, and light/dark mode settings
+// of the current user from the profile table
 async function getProfileDetails(req, res){
     const { token } = req.body;
     // Get the user from the auth table, and store its id
