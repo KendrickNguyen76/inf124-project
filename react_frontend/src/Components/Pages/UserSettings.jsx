@@ -239,15 +239,27 @@ function SocialMediaInput() {
 function EditAccountTab( { currentUserName, currentLinks } ) {
   const [userName, setUserName] = useState(currentUserName);
   const [socialLinks, setSocialLinks] = useState({});
+  const linkStarters = {github: "https://github.com/", twitter: "https://twitter.com/", linkedin: "https://linkedin.com/in/"};
 
   useEffect(() => {
-    if (!(currentLinks === null)) {
-      // Come back to this
+    var currSocialLinks = {};
+
+    if (!(currentLinks === null) && !(currentLinks.length === 0)) {
+      for (var link of currentLinks) {
+        if (link.includes(linkStarters.github)) {
+          currSocialLinks.Github = link.replace(linkStarters.github, "");
+        } else if (link.includes(linkStarters.linkedin)) {
+          currSocialLinks.LinkedIn = link.replace(linkStarters.linkedin, "");
+        } else if (link.includes(linkStarters.twitter)) {
+          currSocialLinks.Twitter = link.replace(linkStarters.twitter, "");
+        }
+      }
     }
-  });
+
+    setSocialLinks(currSocialLinks);
+  }, []);
 
   const editAccountHandler = (userName, socialLinks) => {
-    const linkStarters = {github: "https://github.com/", twitter: "https://twitter.com/", linkedin: "https://linkedin.com/in/"};
     let linkArray = [];
     
     if ("Github" in socialLinks && socialLinks.Github.length > 0) {
