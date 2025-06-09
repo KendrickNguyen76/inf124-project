@@ -17,32 +17,45 @@ import {
   QuestionBank,
   QuestionBankQuestions,
   ComingSoon,
-  ForgotPasswordPage, 
-  UpdatePasswordPage
+  ForgotPasswordPage,
+  UpdatePasswordPage,
 } from "./Components/Pages";
+
+const API_URL =
+  import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const location = useLocation();
-  const hideNavAndFooter = ["/gamepage"].includes(location.pathname);
+  const hideNavAndFooter = ["/gamepage", "/update-password"].includes(
+    location.pathname
+  );
 
   useEffect(() => {
-    const token = localStorage.getItem("supabase_token");
-    console.log("Token for logged in used");
-    setLoggedIn(!!token);
-    const initTheme = async () => {
-      const data = await fetchUserTheme(token);
-      if (data && typeof data.is_light === "boolean") {
-        applyTheme(data.is_light);
-      } else {
-        console.warn("Theme data was invalid or missing.");
+    const checkSession = async () => {
+      const token = localStorage.getItem("supabase_token");
+      if (!token) {
+        setLoggedIn(false);
+        return;
+      }
+      try {
+        const res = await fetch(`${API_URL}/login/validate-session`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
+        const data = await res.json();
+        setLoggedIn(!!data.valid);
+        if (!data.valid) {
+          localStorage.removeItem("supabase_token");
+        }
+      } catch (err) {
+        setLoggedIn(false);
+        localStorage.removeItem("supabase_token");
       }
     };
-    if (token) {
-      initTheme();
-    }
-  }, []);
-
+    checkSession();
+  }, [location.pathname]);
   const applyTheme = (isLight) => {
     const existingLink = document.getElementById("theme-stylesheet");
     console.log(` Applying ${isLight ? "Light" : "Dark"} Mode`);

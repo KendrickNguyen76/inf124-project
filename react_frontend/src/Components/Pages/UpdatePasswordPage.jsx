@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 import Logo from "../../assets/ByteMe_Logo.png";
 
@@ -6,7 +7,6 @@ const API_URL =
   import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
 
 function getAccessTokenFromHash() {
-  // Supabase puts the access_token in the URL hash after the magic link
   const hash = window.location.hash.substring(1);
   const params = new URLSearchParams(hash);
   return params.get("access_token");
@@ -19,6 +19,7 @@ const UpdatePasswordPage = () => {
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [accessToken, setAccessToken] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setAccessToken(getAccessTokenFromHash());
@@ -51,6 +52,7 @@ const UpdatePasswordPage = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to update password");
       setSuccess(true);
+      localStorage.removeItem("supabase_token");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -73,8 +75,9 @@ const UpdatePasswordPage = () => {
             name="password"
             placeholder="Enter new password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={success}
           />
           <label className="inputLabel" htmlFor="confirm">
             Confirm Password
@@ -86,14 +89,29 @@ const UpdatePasswordPage = () => {
             name="confirm"
             placeholder="Confirm new password"
             value={confirm}
-            onChange={e => setConfirm(e.target.value)}
+            onChange={(e) => setConfirm(e.target.value)}
             required
+            disabled={success}
           />
         </div>
-        <button className="submitButton" type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Update Password"}
-        </button>
-        {success && <div style={{ color: "green", marginTop: "1em" }}>Password updated! You can now log in.</div>}
+        {success ? (
+          <button
+            className="submitButton"
+            type="button"
+            onClick={() => navigate("/login")}
+          >
+            Log In
+          </button>
+        ) : (
+          <button className="submitButton" type="submit" disabled={loading}>
+            {loading ? "Updating..." : "Update Password"}
+          </button>
+        )}
+        {success && (
+          <div style={{ color: "green", marginTop: "1em" }}>
+            Password updated! You can now log in.
+          </div>
+        )}
         {error && <div style={{ color: "red", marginTop: "1em" }}>{error}</div>}
       </form>
     </div>
