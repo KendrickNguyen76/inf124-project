@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { supabase, supabaseAdmin } = require("../services/supabaseClient");
-const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
+const API_URL =
+  import.meta.env.FRONTEND_URL?.replace(/\/$/, "") || "http://localhost:3000";
 
 async function login(req, res) {
   const { username, password } = req.body;
