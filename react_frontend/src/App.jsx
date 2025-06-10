@@ -4,6 +4,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
+import ThemeContext from "./Components/Pages/ThemeContext.js";
 import {
   Home,
   Dashboard,
@@ -51,7 +52,8 @@ const App = () => {
       applyTheme(true); // or false for dark mode by default
     };
     initTheme();
-  }, []);
+  }, [loggedIn]);
+
   useEffect(() => {
     const checkSession = async () => {
       const token = localStorage.getItem("supabase_token");
@@ -119,6 +121,7 @@ const App = () => {
   };
 
   return (
+    <ThemeContext.Provider value={{ applyTheme }}>
     <div className="App">
       {!hideNavAndFooter && (
         <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
@@ -160,6 +163,7 @@ const App = () => {
       {/* have footer at bottom of each page w link to about us, this will hide the footer for speciifc pages*/}
       {!hideNavAndFooter && <Footer />}
     </div>
+    </ThemeContext.Provider>
   );
 };
 export default App;

@@ -1,11 +1,11 @@
 import React from "react";
 import "./UserSettings.css";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 import { getUserProfile, updateUserProfile, updateUserAppearance, updateNameSocials, updatePassword } from './modules/userSettingsCrud';
-
+import ThemeContext from "./ThemeContext.js";
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
 import BlueBash from '../../assets/bash_blue.png'
@@ -14,6 +14,7 @@ import OrangeBash from '../../assets/bash_orange.png'
 import PurpleBash from '../../assets/bash_purple.png'
 import PinkBash from '../../assets/bash_pink.png'
 import SiteViewGreen from '../../assets/SiteOverviewOG.png'
+import SiteViewDark from '../../assets/siteoverviewDark.png'
 import { FiEdit } from "react-icons/fi";
 import { MdStars } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
@@ -390,29 +391,33 @@ function EditProfileTab( { existingBash, existingBio } ) {
 
 
 
-// Appearance View - Display Site 
-const AppearanceSettings = () => (
-  <div className="editprofile-box">
-    <img className="selectedView" src={SiteViewGreen} alt="Site Preview" />
-    <h3> Site Preview</h3>
 
-  </div>
-);
+// Appearance View - Display Site 
+const AppearanceSettings = ({ selectedOption }) => {
+  const previewImage = selectedOption?.value === "displayDark" ? SiteViewDark : SiteViewGreen;
+
+  return (
+    <div className="editprofile-box">
+      <img className="selectedView" src={previewImage} alt="Site Preview" />
+      <h3>Site Preview</h3>
+    </div>
+  );
+};
 
 // Appearance View - Choose Theme
-function InputTheme( { selectedOption, setSelectedOption } ) {
+function InputTheme({ selectedOption, setSelectedOption }) {
   const options = [
     { value: "displayLight", label: "Light Mode (Regular Mode)" },
-    { value: "displayDark", label: "Dark Mode" }
+    { value: "displayDark", label: "Dark Mode" },
   ];
 
   return (
-    <div className = "editprofile-box">
+    <div className="editprofile-box">
       <div className="inputDiv">
         <Select
-            options={options}
-            value={selectedOption}
-            onChange={setSelectedOption}
+          options={options}
+          value={selectedOption}
+          onChange={setSelectedOption}
         />
       </div>
     </div>
@@ -422,24 +427,30 @@ function InputTheme( { selectedOption, setSelectedOption } ) {
 // Appearance View - Edit Appearance Tab
 function EditAppearanceTab() {
   const [selectedOption, setSelectedOption] = useState(null);
+  const { applyTheme } = useContext(ThemeContext);
 
-  const editAppearanceHandler = (themeOption) => {
-      let isLight = true;
+  const editAppearanceHandler = async (themeOption) => {
+    if (!themeOption) return;
 
-      if (themeOption === null) {
-          // Do nothing
-      } else if (themeOption.value === "displayDark") {
-        isLight = false;
-      }
+    let isLight = true;
+    if (themeOption.value === "displayDark") {
+      isLight = false;
+    }
 
-      updateUserAppearance(isLight);
+    try {
+      await updateUserAppearance(isLight);
+      applyTheme(isLight);
+      console.log("Theme updated and applied.");
+    } catch (err) {
+      console.error("Failed to update theme:", err);
+    }
   };
 
   return (
     <>
-      <h2> Appearence</h2>
-      <AppearanceSettings />
-      <InputTheme selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
+      <h2>Appearance</h2>
+      <AppearanceSettings selectedOption={selectedOption} />
+      <InputTheme selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       <EditButtons handleSaveAction={() => editAppearanceHandler(selectedOption)} />
     </>
   );
@@ -448,7 +459,7 @@ function EditAppearanceTab() {
 
 // UserSettings Child Component
 function UserSettingsChild( { existingProfile } ) {
-  const [tab, setTab] = useState("editAccount"); // default to edit
+  const [tab, setTab] = useState("editAccount"); 
 
   return (
     <div className = "settings-box"> 
