@@ -7,8 +7,7 @@ const API_URL =
   import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
 
 function getAccessTokenFromHash() {
-  const hash = window.location.hash.substring(1);
-  const params = new URLSearchParams(hash);
+  const params = new URLSearchParams(window.location.search);
   return params.get("access_token");
 }
 
