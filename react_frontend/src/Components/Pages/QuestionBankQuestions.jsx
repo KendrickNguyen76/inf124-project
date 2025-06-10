@@ -4,6 +4,8 @@ import "./QuestionBankQuestions.css";
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
+
 const QuestionBankQuestionsTitle = () => (
     <div className = "question_bank_question_title">
       <h1> Byte Me Practice Mode </h1>
@@ -25,7 +27,7 @@ const QuestionsCall = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/questionDiff?difficulty=${difficulty}`);
+        const res = await fetch(`${API_URL}/questionDiff?difficulty=${difficulty}`);
         const data = await res.json();
 
          console.log('Received questions:', data);
