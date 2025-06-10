@@ -23,10 +23,12 @@ const CodeEditor = ({ problem_id }) => {
     wordWrap: "on",
   };
 
+  const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
+
   // Fetch problem data from backend
   useEffect(() => {
     if (!problem_id) return;
-    fetch(`http://localhost:3000/question/${problem_id}`)
+    fetch(`${API_URL}/question/${problem_id}`)
       .then((res) => res.json())
       .then((data) => {
         setStarterCode(data.starter_code || {});
@@ -138,7 +140,7 @@ const CodeEditor = ({ problem_id }) => {
       for (let i = 0; i < testCases.length; i++) {
         try {
           const wrappedCode = generateWrappedCode(code, language, testCases[i]);
-          const response = await fetch("http://localhost:3000/code/execute", {
+          const response = await fetch(`${API_URL}/code/execute`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

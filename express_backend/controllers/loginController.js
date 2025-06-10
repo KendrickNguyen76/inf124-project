@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { supabase, supabaseAdmin } = require("../services/supabaseClient");
+const API_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, "") || "http://localhost:3000";
 
 async function login(req, res) {
   const { username, password } = req.body;
@@ -20,7 +21,7 @@ async function login(req, res) {
 async function forgotPassword(req, res) {
   const { email } = req.body;
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: "http://localhost:5173/update-password",
+    redirectTo: `${API_URL}/update-password`,
   });
   if (error) {
     return res.status(400).json({ error: error.message });

@@ -101,7 +101,7 @@ const App = () => {
 
   const fetchUserTheme = async (token) => {
     try {
-      const res = await fetch("http://localhost:3000/usertheme", {
+      const res = await fetch(`${API_URL}/usertheme`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token }),
