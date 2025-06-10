@@ -14,7 +14,7 @@ import PinkBash from '../../assets/bash_pink.png'
 // Different Icons
 import linkedinIcon from"../../assets/icon_assets/linkedin.png"; 
 import twitterIcon from"../../assets/icon_assets/twitter.png";
-import icon from "../../assets/icon_assets/gitlabLogo.png";
+import gitlabIcon from "../../assets/icon_assets/gitlabLogo.png";
 import chatIcon from "../../assets/icon_assets/chat.png";
 import lvl1 from "../../assets/Level1.png";
 
@@ -46,16 +46,23 @@ function Avatar({ userPfp }) {
 }
 
 // This will be for the social media icons, Left Column, Middle
-const SocialMediaIcons = () => (
-  <div>
-    <div className="media-title">Social Medias</div>
-    <div className="social-icons">
-      <img src={linkedinIcon} alt="LinkedIn" />
-      <img src={twitterIcon} alt="X" />
-      <img src={chatIcon} alt="Chat" />
+function SocialMediaIcons ({ links }) {
+  const linkStarters = {github: "https://github.com/", twitter: "https://twitter.com/", linkedin: "https://linkedin.com/in/" };
+  const [hasGitHub, setHasGitHub] = useState(false);
+  const [hasLinkedIn, setHasLinkedIn] = useState(false);
+  const [hasTwitter, setHasTwitter] = useState(false);
+
+  return (
+   <div>
+     <div className="media-title">Social Medias</div>
+      <div className="social-icons">
+        <img src={linkedinIcon} alt="LinkedIn" />
+        <img src={twitterIcon} alt="X" />
+        <img src={gitlabIcon} alt="GitLab" />
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
 // This will be for the rank section, Left Column, Bottom
 const UserRank = ({ userRank }) => (
@@ -129,7 +136,7 @@ function UserProfileChild( { userProfile } ) {
       <div className="left-column">
         <Avatar userPfp={userProfile.get("profile_pic")}/>
         <div className="side-by-side">
-          <SocialMediaIcons />
+          <SocialMediaIcons links={userProfile.get("links")}/>
           <UserRank userRank={userProfile.get("rank")}/>
         </div>
       </div>
