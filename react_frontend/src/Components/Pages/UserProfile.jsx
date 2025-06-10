@@ -52,13 +52,27 @@ function SocialMediaIcons ({ links }) {
   const [hasLinkedIn, setHasLinkedIn] = useState(false);
   const [hasTwitter, setHasTwitter] = useState(false);
 
+  useEffect(() => {
+    if (!(links === null) && !(links.length === 0)) {
+      for (var link of links) {
+        if (link.includes(linkStarters.github)) {
+          setHasGitHub(true);
+        } else if (link.includes(linkStarters.linkedin)) {
+          setHasLinkedIn(true);
+        } else if (link.includes(linkStarters.twitter)) {
+          setHasTwitter(true);
+        }
+      }
+    }
+  }, [])
+
   return (
    <div>
      <div className="media-title">Social Medias</div>
       <div className="social-icons">
-        <img src={linkedinIcon} alt="LinkedIn" />
-        <img src={twitterIcon} alt="X" />
-        <img src={gitlabIcon} alt="GitLab" />
+        { hasLinkedIn && <img src={linkedinIcon} alt="LinkedIn" /> }
+        { hasTwitter && <img src={twitterIcon} alt="X" /> }
+        { hasGitHub && <img src={gitlabIcon} alt="GitLab" /> }
       </div>
     </div>
   );
