@@ -1,4 +1,4 @@
-html{
+html {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -25,36 +25,35 @@ html{
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #2A4849;
+  background-color: #2a4849;
   height: 60px;
   margin-top: 20px;
   box-sizing: border-box;
 }
 
 /* If they are all seperate, it messes up the consistancy. Will modify later */
-h1, h2, p {  
+h1,
+h2,
+p {
   max-width: 90%;
   margin: 0 auto;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-h1{
+h1 {
   font-size: 75px;
-  color: #2A4849;
+  color: #2a4849;
   text-align: center;
-
 }
-h2{
+h2 {
   font-size: 40px;
-  color: #2A4849;
+  color: #2a4849;
   text-align: left;
-
 }
 
-p{
+p {
   font-size: 32px;
-  color: #8BB174;
-
+  color: #8bb174;
 }
 /* Media queries for smaller screens */
 @media (max-width: 768px) {

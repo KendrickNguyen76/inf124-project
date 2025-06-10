@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 /*import "./App.css";*/
 import { Route, Routes, useLocation } from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import {
@@ -34,6 +34,25 @@ const App = () => {
 
   /*added theme functionality*/
   useEffect(() => {
+    // Check for supabase_token in localStorage to set loggedIn state
+    const token = localStorage.getItem("supabase_token");
+    setLoggedIn(!!token);
+
+    // Fetch and apply user theme if token exists, otherwise apply default theme
+    const initTheme = async () => {
+      if (token) {
+        const data = await fetchUserTheme(token);
+        if (data && typeof data.is_light === "boolean") {
+          applyTheme(data.is_light);
+          return;
+        }
+      }
+      // If no token or theme fetch fails, apply default (light) theme
+      applyTheme(true); // or false for dark mode by default
+    };
+    initTheme();
+  }, []);
+  useEffect(() => {
     const checkSession = async () => {
       const token = localStorage.getItem("supabase_token");
       if (!token) {
@@ -58,6 +77,7 @@ const App = () => {
     };
     checkSession();
   }, [location.pathname]);
+
   const applyTheme = (isLight) => {
     const existingLink = document.getElementById("theme-stylesheet");
     console.log(` Applying ${isLight ? "Light" : "Dark"} Mode`);
