@@ -48,31 +48,39 @@ function Avatar({ userPfp }) {
 // This will be for the social media icons, Left Column, Middle
 function SocialMediaIcons ({ links }) {
   const linkStarters = {github: "https://github.com/", twitter: "https://twitter.com/", linkedin: "https://linkedin.com/in/" };
+  const [socialLinks, setSocialLinks] = useState({});
   const [hasGitHub, setHasGitHub] = useState(false);
   const [hasLinkedIn, setHasLinkedIn] = useState(false);
   const [hasTwitter, setHasTwitter] = useState(false);
 
   useEffect(() => {
+    var activeLinks = {};
+
     if (!(links === null) && !(links.length === 0)) {
       for (var link of links) {
         if (link.includes(linkStarters.github)) {
+          activeLinks.Github = link;
           setHasGitHub(true);
         } else if (link.includes(linkStarters.linkedin)) {
+          activeLinks.LinkedIn = link;
           setHasLinkedIn(true);
         } else if (link.includes(linkStarters.twitter)) {
+          activeLinks.Twitter = link;
           setHasTwitter(true);
         }
       }
     }
+
+    setSocialLinks(activeLinks);
   }, [])
 
   return (
    <div>
      <div className="media-title">Social Medias</div>
       <div className="social-icons">
-        { hasLinkedIn && <img src={linkedinIcon} alt="LinkedIn" /> }
-        { hasTwitter && <img src={twitterIcon} alt="X" /> }
-        { hasGitHub && <img src={gitlabIcon} alt="GitLab" /> }
+        { hasLinkedIn && <a href={socialLinks.LinkedIn}><img src={linkedinIcon} alt="LinkedIn" /></a> }
+        { hasTwitter && <a href={socialLinks.Twitter}><img src={twitterIcon} alt="X" /></a> }
+        { hasGitHub && <a href={socialLinks.Github}><img src={gitlabIcon} alt="GitLab" /></a> }
       </div>
     </div>
   );
