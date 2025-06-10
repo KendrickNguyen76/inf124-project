@@ -1,0 +1,71 @@
+html{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  background-color: #192D2D;
+  min-height: 100vh;
+  width: 100%;
+  display: flex; /* to use flexbox for layout */
+  flex-direction: column; /*for footer to be at the bottom */
+}
+/* create a box for the content to keep it responsive */
+.main-content {
+  flex-grow: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.footer {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2A4849;
+  height: 60px;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+/* If they are all seperate, it messes up the consistancy. Will modify later */
+h1, h2, p {  
+  max-width: 90%;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+  color: white;
+}
+
+h1{
+  font-size: 75px;
+  color: white;
+  text-align: center;
+
+}
+h2{
+  font-size: 40px;
+  color: white;
+  text-align: left;
+
+}
+
+p{
+  font-size: 32px;
+  color: #8BB174;
+
+}
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  p {
+    font-size: 1.2rem;
+  }
+}

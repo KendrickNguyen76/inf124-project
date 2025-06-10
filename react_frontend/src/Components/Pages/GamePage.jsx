@@ -2,17 +2,21 @@ import React from "react";
 import "./GamePage.css";
 import CodeEditor from "../CodeEditor/CodeEditor.jsx";
 import CodeProblem from "../CodeProblem/CodeProblem.jsx";
+/*import use nav to get question details from user's selection*/
 import { useNavigate } from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
+import { useState, useEffect } from "react";
 import {
   Panel,
   PanelGroup,
   PanelResizeHandle
 } from "react-resizable-panels";
 
-const GameProblem = () => {
+
+const GameProblem = ({question_problem, question_example}) => {
   return (
     <div className="game-problem">
-      <CodeProblem />
+      <CodeProblem problemStatement={problem}exampleInput={example} />
     </div>
   );
 };
@@ -26,13 +30,30 @@ const GameEditor = () => {
 };
 
 const GameTimer = () => {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (secs) => {
+    const mins = Math.floor(secs / 60)
+      .toString()
+      .padStart(2, "0");
+    const s = (secs % 60).toString().padStart(2, "0");
+    return `${mins}:${s}`;
+  };
+
   return (
     <div className="game-timer">
       <span className="timer-label"> Timer: </span>
-      <span className="timer-value"> 00:00 </span>
+      <span className="timer-value"> {formatTime(seconds)} </span>
     </div>
   );
-}
+};
 
 const GameQuitButton = () => {
   const navigate = useNavigate();
@@ -49,19 +70,23 @@ const GameQuitButton = () => {
 };
 
 const GamePage = () => {
+  const location = useLocation();
+  const { question_id, question_name, question_description, question_example, question_difficulty} = location.state || {};
+  
   return (
     <div className="game-page">
       <div className="game-header">
+        {/*question details just temp to be visible, change as you see fit*/}
         <GameTimer />
         <GameQuitButton />
       </div>
       <PanelGroup direction="horizontal" className="panel-group">
         <Panel defaultSize={45} minSize={30} maxSize={70}>
-          <CodeProblem />
+          <CodeProblem problem={question_description} example={question_example} title={question_name} difficulty={question_difficulty} />
         </Panel>
         <PanelResizeHandle className="resize-handle" />
         <Panel defaultSize={55} minSize={30} maxSize={70}>
-          <CodeEditor />
+          <CodeEditor problem_id={question_id}/>
         </Panel>
       </PanelGroup>
     </div>

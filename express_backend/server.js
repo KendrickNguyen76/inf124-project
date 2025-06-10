@@ -16,6 +16,11 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const regRoutes = require('./routes/regRoutes');
 const codeRoutes = require('./routes/codeRoutes');
+const questionDiffRoutes = require('./routes/questionsDifficultyQuery');
+const settingsRoutes = require('./routes/settingsRoutes');
+const questionRoutes = require('./routes/questionRoutes');
+const profileRoutes = require('./routes/profileRoutes');
+const themeRoutes = require('./routes/themeRoutes');
 
 // CORS configuration; setup origin
 const prodOrigin = [process.env.ORIGIN_1, process.env.ORIGIN_2].filter(Boolean);
@@ -27,6 +32,11 @@ app.use(express.json()); // Add this to parse JSON bodies
 app.use('/login', authRoutes);
 app.use('/register', regRoutes);
 app.use('/code', codeRoutes);
+app.use('/questionDiff', questionDiffRoutes);
+app.use('/settings', settingsRoutes);
+app.use('/question', questionRoutes);
+app.use('/userprofile', profileRoutes);
+app.use('/usertheme', themeRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

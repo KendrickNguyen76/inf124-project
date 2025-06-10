@@ -1,30 +1,47 @@
 /* whole screen */
   /* allows for us to have the left and right column */
 .settings-box{
-    border: 8px solid black;
+    border: 6px solid black;
     display: flex;
     flex-direction: column; /* Stack children vertically */
     align-items: left;
     width: 94%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .content-row{
-    display: flex;
-    
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 20px;
 }
 
 /* Left Side */
 .left-sidebar{
-    flex: 0.5;
     min-width: 150px;
     max-width: 360px;
-    border-right: 8px solid black; 
+    border-right: 4px solid black; 
     height: auto;
+    flex: 1;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center; /* center horizontally */
+    justify-content: center; /* center vertically if needed */
+}
+.left-sidebar h2{
+    font-size: 2rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 /* Left Side CONTENT */
-.settings-bar{
-}
+
 .settings-bar h2{
     font-size: 2rem;
     justify-content: center;
@@ -53,6 +70,13 @@
     background-color: grey;
 }
 
+.editAccount-active,
+.editProfile-active,
+.appearance-active {
+  background-color: #d0f0ff;
+  font-weight: bold;
+}
+
 .edit-profile-heading {
     display: flex;
     align-items: center;
@@ -61,7 +85,14 @@
     margin: 0;
     width: 200px;
 }
-
+/* the text in grey bxes */
+.edit-profile-heading span{
+    font-size: 1.2rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
 
 
 
@@ -72,6 +103,7 @@
     height: auto;
     display: flex;
     flex-direction: column; /* Stack children vertically */
+    box-sizing: border-box;
 }
 
 .right-sidebar h2{
@@ -79,6 +111,9 @@
     justify-content: center;
     align-items: left;
     display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
 }
 
 .right-sidebar h3{
@@ -156,11 +191,25 @@ input[type="radio"] {
     justify-content: center;    
     align-items: center;
     flex-direction: row;
+    gap: 10px;
+    margin-top: 20px;
     
 /* align-items: center; */
     gap: 75px;
     margin-bottom: 20px;
 }
+.edit-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color:  #4a6b66;
+  color: white;
+}
+.edit-button:hover {
+  background-color: #4a6b66;
+}
+
 .edit-buttons button {
     background-color: #96b389;
     color: white;
@@ -274,4 +323,135 @@ input[type="radio"] {
 
 .add-icon:hover {
   background-color: #c0c0c0;
+}
+
+@media (max-width: 768px) {
+  .content-row {
+    flex-direction: column;
+  }
+
+  .left-sidebar {
+    border-right: none;
+    border-bottom: 4px solid black;
+    max-width: 100%;
+  }
+
+  .right-sidebar {
+    max-width: 100%;
+    
+  }
+
+  .edit-buttons,
+  .delete-buttons {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .edit-buttons button,
+  .delete-buttons button {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .icon-box {
+    width: 60px;
+    height: 60px;
+  }
+
+  .icon-img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .left-sidebar h2,
+  .right-sidebar h2 {
+    font-size: 1.5rem;
+    text-align: center;
+   
+  }
+
+  .edit-profile-heading {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .edit-profile-heading span {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .bashSelectionDiv {
+    padding: 10px;
+  }
+
+  .selectedBash {
+    width: 100px;
+  }
+
+  input[type="radio"] {
+    transform: scale(1.5);
+    margin: 20px 10px;
+  }
+
+  .add-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
+
+.social-input-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.base-url {
+  margin: 0 8px;
+  color: gray;
+  font-size: 0.9em;
+}
+
+.social-input {
+  flex: 1;
+  padding: 6px;
+}
+
+.remove-btn {
+  margin-left: 8px;
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.add-social-wrapper {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputLabel {
+  font-weight: bold;
+  margin: 10px 0 4px 0;
+}
+
+.textInput {
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.adfd-social-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }

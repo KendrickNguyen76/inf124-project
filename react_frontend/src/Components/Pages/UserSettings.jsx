@@ -1,8 +1,11 @@
 import React from "react";
 import "./UserSettings.css";
-import { useState } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
+import { getUserProfile, updateUserProfile, updateUserAppearance, updateNameSocials, updatePassword } from './modules/userSettingsCrud';
+import ThemeContext from "./ThemeContext.js";
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
 import BlueBash from '../../assets/bash_blue.png'
@@ -11,6 +14,7 @@ import OrangeBash from '../../assets/bash_orange.png'
 import PurpleBash from '../../assets/bash_purple.png'
 import PinkBash from '../../assets/bash_pink.png'
 import SiteViewGreen from '../../assets/SiteOverviewOG.png'
+import SiteViewDark from '../../assets/siteoverviewDark.png'
 import { FiEdit } from "react-icons/fi";
 import { MdStars } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
@@ -57,14 +61,26 @@ const SettingsBar = ({ activeTab, onSelect }) => {
 };
 
 // Component for the right sidebar
-function EditButtons() {
+function EditButtons({ handleSaveAction }) {
+  const navigate = useNavigate();
+
+  const handleSave = () => {
+    handleSaveAction();
+    navigate("/userprofile");
+  }
+
+  const handleCancel = () => {
+    navigate("/userprofile");
+  }
+  
   return (
       <div className="edit-buttons">
-        <button className="edit-button" type = "settings button">Cancel</button>
-        <button className="edit-button" type = "settings button">Save Changes</button>
+        <button className="edit-button" type = "settings button" onClick={handleCancel}>Cancel</button>
+        <button className="edit-button" type = "settings button" onClick={handleSave}>Save Changes</button>
       </div>
   );
 }
+
 function DeleteButton() {
   return (
       <div className="delete-buttons">
@@ -76,61 +92,102 @@ function DeleteButton() {
 // Right Column
 
 // EditAccount View - Edit UserName & Password
-function InputBoxes() {
-  return (
-    <div className = "editprofile-box">
-      <div className="inputDiv">
-        <form action="" method="post">
-          <label className="inputLabel" htmlFor="name">Modify UserName</label>
-          <input className="textInput createAccountTextInput" type="text" id="name" name="name" placeholder="<current UserName>..." />
+function InputBoxes( { userName, setUserName, socialLinks, setSocialLinks, pass, setPass, confirmPass, setConfirmPass } ) {
+  const socialPlatforms = {
+    Github: {
+      icon: <img className="icon-img" src={giticon} alt="GitHub" />,
+      baseUrl: "https://github.com/",
+    },
+    LinkedIn: {
+      icon: <img className="icon-img" src={linkedinIcon} alt="LinkedIn" />,
+      baseUrl: "https://linkedin.com/in/",
+    },
+    Twitter: {
+      icon: <img className="icon-img" src={twitterIcon} alt="X" />,
+      baseUrl: "https://twitter.com/",
+    },
+  };
 
-          <label className="inputLabel" htmlFor="username">New Password</label>
-          <input className="textInput createAccountTextInput" type="text" id="username" name="username" placeholder="Type new password..." />
+  // const [socialLinks, setSocialLinks] = useState({});
+  const [platformToAdd, setPlatformToAdd] = useState("");
 
-          <label className="inputLabel" htmlFor="confirm_password">Confirm New Password</label>
-          <input className="textInput createAccountTextInput" type="password" name="confirm_password" placeholder="Confirm New Password..." />
-        </form>
-      </div>
-    </div>
-  );
-}
-// EditAccount View - Edit Social Media
-function SocialMediaInput() {
-const iconMapping = {
-  GitLab: <img className="icon-img" src={giticon} alt="LinkedIn" />,
-  LinkedIn: <img className="icon-img" src={linkedinIcon} alt="LinkedIn" />,
-  Twitter: <img className="icon-img" src={twitterIcon} alt="X" />
-};
-
-
-  const allIcons = Object.keys(iconMapping);
-  const [selectedIcons, setSelectedIcons] = useState(["GitLab", "LinkedIn", "Twitter"]);
-
-  const addIcon = () => {
-    const remainingIcons = allIcons.filter(icon => !selectedIcons.includes(icon));
-    if (remainingIcons.length > 0) {
-      const nextIcon = remainingIcons[0]; // Or use Math.random() to pick randomly
-      setSelectedIcons([...selectedIcons, nextIcon]);
+  const handleAddPlatform = () => {
+    if (platformToAdd && !socialLinks[platformToAdd]) {
+      setSocialLinks(prev => ({ ...prev, [platformToAdd]: "" }));
     }
+    setPlatformToAdd(""); // Close dropdown
   };
 
-  const removeIcon = (icon) => {
-    setSelectedIcons(selectedIcons.filter(i => i !== icon));
+  const handleRemovePlatform = (platform) => {
+    const updated = { ...socialLinks };
+    delete updated[platform];
+    setSocialLinks(updated);
   };
+
+  const handleInputChange = (platform, value) => {
+    setSocialLinks(prev => ({ ...prev, [platform]: value }));
+  };
+
+  const availableOptions = Object.keys(socialPlatforms).filter(
+    (platform) => !socialLinks[platform]
+  );
 
   return (
     <div className="editprofile-box">
       <div className="inputDiv">
-        <label className="inputLabel" htmlFor="name">Social Media</label>
-        <div className="icons-wrapper">
-          {selectedIcons.map((icon) => (
-            <div className="icon-box" key={icon}>
-              {iconMapping[icon]}
-              <button className="remove-btn" onClick={() => removeIcon(icon)}>×</button>
+        <form>
+          <label className="inputLabel">Modify Username </label>
+          <input className="textInput createAccountTextInput" type="text" value={userName} onChange={(e) => setUserName(e.target.value)}/>
+
+          <label className="inputLabel"> New Password </label>
+          <input className="textInput createAccountTextInput" type="password" 
+            placeholder="Type new password..." 
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
+          />
+
+          <label className="inputLabel">Confirm New Password</label>
+          <input className="textInput createAccountTextInput" type="password" 
+            placeholder="Confirm New Password..." 
+            value={confirmPass}
+            onChange={(e) => setConfirmPass(e.target.value)}
+          />
+        </form>
+
+        <label className="inputLabel">Social Media Links</label>
+        <div className="social-media-section">
+          {Object.entries(socialLinks).map(([platform, username]) => (
+            <div key={platform} className="social-input-row">
+              {socialPlatforms[platform].icon}
+              <span className="base-url">{socialPlatforms[platform].baseUrl}</span>
+              <input
+                className="social-input"
+                type="text"
+                value={username}
+                onChange={(e) => handleInputChange(platform, e.target.value)}
+                placeholder="your-handle"
+              />
+              <button className="remove-btn" type="button" onClick={() => handleRemovePlatform(platform)}>×</button>
             </div>
           ))}
-          {selectedIcons.length < allIcons.length && (
-            <button className="add-icon" onClick={addIcon}>+</button>
+
+          {availableOptions.length > 0 && (
+            <div className="add-social-wrapper">
+              <select
+                value={platformToAdd}
+                onChange={(e) => setPlatformToAdd(e.target.value)}
+              >
+                <option value="">Add social media...</option>
+                {availableOptions.map((platform) => (
+                  <option key={platform} value={platform}>
+                    {platform}
+                  </option>
+                ))}
+              </select>
+              <button type="button" onClick={handleAddPlatform} disabled={!platformToAdd}>
+                Add
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -139,14 +196,128 @@ const iconMapping = {
 }
 
 
+// EditAccount View - Edit Social Media
+function SocialMediaInput() {
+  return (
+    <div className="editprofile-box">
+      <div className="inputDiv">
+        <label className="inputLabel">Social Media</label>
+        <div className="icons-wrapper">
+          {Object.entries(socialLinks).map(([platform, suffix]) => (
+            <div className="icon-box" key={platform}>
+              {socialPlatforms[platform].icon}
+              <span className="base-url">{socialPlatforms[platform].baseUrl}</span>
+              <input
+                className="social-input"
+                type="text"
+                placeholder="your-username"
+                value={suffix}
+                onChange={(e) => handleInputChange(platform, e.target.value)}
+              />
+              <button className="remove-btn" onClick={() => handleRemovePlatform(platform)}>×</button>
+            </div>
+          ))}
+
+          {/* Dropdown Add Button */}
+          {Object.keys(socialPlatforms).length > Object.keys(socialLinks).length && (
+            <div className="add-icon-dropdown">
+              <button onClick={() => setPlatformToAdd("open")}>+</button>
+              {platformToAdd === "open" && (
+                <div className="dropdown-menu">
+                  {Object.keys(socialPlatforms).filter(p => !(p in socialLinks)).map((platform) => (
+                    <div
+                      key={platform}
+                      className="dropdown-item"
+                      onClick={() => handleAddPlatform(platform)}
+                    >
+                      {socialPlatforms[platform].icon}
+                      <span>{platform}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// EditAccount View - Edit Account Tab
+function EditAccountTab( { currentUserName, currentLinks } ) {
+  const [userName, setUserName] = useState(currentUserName);
+  const [socialLinks, setSocialLinks] = useState({});
+  const [pass, setPass] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const linkStarters = {github: "https://github.com/", twitter: "https://twitter.com/", linkedin: "https://linkedin.com/in/"};
+
+  useEffect(() => {
+    var currSocialLinks = {};
+
+    if (!(currentLinks === null) && !(currentLinks.length === 0)) {
+      for (var link of currentLinks) {
+        if (link.includes(linkStarters.github)) {
+          currSocialLinks.Github = link.replace(linkStarters.github, "");
+        } else if (link.includes(linkStarters.linkedin)) {
+          currSocialLinks.LinkedIn = link.replace(linkStarters.linkedin, "");
+        } else if (link.includes(linkStarters.twitter)) {
+          currSocialLinks.Twitter = link.replace(linkStarters.twitter, "");
+        }
+      }
+    }
+
+    setSocialLinks(currSocialLinks);
+  }, []);
+
+  const editAccountHandler = (userName, socialLinks, pass, confirmPass) => {
+    let linkArray = [];
+    
+    if ("Github" in socialLinks && socialLinks.Github.length > 0) {
+      linkArray.push(linkStarters.github + socialLinks.Github);
+    }
+
+    if ("LinkedIn" in socialLinks && socialLinks.LinkedIn.length > 0) {
+      linkArray.push(linkStarters.linkedin + socialLinks.LinkedIn);
+    }
+
+    if ("Twitter" in socialLinks && socialLinks.Twitter.length > 0) {
+      linkArray.push(linkStarters.twitter + socialLinks.Twitter);
+    }
+
+    updateNameSocials(userName, linkArray);
+
+    if (pass.length > 0 && confirmPass.length > 0) {
+      updatePassword(pass, confirmPass);
+    }
+  };
+
+  return (
+    <>
+      <h2> Edit Account</h2>
+      <InputBoxes 
+        userName={userName}
+        setUserName={setUserName}
+        socialLinks={socialLinks}
+        setSocialLinks={setSocialLinks}
+        pass={pass}
+        setPass={setPass}
+        confirmPass={confirmPass}
+        setConfirmPass={setConfirmPass}
+      />
+      <EditButtons handleSaveAction={() => editAccountHandler(userName, socialLinks, pass, confirmPass)}/>
+      <DeleteButton />
+    </>
+  );
+}
+
 
 // EditProfile View - Bash Selection
-function BashSelection() {
+function BashSelection( { selectedColor, setSelectedColor} ) {
   const bashImages = [GreenBash, BlueBash, RedBash, OrangeBash, PurpleBash, PinkBash]
-  const colorOptions = ["Green", "Blue", "Red", "Orange", "Purple", "Pink"]
+  const colorOptions = ["GREEN", "BLUE", "RED", "ORANGE", "PURPLE", "PINK"]
 
-  const [selectedColor, setSelectedColor] = useState('Green');
-  const [selectedBash, setSelectedBash] = useState(bashImages[0]);
+  const [selectedBash, setSelectedBash] = useState(bashImages[colorOptions.indexOf(selectedColor)]);
 
   const handleColorChange = (value) => {
     if (colorOptions.includes(value)) {
@@ -161,7 +332,7 @@ function BashSelection() {
       <img className="selectedBash" src={selectedBash} alt="Bash" />
 
       <form>
-        {['Green', 'Blue', 'Red', 'Orange', 'Purple', 'Pink'].map((color) => (
+        {colorOptions.map((color) => (
             <input
               type="radio"
               className="colorSelectionRadio"
@@ -178,91 +349,165 @@ function BashSelection() {
     </div>
   );
 }
-// EditProfile View - Edit Bio
 
-function BioInput() {
+// EditProfile View - Edit Bio
+function BioInput( { currentBio, setCurrentBio } ) {
   return (
     <div className = "editprofile-box">
       <div className="inputDiv">
         <label className="inputLabel" htmlFor="bio">Edit Bio</label>
         <form action="" method="post">
-          <textarea className="textInput createAccountTextInput" id="bio" name="bio" placeholder="<current Bio>..." rows="4"></textarea>
+          <textarea 
+            className="textInput createAccountTextInput" 
+            id="bio" name="bio" 
+            value={currentBio} 
+            onChange={e => setCurrentBio(e.target.value)}
+            rows="4">
+          </textarea>
         </form>
       </div>
     </div>
   );
 }
 
-// Appearance View - Display Site 
-const AppearanceSettings = () => (
-  <div className="editprofile-box">
-    <img className="selectedView" src={SiteViewGreen} alt="Site Preview" />
-    <h3> Site Preview</h3>
+// EditProfile View - Edit Profile Tab
+function EditProfileTab( { existingBash, existingBio } ) {
+  const [selectedColor, setSelectedColor] = useState(existingBash);
+  const [currentBio, setCurrentBio] = useState(existingBio);
 
-  </div>
-);
+  const editProfileHandler = (color, bio) => {
+    updateUserProfile(color, bio);
+  };
+
+  return (
+    <>
+      <h2> Edit Profile</h2>
+      <BashSelection selectedColor={selectedColor} setSelectedColor={setSelectedColor}/>
+      <BioInput currentBio={currentBio} setCurrentBio={setCurrentBio}/>
+      <EditButtons handleSaveAction={() => editProfileHandler(selectedColor, currentBio)} />
+    </>
+  );
+}
+
+
+
+
+// Appearance View - Display Site 
+const AppearanceSettings = ({ selectedOption }) => {
+  const previewImage = selectedOption?.value === "displayDark" ? SiteViewDark : SiteViewGreen;
+
+  return (
+    <div className="editprofile-box">
+      <img className="selectedView" src={previewImage} alt="Site Preview" />
+      <h3>Site Preview</h3>
+    </div>
+  );
+};
 
 // Appearance View - Choose Theme
-function InputTheme() {
-  const [selectedOption, setSelectedOption] = useState(null);
+function InputTheme({ selectedOption, setSelectedOption }) {
   const options = [
     { value: "displayLight", label: "Light Mode (Regular Mode)" },
-    { value: "displayDark", label: "Dark Mode" }
+    { value: "displayDark", label: "Dark Mode" },
   ];
 
   return (
-    <div className = "editprofile-box">
+    <div className="editprofile-box">
       <div className="inputDiv">
         <Select
-            options={options}
-            value={selectedOption}
-            onChange={setSelectedOption}
+          options={options}
+          value={selectedOption}
+          onChange={setSelectedOption}
         />
       </div>
     </div>
   );
 }
 
+// Appearance View - Edit Appearance Tab
+function EditAppearanceTab() {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const { applyTheme } = useContext(ThemeContext);
+
+  const editAppearanceHandler = async (themeOption) => {
+    if (!themeOption) return;
+
+    let isLight = true;
+    if (themeOption.value === "displayDark") {
+      isLight = false;
+    }
+
+    try {
+      await updateUserAppearance(isLight);
+      applyTheme(isLight);
+      console.log("Theme updated and applied.");
+    } catch (err) {
+      console.error("Failed to update theme:", err);
+    }
+  };
+
+  return (
+    <>
+      <h2>Appearance</h2>
+      <AppearanceSettings selectedOption={selectedOption} />
+      <InputTheme selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      <EditButtons handleSaveAction={() => editAppearanceHandler(selectedOption)} />
+    </>
+  );
+}
 
 
-// Main UserSettings Component
-const UserSettings = () => {
-  const [tab, setTab] = useState("editAccount"); // default to edit
+// UserSettings Child Component
+function UserSettingsChild( { existingProfile } ) {
+  const [tab, setTab] = useState("editAccount"); 
 
   return (
     <div className = "settings-box"> 
-    <div className="content-row">
-      <div className="left-sidebar">
-        <SettingsBar onSelect={setTab} />
+      <div className="content-row">
+        <div className="left-sidebar">
+          <SettingsBar onSelect={setTab} />
         </div>
-      <div className="right-sidebar">
-        {tab === "editAccount" ? (
-          <>
-            <h2> Edit Account</h2>
-            <InputBoxes />
-            <SocialMediaInput />
-            <EditButtons />
-            <DeleteButton />
-          </>
-        ) : tab === "editProfile" ? (
-          <>
-            <h2> Edit Profile</h2>
-            <BashSelection />
-            <BioInput />
-            <EditButtons />
-
-          </>
-        ) : (
-          <>
-            <h2> Appearence</h2>
-            <AppearanceSettings />
-            <InputTheme />
-            <EditButtons />
-          </>
-        )}
+        <div className="right-sidebar">
+          {tab === "editAccount" ? (
+            <EditAccountTab 
+              currentUserName={existingProfile.get("username")}
+              currentLinks={existingProfile.get("links")}
+            />
+          ) : tab === "editProfile" ? (
+            <EditProfileTab
+              existingBash={existingProfile.get("profile_pic")}
+              existingBio={existingProfile.get("bio")}
+            />
+          ) : (
+            <EditAppearanceTab />
+          )}
         </div>
       </div>
     </div>
   );
+}
+
+// Main UserSettings Component
+const UserSettings = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const existingProfile = useRef(new Map());
+
+  useEffect(() => {
+    const getProfileInfo = async () => {
+      const profile_info = await getUserProfile();
+      const map = new Map(Object.entries(profile_info[0]));
+      existingProfile.current = map;
+    }
+    
+    getProfileInfo();
+    setTimeout(() => {setIsLoading(false)}, 500);
+  }, []);
+
+  return (
+    <div>
+      { isLoading ? <h1> Loading... </h1> : <UserSettingsChild existingProfile={existingProfile.current} /> }
+    </div>
+  );
 };
+
 export default UserSettings;

@@ -1,28 +1,24 @@
 import React from "react";
 import "./Home.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import Bash from "../../assets/Bash.png";
-import hsaB from "../../assets/hsaB.png";
+import bash_image from "../../assets/modified_homepage_image.png";
 import laptop from "../../assets/laptop_landing.png";
 
+// Title and bried blurb for the home page
 const LandingText = () => (
   <div className="landing_text">
     <h1>Challenge. Code. Win.</h1>
-    <h2>ByteMe - The place to deal with all your coding beef.</h2>
+    <h2>Byte Me - The place to deal with all your coding beef.</h2>
   </div>
 );
 
-const LandingImage = ({ bashSrc, hsaBSrc }) => (
+// Images, below the blurb, on the home page
+const LandingImage = ({ bash_image }) => (
   <div className="landing_image">
     <img
       id="landing_bash"
-      src={bashSrc}
-      alt="Image of Bash - A green computer chip"
-    />
-    <img
-      id="landing_hsaB"
-      src={hsaBSrc}
-      alt="Image of hsaB - A blue computer chip"
+      src={bash_image}
+      alt="Image of two Bashes fighting - A green computer chip vs. a blue computer chip"
     />
   </div>
 );
@@ -87,13 +83,20 @@ const HowItWorksSection = () => (
 
 const PlayNowSection = () => {
   const navigate = useNavigate();
+
+  const handlePlayNow = () => {
+    const isLoggedIn = localStorage.getItem("supabase_token");
+    if (isLoggedIn) {
+      navigate("/dashboard");
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <div className="play_now_section">
       <h1>Why aren't you coding yet?</h1>
       <div className="play_now_button">
-        <button className="play_now_button" onClick={() => navigate("/login")}>
-          Play Now.
-        </button>
+        <button onClick={handlePlayNow}>Play Now.</button>
       </div>
     </div>
   );
@@ -104,7 +107,7 @@ const Home = () => {
     <div className="home">
       <div className="landing_container">
         <LandingText />
-        <LandingImage bashSrc={Bash} hsaBSrc={hsaB} />
+        <LandingImage bash_image={bash_image} />
       </div>
       <AboutSection />
       <FeaturesSection />

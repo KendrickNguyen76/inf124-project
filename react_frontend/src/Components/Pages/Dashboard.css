@@ -1,14 +1,9 @@
 .dashboard {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.leadercontainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 40px;
 }
 
 .leader_dash_title {
@@ -23,85 +18,38 @@
 
 
 .leader_dash_title h1 {
-  font-size: 3.7rem;
   margin: 0;
   padding: 0;
   white-space: nowrap;
+  font-size: 3.9rem;
 }
 
-.leader_dash_hello h1{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    margin-top: 0;
-    padding-top: 0;
-}
-.leader_dash_play h1{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    margin-top: 60px;
-    padding-top: 30px;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-}
-
-.leader_dash_title h1{
-    font-size: 3.7rem;
-    margin-top: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
-
-.label_row,
-.data_row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1.1fr 2fr; /* use consistent ratios */
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 10px 0;
-  box-sizing: border-box;
+.leader_dash_hello h1,
+.leader_dash_play h1 {
   text-align: center;
+  width: 100%;
+  margin-top: 0;
 }
 
-.label_row {
-  font-weight: bold;
-  font-size: 18px;
-  background-color: #2a4849;
-  color: white;
-  border-bottom: 2px solid #8BB174;
+.practice_button,
+.match_button {
+  border-radius: 36px;
+  background-color: #8BB174;
+  width: 300px;
+  height: 100px;
+  color: #fff;
+  font-family: Inter, sans-serif;
+  font-size: 50px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.data_row {
-  font-size: 16px;
-  color: white;
-  border-bottom: 1px solid #ddd;
+.practice_button:hover,
+.match_button:hover {
+  background-color: #4E8141;
 }
-
-.label_row span,
-.data_row span {
-  padding: 0 5px;
-  margin: 0;
-  overflow-wrap: break-word;
-}
-  
-  .leaderboard_scroll {
-    max-height: 250px;
-    overflow-y: auto;
-    width: 100%;
-    max-width: 1000px;
-    margin: 10px auto;
-    border: 1px solid #182c2d;
-    padding: 10px;
-    box-sizing: border-box;
-    background-color: #2a4849;
-  }
-  
-
 
   .click_to_play_section {
     display: flex;
@@ -114,58 +62,60 @@
     margin-bottom: 30px;
   }
 
-  .practice_button{
-    border-radius: 36px;
-    border-color:#2a4849;
-    background-color:  #8BB174;
-    width: 300px;
-    height: 100px;
-    flex-shrink: 0;
-    color: #FFFFFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 50px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-top: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+  /* Responsive Design */
+@media (max-width: 768px) {
+  .leader_dash_title h1 {
+    font-size: 2.5rem;
+    white-space: normal; /* Allow wrapping */
   }
+  .practice_button,
+  .match_button {
+    width: 200px;
+    height: 70px;
+    font-size: 30px;
+  }
+  .click_to_play_section {
+    gap: 50px;
+  }
+  .name_line {
+    width: 15%;
+  }
+  table {
+    min-width: unset;
+    font-size: 0.85rem;
+  }
+  th, td {
+    padding: 10px 6px;
+    font-size: 0.9rem;
+  }
+  .leaderboard_global_scroll {
+    padding: 5px;
+  }
+}
 
-  .practice_button:hover{
-    border-radius: 36px;
-    background-color: #2a4849;
-    color: #fff;
-    text-decoration: none;
-    padding: 4px 8px;
+@media (max-width: 480px) {
+  .leader_dash_title h1 {
+    font-size: 1.8rem;
   }
-
-  .match_button{
-    border-radius: 36px;
-    border-color:#2a4849;
-    background-color:  #8BB174;
-    width: 300px;
-    height: 100px;
-    flex-shrink: 0;
-    color: #FFFFFF;
-    text-align: center;
-    font-family: Inter;
-    font-size: 50px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    margin-top: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+  .practice_button,
+  .match_button {
+    width: 140px;
+    height: 60px;
+    font-size: 20px;
   }
-
-  .match_button:hover{
-    border-radius: 36px;
-    background-color: #2a4849;
-    color: #fff;
-    text-decoration: none;
-    padding: 4px 8px;
+  .click_to_play_section {
+    flex-direction: column;
+    gap: 20px;
   }
+  .name_line {
+    width: 10%;
+  }
+  th, td {
+    font-size: 0.75rem;
+    padding: 6px 3px;
+  }
+  table {
+    font-size: 0.75rem;
+    min-width: unset;
+  }
+}

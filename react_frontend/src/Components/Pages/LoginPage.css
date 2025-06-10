@@ -2,13 +2,21 @@
 
 /* CSS for the main div, which has the class name "login_div" */
 .loginDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    padding: 2rem;
 }
 
 /* CSS for the div containing the input text boxes which has the class name "input_div" */
 .inputDiv {
-    width: 400px;
-    margin: auto;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center everything horizontally */
 }
 
 .divider {
@@ -19,10 +27,15 @@
 }
 
 .line {
-    width: 15%;
+    width: 49px; /* Default for mobile */
     height: 2px;
     margin: 10px 5px 0px 5px;
     background-color: #426B69;
+}
+@media (min-width: 768px) {
+  .line {
+    width: 150px;
+  }
 }
 
 /* CSS for the submit buttons on the login page. May want to move this to index.css? */
@@ -50,12 +63,12 @@
 
 /* CSS for the input textboxes, which have the class "text_input" */
 .textInput {
-    display: block;
-    font-family: Inter;
-    padding: 15px 10px;
-    width: 90%;
-    margin-bottom: 40px;
-    border: 3px solid #2A4849
+  padding: 15px 10px;
+  width: 100%;
+  max-width: 360px;
+  margin-bottom: 40px;
+  border: 3px solid #2A4849;
+  font-family: Inter, sans-serif;
 }
 
 /* CSS for password input box to override the bottom margin */
@@ -67,7 +80,8 @@
 .logo {
     width: 265px;
     height: auto;
-    margin-bottom: 2em;
+    margin: 0 auto 2em auto;
+    display: block; /* Center the image horizontally */
 }
 
 /* CSS for the Forgot Password hyperlink */
@@ -78,6 +92,9 @@
     color: #426B69;
     text-align: left;
     margin-bottom: 40px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 .forgotPassLink:visited {
@@ -85,7 +102,7 @@
 }
 
 /* CSS for the labels, May want to move them to index.css later */
-.inputLabel {
+.inputLabel_end { /* the one that says no account */
     display: block;
     text-align: left;
     font-family: Inter;
@@ -95,4 +112,12 @@
     color: #426B69;
 }
 
-
+.inputLabel { /* email and password so that is left aligned */
+    width: 100%;
+    max-width: 360px;
+    text-align: left;
+    font-family: Inter;
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #426B69;
+}

@@ -1,14 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import Console from "./Console";
 import "./CodeEditor.css";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 
-const CodeEditor = () => {
+const CodeEditor = ({ problem_id }) => {
   const [language, setLanguage] = useState("python");
-  const [code, setCode] = useState(
-    `class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        `
-  );
+  const [code, setCode] = useState("");
   const [outputs, setOutputs] = useState([]);
+  const [starterCode, setStarterCode] = useState({});
+  const [testCases, setTestCases] = useState([]);
+  const [wrapperCode, setWrapperCode] = useState({});
   const editorRef = useRef(null);
 
   const editorOptions = {
@@ -21,9 +23,39 @@ const CodeEditor = () => {
     wordWrap: "on",
   };
 
+  // Fetch problem data from backend
+  useEffect(() => {
+    if (!problem_id) return;
+    fetch(`http://localhost:3000/question/${problem_id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setStarterCode(data.starter_code || {});
+        setTestCases(data.test_cases || []);
+        // Unescape \\ and \n in wrapper code for each language
+        const processedWrapperCode = {};
+        for (const lang in data.wrapper_code || {}) {
+          processedWrapperCode[lang] = data.wrapper_code[lang]
+            .replace(/\\\\/g, "\\")
+            .replace(/\\n/g, "\n");
+        }
+        setWrapperCode(processedWrapperCode);
+        setCode(
+          data.starter_code && data.starter_code[language]
+            ? data.starter_code[language].replace(/\\n/g, "\n")
+            : ""
+        );
+      });
+  }, [problem_id]);
+
+  // Update code when language changes
+  useEffect(() => {
+    setCode(
+      starterCode[language] ? starterCode[language].replace(/\\n/g, "\n") : ""
+    );
+  }, [language, starterCode]);
+
   const handleEditorDidMount = (editor, monaco) => {
     editorRef.current = editor;
-    // Disable context menu
     editor.onContextMenu((e) => {
       e.event.preventDefault();
       e.event.stopPropagation();
@@ -47,123 +79,64 @@ const CodeEditor = () => {
     cpp: "C++",
   };
 
-  // Example problem configuration for scalability
-  const problemConfig = {
-    // Key: problemId or name, here 'twoSum' as example
-    twoSum: {
-      python: {
-        parseInput: (input) => {
-          const [numsLine, targetLine] = input.split("\n");
-          return {
-            nums: `list(map(int, "${numsLine}".split()))`,
-            target: `int("${targetLine}")`,
-          };
-        },
-        callSolution: (vars) =>
-          `sol = Solution()\n    print(sol.twoSum(${vars.nums}, ${vars.target}))`,
-      },
-      javascript: {
-        parseInput: (input) => {
-          const [numsLine, targetLine] = input.split("\n");
-          return {
-            nums: `[${numsLine}]`,
-            target: `${targetLine}`,
-          };
-        },
-        callSolution: (vars) => `console.log(twoSum(${vars.nums}, ${vars.target}));`,
-      },
-      java: {
-        parseInput: (input) => {
-          const [numsLine, targetLine] = input.split("\n");
-          return {
-            nums: `new int[]{${numsLine}}`,
-            target: `${targetLine}`,
-          };
-        },
-        callSolution: (vars) =>
-          `Solution sol = new Solution();\n        System.out.println(java.util.Arrays.toString(sol.twoSum(${vars.nums}, ${vars.target})));`,
-      },
-      cpp: {
-        parseInput: (input) => {
-          const [numsLine, targetLine] = input.split("\n");
-          return {
-            nums: `{${numsLine}}`,
-            target: `${targetLine}`,
-          };
-        },
-        callSolution: (vars) =>
-          `Solution sol;\n    vector<int> res = sol.twoSum(vector<int>${vars.nums}, ${vars.target});\n    cout << "[";\n    for (size_t i = 0; i < res.size(); ++i) {\n        cout << res[i];\n        if (i + 1 < res.size()) cout << ",";\n    }\n    cout << "]" << endl;`,
-      },
-    },
-    // Add more problems here...
+  // Helper: format nums for each language
+  const formatNums = (nums, lang) => {
+    if (lang === "java" || lang === "cpp") {
+      // Java and C++ want {2, 7, 11, 15}
+      return `{${nums.join(", ")}}`;
+    }
+    // Python/JS want [2, 7, 11, 15]
+    return JSON.stringify(nums);
   };
 
-  // Set this to the current problem key (e.g., from props, context, or state)
-  const currentProblemKey = "twoSum"; // TODO: Make dynamic
+  // Helper: format expected for display
+  const formatExpected = (expected) => {
+    if (Array.isArray(expected)) return JSON.stringify(expected);
+    return expected;
+  };
 
+  // Generate code to send to backend for each test case
   const generateWrappedCode = (userCode, language, testCase) => {
-    const config = problemConfig[currentProblemKey]?.[language];
-    if (!config) return userCode;
+    const wrapper = wrapperCode[language];
+    if (!wrapper) return userCode;
 
-    const vars = config.parseInput(testCase.input);
-
-    switch (language) {
-      case "python":
-        return `
-${userCode}
-
-if __name__ == "__main__":
-${config.callSolution(vars)}
-`;
-      case "javascript":
-        return `
-${userCode}
-
-${config.callSolution(vars)}
-`;
-      case "java":
-        return `
-${userCode}
-
-public class Main {
-    public static void main(String[] args) {
-        ${config.callSolution(vars)}
+    let formattedInputs;
+    if (Array.isArray(testCase.input)) {
+      formattedInputs = testCase.input
+        .map((arg) =>
+          typeof arg === "number" || typeof arg === "boolean"
+            ? arg
+            : JSON.stringify(arg)
+        )
+        .join(", ");
+    } else {
+      // Single input (string, number, boolean, etc.)
+      formattedInputs =
+        typeof testCase.input === "number" ||
+        typeof testCase.input === "boolean"
+          ? testCase.input
+          : JSON.stringify(testCase.input);
     }
-}
-`;
-      case "cpp":
-        return `
-${userCode}
 
-#include <iostream>
-#include <vector>
-using namespace std;
+    const expectedStr =
+      typeof testCase.expected === "number" ||
+      typeof testCase.expected === "boolean"
+        ? testCase.expected
+        : JSON.stringify(testCase.expected);
 
-int main() {
-    ${config.callSolution(vars)}
-    return 0;
-}
-`;
-      default:
-        return userCode;
-    }
+    return wrapper
+      .replace("{user_code}", userCode)
+      .replace("{inputs}", formattedInputs)
+      .replace("{expected}", expectedStr);
   };
-
   const handleClick = async (action) => {
     if (action === "Run") {
       setOutputs([
         { type: "output", message: "[*] Running code...", category: "stdout" },
       ]);
-
-      const testCases = [
-        { input: "2 7 11 15\n9", expected: "[0,1]" },
-        { input: "3 2 4\n6", expected: "[1,2]" },
-      ];
-
       let newOutputs = [];
       for (let i = 0; i < testCases.length; i++) {
         try {
-          // Wrap user code for this test case
           const wrappedCode = generateWrappedCode(code, language, testCases[i]);
           const response = await fetch("http://localhost:3000/code/execute", {
             method: "POST",
@@ -175,29 +148,38 @@ int main() {
             }),
           });
           const result = await response.json();
-          console.log(result);
-
           let output = (result.stdout || "").trim();
           let errorMsg = "";
-
-          // Show compile or runtime errors if present
           if (result.compile_output) {
             errorMsg = result.compile_output.trim();
           } else if (result.stderr) {
             errorMsg = result.stderr.trim();
           }
-
-          let success = output === testCases[i].expected && !errorMsg;
-
+          // Compare output as JSON if expected is array
+          let expected = testCases[i].expected;
+          let success = false;
+          try {
+            // Try to parse output as JSON if expected is array
+            if (Array.isArray(expected)) {
+              const parsed = JSON.parse(output);
+              success =
+                JSON.stringify(parsed) === JSON.stringify(expected) &&
+                !errorMsg;
+            } else {
+              success = output === String(expected) && !errorMsg;
+            }
+          } catch {
+            // fallback to string compare
+            success = output === String(expected) && !errorMsg;
+          }
           newOutputs.push({
             type: "testCase",
             testNumber: i + 1,
-            input: testCases[i].input,
-            expected: testCases[i].expected,
+            input: JSON.stringify(testCases[i].input),
+            expected: formatExpected(expected),
             output: errorMsg ? errorMsg : output,
             success,
           });
-
           if (errorMsg) {
             newOutputs.push({
               type: "output",
@@ -209,9 +191,9 @@ int main() {
               type: "output",
               message: success
                 ? `✓ Test case ${i + 1} passed`
-                : `✗ Test case ${i + 1} failed\nExpected: ${
-                    testCases[i].expected
-                  }\nGot: ${output}`,
+                : `✗ Test case ${i + 1} failed\nExpected: ${formatExpected(
+                    expected
+                  )}\nGot: ${output}`,
               category: success ? "stdout" : "error",
             });
           }
@@ -273,25 +255,38 @@ int main() {
           </button>
         </div>
       </div>
-      <div
-        className="editor-container"
-        onContextMenu={(e) => e.preventDefault()}
-      >
-        <Editor
-          height="calc(100% - 200px)"
-          width="100%"
-          language={language}
-          value={code}
-          onMount={handleEditorDidMount}
-          onChange={(value) => setCode(value)}
-          theme="light"
-          options={{
-            ...editorOptions,
-            contextmenu: false,
-          }}
-        />
-        <Console outputs={outputs} />
-      </div>
+      <PanelGroup direction="vertical" style={{ height: "100%" }}>
+        <Panel defaultSize={70} minSize={30}>
+          <div
+            className="editor-container"
+            onContextMenu={(e) => e.preventDefault()}
+          >
+            <Editor
+              height="100%"
+              width="100%"
+              language={language}
+              value={code}
+              onMount={handleEditorDidMount}
+              onChange={(value) => setCode(value)}
+              theme="light"
+              options={{
+                ...editorOptions,
+                contextmenu: false,
+              }}
+            />
+          </div>
+        </Panel>
+        <Panel defaultSize={30} minSize={10}>
+          {/* Resize handle as a header at the top of Console */}
+          <PanelResizeHandle className="console-resize-header">
+            <div className="console-header-bar">
+              <span className="console-header-title">Console</span>
+              <span className="console-drag-indicator">⋮⋮</span>
+            </div>
+          </PanelResizeHandle>
+          <Console outputs={outputs} />
+        </Panel>
+      </PanelGroup>
     </div>
   );
 };

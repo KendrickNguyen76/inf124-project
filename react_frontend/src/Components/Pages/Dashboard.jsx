@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 const LeaderDashTitle = () => (
   <div className="leader_dash_title">
-    <h1> ⸺⸺ LeaderBoard ⸺⸺ </h1>
+    <div className="name_line"></div>
+      <h1> Leaderboard</h1>
+    <div className="name_line"></div>
 </div>
 );
 
@@ -17,28 +19,32 @@ const LeaderDashHello = () => (
   </div>
 );
 
-{/*leaderboard rank, title, etc. labels*/}
-const LeaderDashLabels = () => (
-  <div className="label_row">
-  <span>Player</span>
-  <span>Rank</span>
-  <span>Total Games</span>
-  <span>Game Ratio</span>
-</div>
-);
-
 {/*container for top 10 local leaderboard stats*/}
 const LeaderDashScrollable = () => (
-<div className="leaderboard_scroll">
-  {[...Array(10)].map((_, i) => (
-    <div key={i} className="data_row">
-      <span>Player {i + 1}</span>
-      <span>#{i + 1}</span>
-      <span>{Math.floor(Math.random() * 10)}</span>
-      <span>{Math.floor(Math.random() * 10)} : {Math.floor(Math.random() * 10)}</span>
+  <div className="table_container">  
+    <div className="leaderboard_global_scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Rank</th>
+            <th>Total Games</th>
+            <th>Game Ratio</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...Array(10)].map((_, i) => (
+            <tr key={i}>
+              <td><span>Player {i + 1}</span></td>
+              <td><span>#{i + 1}</span></td>
+              <td><span>{Math.floor(Math.random() * 10)}</span></td>
+              <td><span>{Math.floor(Math.random() * 10)} : {Math.floor(Math.random() * 10)}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-  ))}
-</div>
+  </div>
 );
 
 {/*want to play text*/}
@@ -56,7 +62,7 @@ const PlayButtons = () => {
       <button className = "practice_button" onClick={() => navigate("/questionbank")}>
         Practice
       </button>
-      <button className = "match_button" onClick={() => navigate("/gamepage")}>
+      <button className = "match_button" onClick={() => navigate("/comingsoon")}>
         Find Match
       </button>
     </div>
@@ -67,14 +73,11 @@ const PlayButtons = () => {
 const Dashboard = () => {
   return(
     <div className = "dashboard">
-      <div className = "leadercontainer">
-        <LeaderDashHello/>
-        <LeaderDashTitle/>
-        <LeaderDashLabels/>
-        <LeaderDashScrollable/>
-        <LeaderDashPlay/>
-        <PlayButtons/>
-      </div>
+      <LeaderDashHello/>
+      <LeaderDashTitle/>
+      <LeaderDashScrollable/>
+      <LeaderDashPlay/>
+              <PlayButtons/>
     </div>
   )
 };

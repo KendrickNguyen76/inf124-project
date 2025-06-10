@@ -18,24 +18,38 @@ const AboutTitle = () => (
 
 const OurMission = () => (
   <div className = "our_mission">
-    <h1>Our Mission  ⸺⸺⸺⸺⸺⸺⸺⸺   </h1>
-    <p>
+    <div className="our_mission_title">
+      <h1>Our Mission</h1>
+      <div className="name_line_title"></div>
+    </div>
+
+    <div className="our_mission_title">
+      <p>
       At ByteMe, we believe technical interview questions don't have to be
       intimidating — they can actually be exciting. Most people struggle because
       practicing alone feels overwhelming and repetitive.
-    </p>
+      </p>
+    </div>
   </div>
 )
 
 /* have the paragraph of about us here*/
 const AboutParagraph = () => (
   <div className = "about_paragraph">
-    <h1> ⸺⸺⸺⸺⸺⸺⸺⸺  Our Story</h1>
-    <p>
-      Inspired by a lack of such a product in industry our team decided
-      to create a gamified leet code in order to inspire more coders out
-      there to test their skills and have more motivation to improve.
-    </p>
+    
+    <div className="about_paragraph_title">
+      <h1>Our Story</h1>
+      <div className="name_line_title"></div>
+    </div>
+
+    <div className="about_paragraph_title">
+      <p>
+        Inspired by a lack of such a product in industry our team decided
+        to create a gamified leet code in order to inspire more coders out
+        there to test their skills and have more motivation to improve.
+      </p>
+    </div>
+
   </div>
 )
 
@@ -45,84 +59,54 @@ const AboutTeam = () => (
     <h1>Our Team</h1>
   </div>
 )
-
-const Member1 = () => (
-  <div className = "member_1">
-    <h1>Baly Aileen Martinez</h1>
-    <p>
-      "I like that boulder. That is a NICE boulder" -Donkey from the animated movie Shrek (2001)
-    </p>
+const TeamMember = ({name, quote, imgSrc, alt}) => (
+  <div className = "team_member">
+    <div className = "member_img">
+      <img src={imgSrc} alt={alt} />
+    </div>
+    <div className = "member_info">
+      <h1>{name}</h1>
+      <p>{quote}</p>
+    </div>
   </div>
-)
-
-const Member2 = () => (
-  <div className = "member_2">
-    <h1>David Sajonas Joves</h1>
-    <p>
-      "I like volleyball"                                                                    
-    </p>
-  </div>
-)
-
-const Member3 = () => (
-  <div className = "member_3">
-    <h1>Kendrick Do Nguyen</h1>
-    <p>
-      "I miss my wife, Tails" - Dr. Eggman                                                           
-    </p>
-  </div>
-)
-
-const Member4 = () => (
-  <div className = "member_4">
-    <h1>Sonia Kaur Heyer</h1>
-    <p>
-      "Bad Computer! No! No!" - Jake, Adventure Time
-    </p>
-  </div>
-)
-
-const Image1 = () => (
-  <div className = "bash1">
-    <img src={bashpurpleIcon} alt="bashPurple" />
-  </div>
-)
-const Image2 = () => (
-  <div className = "bash2">
-    <img src={bashblueIcon} alt="bashBlue" />
-  </div>
-)
-const Image3 = () => (
-  <div className = "bash3">
-    <img src={bashgreenIcon} alt="bashGreen" />
-  </div>
-)
-const Image4 = () => (
-  <div className = "bash4">
-    <img src={bashredIcon} alt="bashRed" />
-  </div>
-)
+);
 
 {/* description of our concept and mission*/}
 
 const AboutUs = () => {
   return (
-    <div className = "about_page">
-      <AboutTitle/>
-      <OurMission/>
-      <AboutParagraph/>
-      <AboutTeam/>
-      <div className = "members">
-        <Image1/>
-        <Member1/>
-        <Image2/>
-        <Member2/>
-        <Image3/>
-        <Member3/>
-        <Image4/>
-        <Member4/>
-      </div>
-    </div>
+      <div className = "about_page">
+        <AboutTitle/>
+        <OurMission/>
+        <AboutParagraph/>
+        <AboutTeam/>
+      <div className="members">
+        <TeamMember
+          name="Baly Aileen Martinez"
+          quote='"I like that boulder. That is a NICE boulder" -Donkey from Shrek'
+          imgSrc={bashpurpleIcon}
+          alt="bashPurple"
+        />
+        <TeamMember
+          name="David Sajonas Joves"
+          quote='"I like volleyball"'
+          imgSrc={bashblueIcon}
+          alt="bashBlue"
+        />
+        <TeamMember
+          name="Kendrick Do Nguyen"
+          quote='"I miss my wife, Tails" - Dr. Eggman'
+          imgSrc={bashgreenIcon}
+          alt="bashGreen"
+        />
+        <TeamMember
+          name="Sonia Kaur Heyer"
+          quote='"Bad Computer! No! No!" - Jake, Adventure Time'
+          imgSrc={bashredIcon}
+          alt="bashRed"
+        />
+        </div>
+        </div>
   )
 };
 

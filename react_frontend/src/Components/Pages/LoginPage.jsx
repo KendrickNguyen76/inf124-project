@@ -34,21 +34,15 @@ function InputBoxes({ form, onChange }) {
         value={form.password}
         onChange={onChange}
       />
-      <a
-        className="forgotPassLink"
-        href="https://www.alz.org/alzheimers-dementia/what-is-dementia"
-      >
-        Forgot Password?
-      </a>
     </div>
   );
-};
+}
 
 function Divider() {
   return (
     <div className="divider">
       <div className="line"></div>
-      <label className="inputLabel">No Account?</label>
+      <label className="inputLabel_end">No Account?</label>
       <div className="line"></div>
     </div>
   );
@@ -75,8 +69,14 @@ const LoginPage = ({ setLoggedIn }) => {
         body: JSON.stringify(form),
       });
       const data = await res.json();
+
+      // Fail the login
       if (!res.ok) throw new Error(data.error || "Login failed");
+
+      // If the login succeeds, set LoggedIn to true, store the access_token,
+      // and navigate to the dashboard
       setLoggedIn(true);
+      localStorage.setItem("supabase_token", data.session.access_token);
       navigate("/dashboard");
     } catch (err) {
       setError(err.message);
@@ -99,6 +99,13 @@ const LoginPage = ({ setLoggedIn }) => {
         </button>
         {error && <div style={{ color: "red" }}>{error}</div>}
       </form>
+      <button
+        type="button"
+        className="forgotPassLink"
+        onClick={() => navigate("/forgot-password")}
+      >
+        Forgot Password?
+      </button>
       <Divider />
       <button
         className="submitButton"

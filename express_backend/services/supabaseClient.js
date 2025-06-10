@@ -1,10 +1,13 @@
-// Import stuff to set up Supabase client
-const { createClient } = require('@supabase/supabase-js');
+const { createClient } = require("@supabase/supabase-js");
 
-// Our original idea, just require this and use it
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY // anon key
+);
 
-module.exports = {
-    supabase: supabase
-};
+const supabaseAdmin = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY // service role key
+);
 
+module.exports = { supabase, supabaseAdmin };
