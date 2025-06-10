@@ -13,5 +13,17 @@ function validateNameSocials(req, res, next) {
     next();
 }
 
+// validatePasswordChange()
+// Validates that the password and the confirmed password
+// are the same
+function validatePasswordChange(req, res, next) {
+    const {token, newPassword, confirmPassword} = req.body;
 
-module.exports = { validateNameSocials, };
+    if (!(newPassword === confirmPassword)) {
+        return res.status(400).json({ error: "Provided passwords must be the same" });
+    }
+
+    next();
+}
+
+module.exports = { validateNameSocials, validatePasswordChange, };

@@ -99,3 +99,28 @@ export async function updateNameSocials(newUserName, newLinksArray) {
         console.error(error.message);
     }
 }
+
+// updatePassword()
+// Updates the user's password through the settings page
+export async function updatePassword(password, confirmPassword) {
+    const user_token = localStorage.getItem('supabase_token');
+
+    try {
+        console.log("Updating Password");
+
+        const res = await fetch(`${API_URL}/settings/changepassword`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token: user_token, newPassword: password, confirmPassword: confirmPassword }),
+        });
+        
+        if (!res.ok) {
+            throw new Error("Failed to Update Password")
+        } else {
+            console.log("Successfully Updated Password")
+        }
+
+    } catch (error) {
+        console.error(error.message);
+    }
+}

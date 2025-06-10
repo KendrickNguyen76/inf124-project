@@ -1,7 +1,7 @@
 // settingsController.js
 
 // Imports
-const { supabase } = require("../services/supabaseClient");
+const { supabase, supabaseAdmin } = require("../services/supabaseClient");
 
 // editProfile()
 // handles requests/responses to update the "Edit Profile" part 
@@ -95,6 +95,9 @@ async function editAppearance(req, res) {
 }
 
 
+// editNameSocials()
+// Handles requests/responses to update the username
+// and social media links stored in the profile table
 async function editNameSocials(req, res) {
     const {token, newUserName, newLinks} = req.body;
     const { data: { user } } = await supabase.auth.getUser(token);
@@ -122,16 +125,35 @@ async function editNameSocials(req, res) {
             but value is ${user_name_socials[0].username} and ${user_name_socials[0].links}
             `);
     } else {
-        res.status(200).send('Successly Updated Username and Appearance');
+        res.status(200).send('Successly Updated Username and Links');
     }
 }
 
 
+// changePassword()
+// Updates the password for the user
+async function changePassword(req, res) {
+    const {token, newPassword, confirmPassword} = req.body;
+    const { data: { user } } = await supabase.auth.getUser(token);
+    
+    const {data:password_change, error} = await supabaseAdmin
+        .auth.admin.updateUserById(user.id, {password: newPassword});
+    
+    if (error) {
+        return res.status(401).json({ error: error.message });
+    } else {
+        res.status(200).send('Successly Updated Password');
+    }
+}
+
+
+// Exports
 module.exports = {
     getProfileDetails: getProfileDetails,
     editProfile: editProfile,
     editAppearance: editAppearance,
     editNameSocials: editNameSocials,
+    changePassword: changePassword,
 };
 
 

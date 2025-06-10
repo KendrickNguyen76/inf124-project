@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
-import { getUserProfile, updateUserProfile, updateUserAppearance, updateNameSocials } from './modules/userSettingsCrud';
+import { getUserProfile, updateUserProfile, updateUserAppearance, updateNameSocials, updatePassword } from './modules/userSettingsCrud';
 
 // Colored Bashes
 import GreenBash from '../../assets/Bash.png'
@@ -285,7 +285,10 @@ function EditAccountTab( { currentUserName, currentLinks } ) {
     }
 
     updateNameSocials(userName, linkArray);
-    // Set up function to send passwords here
+
+    if (pass.length > 0 && confirmPass.length > 0) {
+      updatePassword(pass, confirmPass);
+    }
   };
 
   return (
@@ -301,7 +304,7 @@ function EditAccountTab( { currentUserName, currentLinks } ) {
         confirmPass={confirmPass}
         setConfirmPass={setConfirmPass}
       />
-      <EditButtons handleSaveAction={() => editAccountHandler(userName, socialLinks)}/>
+      <EditButtons handleSaveAction={() => editAccountHandler(userName, socialLinks, pass, confirmPass)}/>
       <DeleteButton />
     </>
   );
